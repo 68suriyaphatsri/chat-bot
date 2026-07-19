@@ -886,10 +886,7 @@ def handle_message(event):
         line_bot_api = MessagingApi(api_client)
         try:
             line_bot_api.reply_message(
-                ReplyMessageRequest(  # type: ignore
-                    reply_token=reply_token,
-                    messages=[TextMessage(text=reply_text)]
-                )
+                ReplyMessageRequest(reply_token=reply_token, messages=[TextMessage(text=reply_text)])  # type: ignore
             )
             logger.info(f"Successfully sent reply back to User ID: {user_id}")
         except Exception as e:
