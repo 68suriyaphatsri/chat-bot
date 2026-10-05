@@ -11,7 +11,7 @@ FADE = 0.12  # per-cut audio fade (s) to avoid clicks at joins
 
 # (section, source_in, source_out) — cut at detected speech pauses
 CUTS = [
-    ("doctor", 17.1, 49.2),    # how screening is done: TMSE / MoCA / MMSE
+    ("doctor", 21.75, 49.2),    # how screening is done: TMSE / MoCA / MMSE
     ("doctor", 92.6, 125.2),   # concern: 10+ min per patient, heavy caseload
     ("doctor", 144.4, 160.5),  # self-screening tech would help
     ("nurse", 190.4, 218.0),   # caregiver, meds, wandering, wristband
@@ -20,7 +20,7 @@ CUTS = [
     ("staff", 361.5, 372.9),   # paper: can be lost, unclear handwriting
     ("patient", 449.5, 456.6), # "ก็ดีนะ … เราจะได้รู้ตัวไง"
 ]
-OUTRO = 1.5
+OUTRO = 5.0
 
 clips = []
 t = 0.0
@@ -156,7 +156,7 @@ for cid, s0, d, q in QUESTIONS:
     sfx.append(("sfx_003", s0 - 0.05, 0.35))
 
 # ---------- badge-pop: 3 standard screening tests ----------
-B0, B1 = 15.0, clips[0]["start"] + clips[0]["dur"] - 0.2
+B0, B1 = 15.0 - 4.65, clips[0]["start"] + clips[0]["dur"] - 0.2
 cards_html.append(
     clip_div(
         "tests", B0, B1 - B0,
@@ -289,12 +289,18 @@ sfx += [("sfx_008", PQ0, 0.35)]
 # ---------- outro ----------
 cards_html.append(
     clip_div("outro", VIDEO_END, OUTRO,
-             '<div id="outro-bg"><div class="o-title">คัดกรองเร็ว · <span class="accent">รู้ตัวเร็ว</span></div>'
-             '<div class="o-sub">ขอขอบคุณบุคลากรทางการแพทย์และผู้รับบริการทุกท่าน</div></div>', 33)
+             '<div id="outro-bg"><div class="o-left"><div class="o-title">คัดกรองเร็ว<br/><span class="accent">รู้ตัวเร็ว</span></div>'
+             '<div class="o-sub">ขอขอบคุณบุคลากรทางการแพทย์และผู้รับบริการทุกท่าน</div></div>'
+             '<div class="o-qr"><div class="qr-frame"><img id="qr-img" src="assets/qr-screening.jpg" alt="QR"/></div>'
+             '<div class="qr-cap"><span class="qr-dot"></span>สแกนเพื่อทำแบบคัดกรอง</div></div></div>', 33)
 )
 anims.append(f'tl.fromTo("#outro-bg",{{opacity:0}},{{opacity:1,duration:0.3,ease:"power2.out"}},{VIDEO_END});')
 anims.append(f'tl.fromTo("#outro .o-title",{{opacity:0,y:30}},{{opacity:1,y:0,duration:0.5,ease:"expo.out"}},{VIDEO_END + 0.1});')
 anims.append(f'tl.fromTo("#outro .o-sub",{{opacity:0}},{{opacity:1,duration:0.4}},{VIDEO_END + 0.45});')
+anims.append(f'tl.fromTo("#outro .o-qr",{{opacity:0,scale:0.92}},{{opacity:1,scale:1,duration:0.55,ease:"back.out(1.7)"}},{VIDEO_END + 0.35});')
+anims.append(f'tl.fromTo("#outro .qr-frame",{{boxShadow:"0 0 0 0px rgba(239,68,68,0)"}},{{boxShadow:"0 0 0 10px rgba(239,68,68,1)",duration:0.4,ease:"power2.out"}},{VIDEO_END + 0.8});')
+anims.append(f'tl.fromTo("#outro .qr-cap",{{opacity:0,y:16}},{{opacity:1,y:0,duration:0.4,ease:"expo.out"}},{VIDEO_END + 0.9});')
+sfx.append(("sfx_007", VIDEO_END + 0.85, 0.45))
 sfx.append(("sfx_005", VIDEO_END + 0.05, 0.4))
 
 # ---------- video clips + subtle punch-in on alternating cuts ----------
@@ -424,8 +430,14 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#0b1220}
 .x{color:var(--red-ink);font-weight:700}
 .ok{color:var(--teal);font-weight:700}
 .vs{align-self:center;width:84px;height:84px;flex:none;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:30px;font-weight:700}
-#outro-bg{position:absolute;inset:0;background:#f8fafc;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px}
-.o-title{font-size:110px;font-weight:700}
+#outro-bg{position:absolute;inset:0;background:#f8fafc;display:flex;align-items:center;justify-content:center;gap:140px}
+.o-left{display:flex;flex-direction:column;gap:28px;max-width:860px}
+.o-title{font-size:120px;font-weight:700;line-height:1.3}
+.o-qr{display:flex;flex-direction:column;align-items:center;gap:30px}
+.qr-frame{width:480px;height:480px;padding:30px;background:#fff;border-radius:28px}
+#qr-img{display:block;width:420px;height:420px}
+.qr-cap{display:flex;align-items:center;gap:14px;font-size:40px;font-weight:700}
+.qr-dot{width:16px;height:16px;border-radius:50%;background:var(--red)}
 .o-sub{font-size:34px;color:var(--muted);font-weight:600}
 """
 
