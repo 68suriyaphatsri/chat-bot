@@ -3,7 +3,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { SOURCES, SECTIONS, EMPATHY, DEFINE, IDEATE, SURVEY, WHY, STATS } from './edl.mjs';
+import { SOURCES, SECTIONS, EMPATHY, DEFINE, IDEATE, IDEAS, SURVEY, WHY, STATS } from './edl.mjs';
 const FACES = JSON.parse(fs.readFileSync(new URL('./faces.json', import.meta.url), 'utf8'));
 const TARGET = 300;
 
@@ -353,6 +353,27 @@ ICON.loop = '<svg viewBox="0 0 48 48"><path d="M38 18a15 15 0 0 0-27-4M10 30a15 
 function countUp(sel, to, at) {
   tw.push(`(function(){var el=document.querySelector('${sel}');var o={v:0};tl.to(o,{v:${to},duration:0.9,ease:'power2.out',onUpdate:function(){el.textContent=Math.round(o.v);}},${r3(at)});})();`);
 }
+function ideateLayout() {
+  const cats = [['improve', 'Improve', 50], ['newway', 'Find a new way', 40], ['reimagine', 'ReImagine', 10]];
+  const all = [];
+  cats.forEach(([key], ci) => IDEAS[key].forEach((text) => all.push({ cat: ci, text })));
+  // interleave categories on the brainstorm board so the groups visibly sort themselves
+  const rnd = prng(84);
+  const order = all.map((n, k) => [rnd(), n]).sort((a, b) => a[0] - b[0]).map((x) => x[1]);
+  const COLS = 12, PX = 140, PY = 104, X0 = 0, Y0 = 150;
+  order.forEach((n, k) => { n.ax = X0 + (k % COLS) * PX + Math.round((rnd() - 0.5) * 8); n.ay = Y0 + Math.floor(k / COLS) * PY + Math.round((rnd() - 0.5) * 8); });
+  const tileScale = 0.5, TW = 66, TH = 46, GAP = 8;
+  const colDefs = [{ x: 0, w: 640, per: 8 }, { x: 680, w: 560, per: 7 }, { x: 1280, w: 400, per: 5 }];
+  const cols = cats.map(([key, en, pct], ci) => ({ key, en, pct, n: IDEAS[key].length, ...colDefs[ci] }));
+  const idx = [0, 0, 0];
+  order.forEach((n) => {
+    const c = cols[n.cat], k = idx[n.cat]++;
+    const rowW = c.per * TW + (c.per - 1) * GAP;
+    n.bx = c.x + Math.round((c.w - rowW) / 2) + (k % c.per) * (TW + GAP);
+    n.by = 250 + Math.floor(k / c.per) * (TH + GAP);
+  });
+  return { notes: order, cols, tileScale };
+}
 let cardOpen = false; // presenter card already on screen from the previous talk section
 function header(step, label) {
   return `<div class="dt-head"><span class="dt-step">${esc(step)}</span><span class="dt-title">${esc(label)}</span></div>`;
@@ -504,10 +525,16 @@ function fullScene(t, s) {
     body = `${header('01 · EMPATHIZE', 'Empathy Map — จากบทสัมภาษณ์')}
       <div class="mp-grid">${Q.map(([k, ic, en, th], i) => `<div class="mp-q mp-${i}"><div class="mp-h"><span class="mp-ico">${ICON[ic]}</span>What they ${en} <span class="mp-th">(${th})</span></div>${EMPATHY[k].map((x) => `<div class="mp-li">${esc(x)}</div>`).join('')}</div>`).join('')}</div>`;
   } else if (s.type === 'ideate') {
-    const C = [['improve', 'Improve', 50], ['newway', 'Find a new way', 40], ['reimagine', 'ReImagine', 10]];
+    const L = ideateLayout();
+    const cols = L.cols.map((c, k) => `<div class="iz-col iz-c${k}" style="left:${c.x}px;width:${c.w}px">
+        <div class="iz-h"><span class="iz-en">${c.en}</span><span class="iz-cnt"><span class="iz-cn">${c.n}</span> แนวคิด</span><span class="iz-pct"><span class="iz-pn">${c.pct}</span>%</span></div>
+        <div class="iz-sum">${IDEATE[c.key].map((x) => `<div class="iz-si">${esc(x)}</div>`).join('')}</div></div>`).join('');
+    const notes = L.notes.map((n, k) => `<div class="iz-note iz-n${k} iz-k${n.cat}" style="left:${n.ax}px;top:${n.ay}px"><span>${esc(n.text)}</span></div>`).join('');
     body = `${header('03 · IDEATE', 'ระดมไอเดีย')}
-      <div class="id-table">${C.map(([k, en, pct], i) => `<div class="id-col id-${i}"><div class="id-h">${en}</div>${IDEATE[k].map((x) => `<div class="id-cell">${esc(x)}</div>`).join('')}<div class="id-pct"><span class="id-num" data-to="${pct}">${pct}</span>%</div></div>`).join('')}</div>
-      <div class="id-chosen"><span class="id-cs">${ICON.star}</span>ไอเดียที่เลือก: ${esc(IDEATE.chosen)}</div>`;
+      <div class="iz-counter"><span class="iz-total">${L.notes.length}</span> แนวคิด</div>
+      <div class="iz-cap">นำแนวคิดมารวมกลุ่ม → 3 แนวทาง</div>
+      ${cols}${notes}
+      <div class="id-chosen iz-chosen"><span class="id-cs">${ICON.star}</span>ไอเดียที่เลือก: ${esc(IDEATE.chosen)}</div>`;
   } else if (s.type === 'why') {
     body = `${header('03 · IDEATE', 'ทำไมต้องเป็นแอป?')}
       <div class="wy-cards">${WHY.cards.map(([a, b], i) => `<div class="wy-card wy-${i}"><span class="wy-ico">${ICON[i ? 'phone' : 'say']}</span><div class="wy-main">${esc(a)}</div><div class="wy-sub">${esc(b)}</div></div>`).join('')}</div>
@@ -555,17 +582,37 @@ function fullScene(t, s) {
       addSfx(q, 'pop', 0.4);
     });
   } else if (s.type === 'ideate') {
-    [0, 1, 2].forEach((i) => {
-      const q = t + 0.7 + i * 2.4;
-      tw.push(`tl.fromTo('${S} .id-${i} .id-h',{opacity:0,y:-20},{opacity:1,y:0,duration:0.35,ease:'back.out(2)'},${r3(q)});`);
-      tw.push(`tl.fromTo('${S} .id-${i} .id-cell',{opacity:0,y:20},{opacity:1,y:0,duration:0.3,stagger:0.4,ease:'power3.out'},${r3(q + 0.3)});`);
-      tw.push(`tl.fromTo('${S} .id-${i} .id-pct',{opacity:0,scale:0.5},{opacity:1,scale:1,duration:0.4,ease:'back.out(2.5)'},${r3(q + 1.3)});`);
-      tw.push(`(function(){var el=document.querySelector('${S} .id-${i} .id-num');var o={v:0};tl.to(o,{v:${[50, 40, 10][i]},duration:0.7,ease:'power2.out',onUpdate:function(){el.textContent=Math.round(o.v);}},${r3(q + 1.3)});})();`);
-      addSfx(q, 'pop', 0.4); addSfx(q + 1.3, 'ping', 0.3);
+    const L = ideateLayout();
+    // 1) brainstorm: notes pop onto the board while the counter runs
+    tw.push(`tl.fromTo('${S} .iz-counter',{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.4,ease:'back.out(2)'},${r3(t + 0.3)});`);
+    countUp(`${S} .iz-total`, L.notes.length, t + 0.5);
+    tw.push(`tl.fromTo('${S} .iz-note',{opacity:0,scale:0.3,rotation:-8},{opacity:1,scale:1,rotation:0,duration:0.32,ease:'back.out(2.2)',stagger:0.05},${r3(t + 0.5)});`);
+    for (let k = 0; k < L.notes.length; k += 7) addSfx(t + 0.5 + k * 0.05, 'pop', 0.22);
+    // 2) group: recolor and fly into three clusters
+    const g = t + 6.5;
+    tw.push(`tl.fromTo('${S} .iz-cap',{opacity:0,y:20},{opacity:1,y:0,duration:0.4},${r3(g)});`);
+    tw.push(`tl.to('${S} .iz-counter',{opacity:0,duration:0.3},${r3(g)});`);
+    tw.push(`tl.fromTo('${S} .iz-col',{opacity:0,y:-20},{opacity:1,y:0,duration:0.4,stagger:0.15,ease:'power3.out'},${r3(g + 0.1)});`);
+    addSfx(g + 0.3, 'whoosh', 0.45);
+    L.notes.forEach((n, k) => {
+      tw.push(`tl.to('${S} .iz-n${k}',{x:${n.bx - n.ax},y:${n.by - n.ay},scale:${L.tileScale},duration:0.85,ease:'power3.inOut'},${r3(g + 0.3 + k * 0.012)});`);
     });
-    tw.push(`tl.fromTo('${S} .id-2',{boxShadow:'0 0 0 0 rgba(242,162,75,0)'},{boxShadow:'0 0 0 10px rgba(242,162,75,0.9)',duration:0.5},${r3(t + 8.3)});`);
-    tw.push(`tl.fromTo('${S} .id-chosen',{opacity:0,y:40,scale:0.9},{opacity:1,y:0,scale:1,duration:0.5,ease:'back.out(2)'},${r3(t + 8.6)});`);
-    addSfx(t + 8.6, 'chime', 0.4); addSfx(t + 8.8, 'sparkle', 0.35);
+    tw.push(`tl.to('${S} .iz-note span',{opacity:0,duration:0.3},${r3(g + 0.4)});`);
+    tw.push(`tl.to('${S} .iz-note',{opacity:0.85,duration:0.3},${r3(g + 1.3)});`);
+    L.cols.forEach((c, k) => {
+      countUp(`${S} .iz-c${k} .iz-cn`, c.n, g + 1.6 + k * 0.2);
+      tw.push(`tl.fromTo('${S} .iz-c${k} .iz-pct',{opacity:0,scale:0.4},{opacity:1,scale:1,duration:0.45,ease:'back.out(2.5)'},${r3(g + 2.3 + k * 0.25)});`);
+      countUp(`${S} .iz-c${k} .iz-pn`, c.pct, g + 2.35 + k * 0.25);
+      addSfx(g + 2.3 + k * 0.25, 'ping', 0.3);
+    });
+    // 3) combine: each group collapses into its merged idea; the chosen one is highlighted
+    const c3 = t + 10.5;
+    tw.push(`tl.to('${S} .iz-cap',{opacity:0,duration:0.3},${r3(c3 - 0.3)});`);
+    tw.push(`tl.fromTo('${S} .iz-sum',{opacity:0,y:-30},{opacity:1,y:0,duration:0.5,stagger:0.4,ease:'back.out(1.6)'},${r3(c3)});`);
+    [0, 1, 2].forEach((k) => addSfx(c3 + k * 0.4, 'pop', 0.4));
+    tw.push(`tl.fromTo('${S} .iz-c2',{boxShadow:'0 0 0 0 rgba(242,162,75,0)'},{boxShadow:'0 0 0 10px rgba(242,162,75,0.9)',duration:0.5},${r3(c3 + 2.2)});`);
+    tw.push(`tl.fromTo('${S} .iz-chosen',{opacity:0,y:40,scale:0.9},{opacity:1,y:0,scale:1,duration:0.5,ease:'back.out(2)'},${r3(c3 + 2.6)});`);
+    addSfx(c3 + 2.6, 'chime', 0.4); addSfx(c3 + 2.8, 'sparkle', 0.35);
   } else if (s.type === 'why') {
     WHY.cards.forEach((_, i) => { tw.push(`tl.fromTo('${S} .wy-${i}',{opacity:0,y:50,scale:0.85},{opacity:1,y:0,scale:1,duration:0.5,ease:'back.out(1.8)'},${r3(t + 0.7 + i * 1.1)});`); addSfx(t + 0.7 + i * 1.1, 'pop', 0.45); });
     tw.push(`tl.fromTo('${S} .wy-goal',{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.55,ease:'back.out(2)'},${r3(t + 2.6)});`);
@@ -583,15 +630,15 @@ function fullScene(t, s) {
     tw.push(`tl.fromTo('${S} .fn-logo',{scale:0,rotation:-20},{scale:1,rotation:0,duration:0.6,ease:'back.out(2)'},${r3(t + 0.3)});`);
     tw.push(`tl.fromTo('${S} .fn-app',{opacity:0,y:40},{opacity:1,y:0,duration:0.5,ease:'power3.out'},${r3(t + 0.8)});`);
     tw.push(`tl.fromTo('${S} .fn-title, ${S} .fn-note, ${S} .fn-team',{opacity:0,y:20},{opacity:1,y:0,duration:0.4,stagger:0.25,ease:'power3.out'},${r3(t + 1.2)});`);
-    tw.push(`tl.fromTo('${S} .fn-qrbox',{opacity:0,scale:0.4,rotation:8},{opacity:1,scale:1,rotation:0,duration:0.7,ease:'back.out(1.8)'},${r3(t + 2.4)});`);
-    tw.push(`tl.fromTo('${S} .fn-scan',{opacity:0,y:-24},{opacity:1,y:0,duration:0.4,ease:'back.out(2)'},${r3(t + 2.9)});`);
-    tw.push(`tl.fromTo('${S} .fn-arrow',{opacity:0,y:24},{opacity:1,y:0,duration:0.4,ease:'power3.out'},${r3(t + 3.3)});`);
-    tw.push(`tl.to('${S} .fn-qrbox',{scale:1.035,duration:0.9,ease:'sine.inOut',yoyo:true,repeat:${Math.max(0, Math.floor((s.dur - 6.5) / 0.9) - 1)}},${r3(t + 3.8)});`);
-    tw.push(`tl.fromTo('${S} .fn-thanks',{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.5,ease:'back.out(2.4)'},${r3(t + 4.2)});`);
-    tw.push(`tl.fromTo('${S} .fn-sp',{scale:0},{scale:1,duration:0.4,ease:'back.out(3)',stagger:0.15},${r3(t + 2.8)});`);
-    tw.push(`tl.to('${S} .fn-sp',{rotation:'+=60',scale:0.8,duration:1.1,ease:'sine.inOut',yoyo:true,repeat:${Math.max(0, Math.floor((s.dur - 5) / 1.1) - 1)}},${r3(t + 3.3)});`);
+    tw.push(`tl.fromTo('${S} .fn-qrbox',{opacity:0,scale:0.4,rotation:8},{opacity:1,scale:1,rotation:0,duration:0.6,ease:'back.out(1.8)'},${r3(t + 0.5)});`);
+    tw.push(`tl.fromTo('${S} .fn-scan',{opacity:0,y:-24},{opacity:1,y:0,duration:0.4,ease:'back.out(2)'},${r3(t + 0.8)});`);
+    tw.push(`tl.fromTo('${S} .fn-arrow',{opacity:0,y:24},{opacity:1,y:0,duration:0.4,ease:'power3.out'},${r3(t + 1.1)});`);
+    tw.push(`tl.to('${S} .fn-qrbox',{scale:1.035,duration:0.9,ease:'sine.inOut',yoyo:true,repeat:${Math.max(0, Math.floor((s.dur - 2.6) / 0.9) - 1)}},${r3(t + 1.4)});`);
+    tw.push(`tl.fromTo('${S} .fn-thanks',{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.5,ease:'back.out(2.4)'},${r3(t + 1.8)});`);
+    tw.push(`tl.fromTo('${S} .fn-sp',{scale:0},{scale:1,duration:0.4,ease:'back.out(3)',stagger:0.15},${r3(t + 0.9)});`);
+    tw.push(`tl.to('${S} .fn-sp',{rotation:'+=60',scale:0.8,duration:1.1,ease:'sine.inOut',yoyo:true,repeat:${Math.max(0, Math.floor((s.dur - 2.6) / 1.1) - 1)}},${r3(t + 1.4)});`);
     tw.push(`tl.to('${S} .slide-in',{opacity:0,duration:0.9},${r3(t + s.dur - 1.0)});`);
-    addSfx(t + 0.3, 'pop', 0.5); addSfx(t + 2.4, 'whoosh', 0.45); addSfx(t + 2.8, 'sparkle', 0.4); addSfx(t + 4.2, 'chime', 0.45);
+    addSfx(t + 0.3, 'pop', 0.5); addSfx(t + 0.5, 'whoosh', 0.45); addSfx(t + 0.9, 'sparkle', 0.4); addSfx(t + 1.8, 'chime', 0.45);
     return s.dur;
   }
   tw.push(`tl.to('${S} .slide-in',{opacity:0,duration:0.35,ease:'power2.in'},${r3(t + s.dur - 0.37)});`);
