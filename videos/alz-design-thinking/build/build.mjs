@@ -500,12 +500,23 @@ function fullScene(t, s) {
       <div class="id-table">${C.map(([k, en, pct], i) => `<div class="id-col id-${i}"><div class="id-h">${en}</div>${IDEATE[k].map((x) => `<div class="id-cell">${esc(x)}</div>`).join('')}<div class="id-pct"><span class="id-num" data-to="${pct}">${pct}</span>%</div></div>`).join('')}</div>
       <div class="id-chosen"><span class="id-cs">${ICON.star}</span>ไอเดียที่เลือก: ${esc(IDEATE.chosen)}</div>`;
   } else if (s.type === 'finale') {
-    body = `<div class="fn-wrap"><img class="fn-logo" src="assets/img/logo.png" alt="">
-      <div class="fn-app">Memory Garden</div>
-      <div class="fn-title">เว็บแอปพลิเคชันคัดกรองภาวะอัลไซเมอร์เบื้องต้น</div>
-      <div class="fn-note">ใช้สำหรับคัดกรองเบื้องต้น ไม่ใช่การวินิจฉัยโรค</div>
-      <div class="fn-team">นายบุญยากร คงสนธิ · นายสุริยภัทร ศรีสดใส · ที่ปรึกษา นายณัฐวุฒิ ไม้แก่น</div>
-      <div class="fn-thanks">ขอบคุณครับ</div></div>`;
+    body = `<div class="fn-wrap">
+      <div class="fn-left">
+        <img class="fn-logo" src="assets/img/logo.png" alt="">
+        <div class="fn-app">Memory Garden</div>
+        <div class="fn-title">เว็บแอปพลิเคชันคัดกรองภาวะอัลไซเมอร์เบื้องต้น</div>
+        <div class="fn-note">ใช้สำหรับคัดกรองเบื้องต้น ไม่ใช่การวินิจฉัยโรค</div>
+        <div class="fn-team">นายบุญยากร คงสนธิ · นายสุริยภัทร ศรีสดใส</div>
+        <div class="fn-team">อาจารย์ที่ปรึกษา นายณัฐวุฒิ ไม้แก่น</div>
+        <div class="fn-thanks">ขอบคุณครับ</div>
+      </div>
+      <div class="fn-right">
+        <div class="fn-scan">สแกนเพื่อทดลองใช้งาน</div>
+        <div class="fn-qrbox"><img class="fn-qr" src="assets/img/qr.jpg" alt=""></div>
+        <div class="fn-arrow">${ICON.phone}<span>เปิดกล้องมือถือ แล้วสแกนได้เลย</span></div>
+      </div>
+      ${sparkleSvg('fn-sp fn-sp1')}${sparkleSvg('fn-sp fn-sp2', 'var(--mint2)')}${sparkleSvg('fn-sp fn-sp3')}
+    </div>`;
   }
   html.push(`<div id="${sid}" class="clip full-layer fl-${s.type}" data-start="${r3(t)}" data-duration="${s.dur}" data-track-index="10"><div class="slide-in">${body}</div></div>`);
   const S = `#${sid}`;
@@ -534,10 +545,16 @@ function fullScene(t, s) {
   } else if (s.type === 'finale') {
     tw.push(`tl.fromTo('${S} .fn-logo',{scale:0,rotation:-20},{scale:1,rotation:0,duration:0.6,ease:'back.out(2)'},${r3(t + 0.3)});`);
     tw.push(`tl.fromTo('${S} .fn-app',{opacity:0,y:40},{opacity:1,y:0,duration:0.5,ease:'power3.out'},${r3(t + 0.8)});`);
-    tw.push(`tl.fromTo('${S} .fn-title, ${S} .fn-note, ${S} .fn-team',{opacity:0,y:20},{opacity:1,y:0,duration:0.4,stagger:0.3,ease:'power3.out'},${r3(t + 1.3)});`);
-    tw.push(`tl.fromTo('${S} .fn-thanks',{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.5,ease:'back.out(2.4)'},${r3(t + 2.8)});`);
-    tw.push(`tl.to('${S} .slide-in',{opacity:0,duration:0.8},${r3(t + s.dur - 0.9)});`);
-    addSfx(t + 0.3, 'pop', 0.5); addSfx(t + 2.8, 'chime', 0.45);
+    tw.push(`tl.fromTo('${S} .fn-title, ${S} .fn-note, ${S} .fn-team',{opacity:0,y:20},{opacity:1,y:0,duration:0.4,stagger:0.25,ease:'power3.out'},${r3(t + 1.2)});`);
+    tw.push(`tl.fromTo('${S} .fn-qrbox',{opacity:0,scale:0.4,rotation:8},{opacity:1,scale:1,rotation:0,duration:0.7,ease:'back.out(1.8)'},${r3(t + 2.4)});`);
+    tw.push(`tl.fromTo('${S} .fn-scan',{opacity:0,y:-24},{opacity:1,y:0,duration:0.4,ease:'back.out(2)'},${r3(t + 2.9)});`);
+    tw.push(`tl.fromTo('${S} .fn-arrow',{opacity:0,y:24},{opacity:1,y:0,duration:0.4,ease:'power3.out'},${r3(t + 3.3)});`);
+    tw.push(`tl.to('${S} .fn-qrbox',{scale:1.035,duration:0.9,ease:'sine.inOut',yoyo:true,repeat:${Math.max(0, Math.floor((s.dur - 6.5) / 0.9) - 1)}},${r3(t + 3.8)});`);
+    tw.push(`tl.fromTo('${S} .fn-thanks',{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.5,ease:'back.out(2.4)'},${r3(t + 4.2)});`);
+    tw.push(`tl.fromTo('${S} .fn-sp',{scale:0},{scale:1,duration:0.4,ease:'back.out(3)',stagger:0.15},${r3(t + 2.8)});`);
+    tw.push(`tl.to('${S} .fn-sp',{rotation:'+=60',scale:0.8,duration:1.1,ease:'sine.inOut',yoyo:true,repeat:${Math.max(0, Math.floor((s.dur - 5) / 1.1) - 1)}},${r3(t + 3.3)});`);
+    tw.push(`tl.to('${S} .slide-in',{opacity:0,duration:0.9},${r3(t + s.dur - 1.0)});`);
+    addSfx(t + 0.3, 'pop', 0.5); addSfx(t + 2.4, 'whoosh', 0.45); addSfx(t + 2.8, 'sparkle', 0.4); addSfx(t + 4.2, 'chime', 0.45);
     return s.dur;
   }
   tw.push(`tl.to('${S} .slide-in',{opacity:0,duration:0.35,ease:'power2.in'},${r3(t + s.dur - 0.37)});`);
@@ -549,7 +566,7 @@ function interview(t0, s) {
   const d = footage(t0, s);
   const lid = id('ivlab');
   html.push(`<div id="${lid}" class="clip iv-layer" data-start="${r3(t0)}" data-duration="${r3(d)}" data-track-index="16"><div class="iv-frame"></div><div class="iv-chip">${ICON.play}ตัวอย่างการสัมภาษณ์</div></div>`);
-  tw.push(`tl.fromTo('#${lid} .iv-chip',{y:-40,opacity:0},{y:0,opacity:1,duration:0.4,ease:'back.out(2)'},${r3(t0 + 0.1)});`);
+  tw.push(`tl.fromTo('#${lid} .iv-chip',{y:40,opacity:0},{y:0,opacity:1,duration:0.4,ease:'back.out(2)'},${r3(t0 + 0.1)});`);
   return d;
 }
 

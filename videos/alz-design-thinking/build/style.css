@@ -171,7 +171,7 @@
 
       /* title */
       .ti-top { display: flex; align-items: center; gap: 24px; }
-      .ti-logo { width: 104px; height: 147px; display: block; }
+      .ti-logo { width: 100px; height: 151px; display: block; }
       .ti-school { font-weight: 800; font-size: 36px; color: var(--gink); line-height: 1.3; max-width: 640px; }
       .ti-title { margin-top: 40px; font-weight: 900; font-size: 72px; line-height: 1.3; color: var(--g); }
       .ti-l2 { display: block; }
@@ -279,14 +279,25 @@
 
       /* interview frame */
       .iv-frame { position: absolute; inset: 0; border: 18px solid var(--g); }
-      .iv-chip { position: absolute; right: 70px; top: 60px; display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 32px; color: #ffffff; background: var(--g); padding: 8px 26px 10px; border-radius: 999px; line-height: 1.35; }
+      .iv-chip { position: absolute; right: 70px; bottom: 0; border-radius: 22px 22px 0 0 !important; font-size: 26px !important; padding: 4px 22px 6px !important; display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 32px; color: #ffffff; background: var(--g); padding: 8px 26px 10px; border-radius: 999px; line-height: 1.35; }
       .iv-chip svg { width: 40px; height: 40px; }
 
       /* finale */
-      .fn-wrap { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-      .fn-logo { width: 150px; height: 212px; display: block; }
-      .fn-app { margin-top: 18px; font-weight: 900; font-size: 120px; color: var(--g); line-height: 1.25; }
-      .fn-title { font-weight: 800; font-size: 46px; color: var(--gink); line-height: 1.4; }
-      .fn-note { margin-top: 10px; font-weight: 600; font-size: 32px; color: #a3203a; line-height: 1.4; }
-      .fn-team { margin-top: 24px; font-weight: 600; font-size: 32px; color: var(--g2); line-height: 1.4; }
-      .fn-thanks { margin-top: 26px; font-weight: 900; font-size: 64px; color: #ffffff; background: var(--g); padding: 6px 50px; border-radius: 999px; line-height: 1.35; }
+      .fn-wrap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
+      .fn-left { width: 980px; }
+      .fn-logo { width: 120px; height: 181px; display: block; }
+      .fn-app { margin-top: 10px; font-weight: 900; font-size: 112px; color: var(--g); line-height: 1.25; }
+      .fn-title { font-weight: 800; font-size: 44px; color: var(--gink); line-height: 1.4; }
+      .fn-note { margin-top: 8px; font-weight: 600; font-size: 32px; color: #a3203a; line-height: 1.4; }
+      .fn-team { margin-top: 10px; font-weight: 600; font-size: 32px; color: var(--g2); line-height: 1.4; }
+      .fn-thanks { margin-top: 26px; display: inline-block; font-weight: 900; font-size: 58px; color: #ffffff; background: var(--g); padding: 6px 50px; border-radius: 999px; line-height: 1.35; }
+      .fn-right { width: 560px; text-align: center; }
+      .fn-scan { display: inline-block; font-weight: 900; font-size: 44px; color: var(--g); line-height: 1.35; }
+      .fn-qrbox { margin: 18px auto 0; width: 500px; height: 500px; padding: 18px; background: #ffffff; border-radius: 36px; border: 8px solid var(--g); box-shadow: 16px 16px 0 var(--mint2); }
+      .fn-qr { width: 100%; height: 100%; display: block; image-rendering: pixelated; }
+      .fn-arrow { margin-top: 30px; display: inline-flex; align-items: center; gap: 12px; font-weight: 700; font-size: 30px; color: var(--gink); line-height: 1.4; }
+      .fn-arrow svg { width: 44px; height: 44px; display: block; color: var(--g); }
+      .fn-sp { position: absolute; display: block; filter: none; }
+      .fn-sp1 { width: 70px; height: 70px; right: 560px; top: 150px; }
+      .fn-sp2 { width: 50px; height: 50px; right: 40px; top: 120px; }
+      .fn-sp3 { width: 44px; height: 44px; right: 590px; bottom: 170px; }

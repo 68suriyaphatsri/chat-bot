@@ -16,7 +16,7 @@ const pick = (sec, clips, extra = {}) => {
   return {
     type: 'footage', interview: true, src: sec.src, clips,
     captions: sec.captions.filter((c) => inside(c[0])),
-    overlays: sec.overlays.filter((o) => o.type === 'name' && inside(o.at)).concat(extra.overlays || []),
+    overlays: sec.overlays.filter((o) => ['name', 'panel', 'q'].includes(o.type) && inside(o.at) && (o.until === undefined || inside(o.until))).concat(extra.overlays || []),
   };
 };
 
@@ -55,8 +55,10 @@ export const SECTIONS = [
     ],
     slide: { type: 'empathize', cues: [44.3, 47.8, 52.3] },
   },
-  pick(DOCTOR, [[98.25, 105.15], [108.6, 117.4]], { overlays: [{ type: 'name', at: 98.4, dur: 4.2, tag: 'ผู้ให้สัมภาษณ์', role: 'แพทย์', sub: 'บุคลากรทางการแพทย์ · โรงพยาบาล' }] }),
-  pick(NURSES, [[159.85, 164.05], [166.7, 173.05]], { overlays: [{ type: 'name', at: 160.0, dur: 4.0, tag: 'ผู้ให้สัมภาษณ์', role: 'พยาบาลวิชาชีพ', sub: 'มุมมองด้านการดูแลผู้ป่วย' }] }),
+  pick(DOCTOR, [[31.5, 45.75]]),
+  pick(DOCTOR, [[98.25, 105.15], [108.6, 117.4]]),
+  pick(NURSES, [[199.85, 211.1]], { overlays: [{ type: 'name', at: 200.6, dur: 3.6, pos: 'right', tag: 'ผู้ให้สัมภาษณ์', role: 'พยาบาลวิชาชีพ', sub: 'มุมมองด้านการดูแลผู้ป่วย' }] }),
+  pick(NURSES, [[159.85, 164.05], [166.7, 173.05]]),
   pick(ELDER, [[62.5, 74.1]], { overlays: [{ type: 'name', at: 62.7, dur: 4.0, pos: 'right', tag: 'ผู้ให้สัมภาษณ์', role: 'ญาติ / ผู้สูงอายุ', sub: 'ผู้ที่ได้ลองทำแบบทดสอบ' }] }),
   {
     type: 'talk', clips: [[57.6, 64.25]],
@@ -129,7 +131,7 @@ export const SECTIONS = [
     ],
     slide: { type: 'test', cues: [104.45, 108.7, 111.7, 114.4, 116.4, 119.5] },
   },
-  { type: 'finale', dur: 9 },
+  { type: 'finale', dur: 20.3 },
 ];
 
 // Drafted from the interviews: the user should confirm before final delivery.
