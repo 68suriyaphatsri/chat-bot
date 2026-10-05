@@ -8,7 +8,7 @@ export const SOURCES = {
   nurses: { file: 'public/footage/nurses.mp4', punch: 1.12, origin: '62% 34%' },
 };
 
-const DOCTOR = {
+export const DOCTOR = {
   type: 'footage',
   src: 'doctor',
   clips: [
@@ -80,7 +80,7 @@ const DOCTOR = {
   ],
 };
 
-const ELDER = {
+export const ELDER = {
   type: 'footage',
   src: 'elder',
   clips: [
@@ -122,7 +122,7 @@ const ELDER = {
 };
 
 
-const NURSES = {
+export const NURSES = {
   type: 'footage',
   src: 'nurses',
   clips: [

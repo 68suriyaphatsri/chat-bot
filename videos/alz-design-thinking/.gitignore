@@ -1,0 +1,7 @@
+renders/
+snapshots/
+.media/
+.hyperframes/
+node_modules/
+# Raw interview footage stays out of git (people's faces / large files); place it in public/footage/ to rebuild.
+public/footage/
