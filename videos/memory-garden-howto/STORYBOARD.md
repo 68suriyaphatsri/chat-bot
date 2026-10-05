@@ -29,7 +29,7 @@ language: th
 - voiceover: "ช่วงนี้ขี้ลืมบ่อยไหมครับ… ลองเช็กสุขภาพสมองได้เองที่บ้าน ง่าย ๆ ทีละขั้นตอน"
 - duration: 6s
 - transition_in: cut
-- status: outline
+- status: animated
 - src: compositions/frames/01-hook.html
 - type: hook
 - persuasion: Pain validation → friction reduction
@@ -55,7 +55,7 @@ Scene 3 (4.6–6.0s): "ง่าย ๆ ทีละขั้นตอน" chip 
 - voiceover: "นี่คือ Memory Garden สวนความทรงจำ แบบคัดกรองตามเกณฑ์ MoCA 30 คะแนน ใช้เวลาแค่ 10 ถึง 15 นาที"
 - duration: 6s
 - transition_in: zoom-through
-- status: outline
+- status: animated
 - src: compositions/frames/02-intro.html
 - type: product_intro
 - persuasion: Authority by association (MoCA) + friction reduction
@@ -81,7 +81,7 @@ Scene 3 (4.2–6.0s): pill 3 "🌱 ทำตามจังหวะตัวเ
 - voiceover: "เริ่มจากกดเข้าสู่ระบบด้วย LINE แล้วอ่านคำชี้แจง ถ้าไม่สะดวกอ่าน กดปุ่มลำโพงฟังเสียงได้ทุกหน้า"
 - duration: 7s
 - transition_in: crossfade
-- status: outline
+- status: animated
 - src: compositions/frames/03-login.html
 - type: feature_showcase
 - persuasion: Show-don't-tell proof + friction reduction
@@ -107,7 +107,7 @@ Scene 3 (4.6–7.0s): on "กดปุ่มลำโพง" the 🔊 button get
 - voiceover: "กรอกข้อมูลพื้นฐาน ถ้าเรียนไม่เกิน ม.6 ระบบจะบวกให้ 1 คะแนนตามเกณฑ์สากล"
 - duration: 6s
 - transition_in: push-slide LEFT
-- status: outline
+- status: animated
 - src: compositions/frames/04-profile.html
 - type: feature_showcase
 - persuasion: Risk reversal (fairness adjustment)
@@ -133,7 +133,7 @@ Scene 3 (4.4–6.0s): "ถัดไป" button gets a press (`press-release-spri
 - voiceover: "ด่านแรก จำสิ่งของ 5 อย่างในสวน อ่านหรือกดฟังจนจำได้ เดี๋ยวจะถามอีกครั้งตอนท้าย"
 - duration: 6s
 - transition_in: zoom-through
-- status: outline
+- status: animated
 - src: compositions/frames/05-stage1-memorize.html
 - handoff_out: stage-rail — top-center x=960 y=64, 8 dots 18px gap 22px, scale 1, opacity 1, static (no motion at cut)
 - type: feature_showcase
@@ -159,7 +159,7 @@ Scene 3 (4.2–6.0s): 🔊 pulses once with soundwave arcs; caption "⏳ จะ�
 - voiceover: "ด่านที่สอง วาดนาฬิกา สามขั้น วาดวงกลม วางเลข 1 ถึง 12 แล้วตั้งเข็มเป็น 11 นาฬิกา 10 นาที"
 - duration: 8s
 - transition_in: push-slide LEFT
-- status: outline
+- status: animated
 - src: compositions/frames/06-stage2-clock.html
 - handoff_in: stage-rail — top-center x=960 y=64, 8 dots 18px gap 22px, scale 1, opacity 1, static
 - handoff_out: stage-rail — same position/scale/opacity, static
@@ -187,7 +187,7 @@ Scene 3 (5.2–8.0s): hour hand and minute hand rotate to 11:10 (`svg-icon-enric
 - voiceover: "ด่านสาม ดูภาพแล้วบอกชื่อสิ่งของ ด่านสี่ ฟังประโยค แล้วกดไมค์พูดทวน หรือพิมพ์ตอบก็ได้"
 - duration: 8s
 - transition_in: push-slide LEFT
-- status: outline
+- status: animated
 - src: compositions/frames/07-stage3-4-naming-repeat.html
 - handoff_in: stage-rail — top-center x=960 y=64, 8 dots 18px gap 22px, scale 1, opacity 1, static
 - handoff_out: stage-rail — same position/scale/opacity, static
@@ -214,7 +214,7 @@ Scene 2 (3.8–8.0s): rail advances to dot 4; right card enters from the right w
 - voiceover: "ด่านห้า บอกชื่อสัตว์ให้มากที่สุดใน 60 วินาที ได้ 11 ชนิดขึ้นไป รับคะแนนเต็ม"
 - duration: 7s
 - transition_in: push-slide LEFT
-- status: outline
+- status: animated
 - src: compositions/frames/08-stage5-animals.html
 - handoff_in: stage-rail — top-center x=960 y=64, 8 dots 18px gap 22px, scale 1, opacity 1, static
 - handoff_out: stage-rail — same position/scale/opacity, static
@@ -242,7 +242,7 @@ Scene 3 (5.2–7.0s): at 11, a green "🏆 11 ชนิดขึ้นไป = �
 - voiceover: "ด่านหก เริ่มจาก 100 ลบ 7 ไปเรื่อย ๆ ห้าครั้ง ค่อย ๆ คิด ไม่ต้องรีบ"
 - duration: 6s
 - transition_in: push-slide LEFT
-- status: outline
+- status: animated
 - src: compositions/frames/09-stage6-serial7.html
 - handoff_in: stage-rail — top-center x=960 y=64, 8 dots 18px gap 22px, scale 1, opacity 1, static
 - handoff_out: stage-rail — same position/scale/opacity, static
@@ -270,7 +270,7 @@ Scene 3 (4.8–6.0s): caption "ค่อย ๆ คิด ไม่ต้อง�
 - voiceover: "ด่านเจ็ด ตอบสิ่งของ 5 อย่างที่จำไว้ นึกไม่ออกกดขอคำใบ้ได้ ด่านสุดท้าย บอกวันเวลาและจังหวัดที่อยู่ แล้วกดส่งคำตอบ"
 - duration: 8s
 - transition_in: push-slide LEFT
-- status: outline
+- status: animated
 - src: compositions/frames/10-stage7-8-recall-orientation.html
 - handoff_in: stage-rail — top-center x=960 y=64, 8 dots 18px gap 22px, scale 1, opacity 1, static
 - handoff_out: stage-rail — same position/scale/opacity, static
@@ -298,7 +298,7 @@ Scene 3 (6.6–8.0s): "ส่งคำตอบ" button glows softly and is tapp
 - voiceover: "จากนั้นดูผลได้ทันที คะแนนเต็ม 30 แบ่งเป็นสามระดับ พร้อมผลแยกห้าด้าน และคำแนะนำจาก AI นำไปปรึกษาแพทย์ได้"
 - duration: 9s
 - transition_in: zoom-through
-- status: outline
+- status: animated
 - src: compositions/frames/11-result.html
 - type: benefit_highlight
 - persuasion: Value stacking (score + levels + domains + AI advice)
@@ -324,7 +324,7 @@ Scene 3 (5.4–9.0s): on "ห้าด้าน", 5 domain bars fill (`stat-bars
 - voiceover: "มาดูแลความทรงจำของคุณและคนที่คุณรัก ไปด้วยกันที่ Memory Garden ครับ"
 - duration: 6s
 - transition_in: crossfade
-- status: outline
+- status: animated
 - src: compositions/frames/12-cta.html
 - type: cta
 - persuasion: Emotional close (care for loved ones) + low-friction invite

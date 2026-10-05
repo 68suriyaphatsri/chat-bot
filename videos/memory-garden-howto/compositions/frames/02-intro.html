@@ -1,0 +1,425 @@
+<template>
+  <div
+    id="root"
+    data-composition-id="02-intro"
+    data-start="0"
+    data-duration="6.5"
+    data-width="1920"
+    data-height="1080"
+  >
+    <style>
+@font-face{font-family:'Noto Color Emoji';src:url('assets/fonts/NotoColorEmoji.ttf') format('truetype');}
+      @font-face {
+        font-family: "Prompt";
+        src: url("assets/fonts/Prompt-SemiBold.ttf") format("truetype");
+        font-weight: 600;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Prompt";
+        src: url("assets/fonts/Prompt-Bold.ttf") format("truetype");
+        font-weight: 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Prompt";
+        src: url("assets/fonts/Prompt-ExtraBold.ttf") format("truetype");
+        font-weight: 800;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Anuphan";
+        src: url("assets/fonts/Anuphan.ttf") format("truetype");
+        font-weight: 100 700;
+        font-style: normal;
+      }
+
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        container-type: size;
+        font-family: "Anuphan", sans-serif;
+        color: #23350e;
+      }
+
+      /* ---------- ground: cream + radial glows + grain (full-bleed clip) ---------- */
+      [id="02-intro-ground"] {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 18% 22%, rgba(130, 149, 75, 0.14) 0, rgba(130, 149, 75, 0) 38%),
+          radial-gradient(circle at 84% 30%, rgba(253, 243, 208, 0.9) 0, rgba(253, 243, 208, 0) 40%),
+          radial-gradient(circle at 50% 78%, rgba(74, 107, 34, 0.08) 0, rgba(74, 107, 34, 0) 45%),
+          #f7f9f4;
+      }
+      [id="02-intro-grain"] {
+        position: absolute;
+        inset: 0;
+        opacity: 0.04;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='7' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+        background-size: 240px 240px;
+      }
+
+      /* ---------- floating-pill wallpaper (flat, no shadow) ---------- */
+      [id="02-intro-stage"] {
+        position: absolute;
+        inset: 0;
+      }
+      .intro02-float {
+        position: absolute;
+        border: 0.2cqw solid #355115;
+        border-radius: 9999px;
+      }
+
+      /* ---------- lockup ---------- */
+      [id="02-intro-lockup"] {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 170px;
+        height: 360px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 64px;
+      }
+      [id="02-intro-badge-holder"] {
+        position: relative;
+        width: 290px;
+        height: 290px;
+        flex: 0 0 auto;
+      }
+      .intro02-leaf {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 150px;
+        height: 150px;
+      }
+      .intro02-leaf svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+      }
+      [id="02-intro-badge-idle"] {
+        position: absolute;
+        inset: 0;
+      }
+      [id="02-intro-badge"] {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: #4a6b22;
+        border: 0.2cqw solid #355115;
+        box-shadow: 0.4cqw 0.4cqw 0 rgba(35, 53, 14, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform-origin: 50% 50%;
+      }
+      [id="02-intro-badge-ring"] {
+        position: absolute;
+        inset: 18px;
+        border-radius: 50%;
+        border: 4px solid rgba(247, 249, 244, 0.35);
+      }
+      [id="02-intro-badge-emoji"] {
+        font-size: 150px;
+        line-height: 1;
+        position: relative;
+      }
+      [id="02-intro-wordmark"] {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
+      [id="02-intro-title"] {
+        font-family: "Prompt", sans-serif;
+        font-weight: 800;
+        font-size: 112px;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        color: #23350e;
+        display: flex;
+        gap: 0.26em;
+        white-space: nowrap;
+      }
+      .intro02-word {
+        display: inline-block;
+        will-change: transform;
+      }
+      [id="02-intro-sub-row"] {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+      }
+      [id="02-intro-sub" data-layout-allow-overlap] {
+        font-family: "Prompt", sans-serif;
+        font-weight: 600;
+        font-size: 58px;
+        line-height: 1.25;
+        color: #355115;
+        white-space: nowrap;
+        display: inline-block;
+      }
+      [id="02-intro-accent"] {
+        width: 80px;
+        height: 8px;
+        border-radius: 9999px;
+        background: #4a6b22;
+        transform-origin: 0% 50%;
+      }
+
+      /* ---------- promise pills ---------- */
+      [id="02-intro-pills"] {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 610px;
+        height: 130px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 32px;
+      }
+      .intro02-pill {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        height: 112px;
+        padding: 0 44px 0 30px;
+        border-radius: 9999px;
+        border: 0.2cqw solid #355115;
+        box-shadow: 0.3cqw 0.3cqw 0 rgba(35, 53, 14, 0.1);
+        font-family: "Anuphan", sans-serif;
+        font-weight: 600;
+        font-size: 44px;
+        line-height: 1;
+        color: #23350e;
+        white-space: nowrap;
+        transform-origin: 50% 50%;
+      }
+      .intro02-pill-emoji {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        background: #ffffff;
+        border: 0.2cqw solid #355115;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        flex: 0 0 auto;
+      }
+      .intro02-pill-num {
+        font-family: "Prompt", sans-serif;
+        font-weight: 800;
+        color: #4a6b22;
+      }
+    </style>
+
+    <!-- full-bleed ground on its own clip (lowest track) -->
+    <div
+      id="02-intro-ground"
+      class="clip"
+      data-start="0"
+      data-duration="6.5"
+      data-track-index="0"
+    >
+      <div id="02-intro-grain"></div>
+    </div>
+
+    <!-- content layer -->
+    <div
+      id="02-intro-stage"
+      class="clip"
+      data-start="0"
+      data-duration="6.5"
+      data-track-index="1"
+    >
+      <!-- floating-pill wallpaper: flat, tilted, wordless -->
+      <div id="02-intro-float-1" class="intro02-float" style="left: 70px; top: 70px; width: 210px; height: 74px; background: #fdf3d0; rotate: -18deg"></div>
+      <div id="02-intro-float-2" class="intro02-float" style="left: 1640px; top: 96px; width: 190px; height: 66px; background: #e0ebd2; rotate: 22deg"></div>
+      <div id="02-intro-float-3" class="intro02-float" style="left: -40px; top: 480px; width: 170px; height: 62px; background: #e8f5e9; rotate: 14deg"></div>
+      <div id="02-intro-float-4" class="intro02-float" style="left: 1770px; top: 470px; width: 200px; height: 70px; background: #82954b; rotate: -12deg"></div>
+      <div id="02-intro-float-5" class="intro02-float" style="left: 300px; top: 820px; width: 64px; height: 64px; background: #fff9e6; border-radius: 50%"></div>
+      <div id="02-intro-float-6" class="intro02-float" style="left: 1500px; top: 800px; width: 160px; height: 58px; background: #f0f7e6; rotate: 18deg"></div>
+
+      <!-- lockup: badge (assembled from leaves) + wordmark -->
+      <div id="02-intro-lockup">
+        <div id="02-intro-badge-holder">
+          <div id="02-intro-leaf-1" class="intro02-leaf">
+            <svg viewBox="0 0 100 100">
+              <path d="M50 4 C82 22 86 66 50 96 C14 66 18 22 50 4 Z" fill="#82954b" stroke="#355115" stroke-width="3" />
+              <path d="M50 14 L50 88" stroke="#355115" stroke-width="3" stroke-linecap="round" fill="none" />
+            </svg>
+          </div>
+          <div id="02-intro-leaf-2" class="intro02-leaf">
+            <svg viewBox="0 0 100 100">
+              <path d="M50 4 C82 22 86 66 50 96 C14 66 18 22 50 4 Z" fill="#e0ebd2" stroke="#355115" stroke-width="3" />
+              <path d="M50 14 L50 88" stroke="#355115" stroke-width="3" stroke-linecap="round" fill="none" />
+            </svg>
+          </div>
+          <div id="02-intro-leaf-3" class="intro02-leaf">
+            <svg viewBox="0 0 100 100">
+              <path d="M50 4 C82 22 86 66 50 96 C14 66 18 22 50 4 Z" fill="#e8f5e9" stroke="#355115" stroke-width="3" />
+              <path d="M50 14 L50 88" stroke="#355115" stroke-width="3" stroke-linecap="round" fill="none" />
+            </svg>
+          </div>
+          <div id="02-intro-badge-idle">
+            <div id="02-intro-badge">
+              <div id="02-intro-badge-ring"></div>
+              <span id="02-intro-badge-emoji">🌿</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="02-intro-wordmark">
+          <div id="02-intro-title">
+            <span id="02-intro-word-1" data-layout-allow-overlap class="intro02-word">Memory</span>
+            <span id="02-intro-word-2" class="intro02-word">Garden</span>
+          </div>
+          <div id="02-intro-sub-row">
+            <div id="02-intro-accent"></div>
+            <span id="02-intro-sub">สวนความทรงจำ</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- promise pills -->
+      <div id="02-intro-pills">
+        <div id="02-intro-pill-1" class="intro02-pill" style="background: #e0ebd2">
+          <span class="intro02-pill-emoji">🩺</span>
+          <span>เกณฑ์ MoCA <span class="intro02-pill-num">30</span> คะแนน</span>
+        </div>
+        <div id="02-intro-pill-2" class="intro02-pill" style="background: #fdf3d0">
+          <span class="intro02-pill-emoji">⏱️</span>
+          <span><span class="intro02-pill-num">10–15</span> นาที</span>
+        </div>
+        <div id="02-intro-pill-3" class="intro02-pill" style="background: #e8f5e9">
+          <span class="intro02-pill-emoji">🌱</span>
+          <span>ทำตามจังหวะตัวเอง</span>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script>
+      (function () {
+        const $ = (id) => document.getElementById("02-intro-" + id);
+        const tl = gsap.timeline({ paused: true });
+
+        // ---- wallpaper: flat floating pills settle in, then drift very slowly (no exits) ----
+        for (let i = 1; i <= 6; i++) {
+          const el = $("float-" + i);
+          tl.fromTo(
+            el,
+            { scale: 0, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.6, ease: "power3.out" },
+            0.05 + (i - 1) * 0.06,
+          );
+          tl.fromTo(
+            el,
+            { y: 0 },
+            { y: i % 2 ? -14 : 12, duration: 5.2, ease: "none" },
+            0.8,
+          );
+        }
+
+        // ---- Scene 1 (0.0–1.8s): three leaves converge outer→center (center-outward-expansion run inward) ----
+        // start = far off-frame offsets, end = resting tuck around the badge center
+        const leaves = [
+          { el: $("leaf-1"), from: { x: -760, y: -520, r: -120 }, to: { x: -118, y: -104, r: -38 } },
+          { el: $("leaf-2"), from: { x: 1500, y: -560, r: 140 }, to: { x: 122, y: -100, r: 40 } },
+          { el: $("leaf-3"), from: { x: -220, y: 900, r: 200 }, to: { x: 4, y: 132, r: 178 } },
+        ];
+        leaves.forEach((l, i) => {
+          tl.fromTo(
+            l.el,
+            { xPercent: -50, yPercent: -50, x: l.from.x, y: l.from.y, rotation: l.from.r, scale: 0.7, opacity: 0 },
+            {
+              x: l.to.x,
+              y: l.to.y,
+              rotation: l.to.r,
+              scale: 1,
+              opacity: 1,
+              duration: 0.85,
+              ease: "power3.out",
+            },
+            0.0 + i * 0.07,
+          );
+        });
+
+        // badge forms where the leaves meet
+        tl.fromTo(
+          $("badge"),
+          { scale: 0, opacity: 0, rotation: -12 },
+          { scale: 1, opacity: 1, rotation: 0, duration: 0.6, ease: "power3.out" },
+          0.42,
+        );
+        tl.fromTo(
+          $("badge-emoji"),
+          { scale: 0.4, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 0.5, ease: "power3.out" },
+          0.62,
+        );
+
+        // wordmark: per-word staggered reveal
+        const words = [$("word-1"), $("word-2"), $("sub")];
+        words.forEach((w, i) => {
+          tl.fromTo(
+            w,
+            { y: 46, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" },
+            0.8 + i * 0.16,
+          );
+        });
+        tl.fromTo(
+          $("accent"),
+          { scaleX: 0, opacity: 0 },
+          { scaleX: 1, opacity: 1, duration: 0.45, ease: "power3.out" },
+          1.2,
+        );
+
+        // ---- Scene 2 (1.8–4.2s): promise pills pop on VO cues (spring-pop-entrance, smooth) ----
+        const pillAt = [2.2, 3.5, 4.4]; // "MoCA 30 คะแนน" · "10 ถึง 15 นาที" · Scene 3 completion
+        pillAt.forEach((t, i) => {
+          tl.fromTo(
+            $("pill-" + (i + 1)),
+            { scale: 0, opacity: 0, y: 24 },
+            { scale: 1, opacity: 1, y: 0, duration: 0.55, ease: "power3.out" },
+            t,
+          );
+        });
+
+        // ---- Scene 3 (4.2–6.0s): held read; subtle sine jitter on the badge only ----
+        const idle = $("badge-idle");
+        const phase = { p: 0 };
+        const IDLE_START = 4.2;
+        const IDLE_DUR = 6.0 - IDLE_START;
+        tl.fromTo(
+          phase,
+          { p: 0 },
+          {
+            p: Math.PI * 2,
+            duration: IDLE_DUR,
+            ease: "none",
+            onUpdate: () => {
+              const s = Math.sin(phase.p);
+              idle.style.transform =
+                "translateY(" + (s * -3).toFixed(3) + "px) rotate(" + (s * 0.6).toFixed(3) + "deg)";
+            },
+          },
+          IDLE_START,
+        );
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines["02-intro"] = tl;
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,526 @@
+<template>
+  <style>
+@font-face{font-family:'Noto Color Emoji';src:url('assets/fonts/NotoColorEmoji.ttf') format('truetype');}
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; }
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-Medium.ttf") format("truetype"); font-weight: 500; font-style: normal; }
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-SemiBold.ttf") format("truetype"); font-weight: 600; font-style: normal; }
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-Bold.ttf") format("truetype"); font-weight: 700; font-style: normal; }
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-ExtraBold.ttf") format("truetype"); font-weight: 800; font-style: normal; }
+    @font-face { font-family: "Anuphan"; src: url("assets/fonts/Anuphan.ttf") format("truetype"); font-weight: 100 700; font-style: normal; }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      font-family: "Anuphan", sans-serif;
+      color: #23350e;
+    }
+
+    /* ---------- ground (full-bleed clip) ---------- */
+    #f03-login-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 78% 40%, rgba(130, 149, 75, 0.14) 0%, rgba(130, 149, 75, 0) 42%),
+        radial-gradient(circle at 14% 22%, rgba(253, 243, 208, 0.9) 0%, rgba(253, 243, 208, 0) 38%),
+        radial-gradient(circle at 30% 85%, rgba(224, 235, 210, 0.7) 0%, rgba(224, 235, 210, 0) 40%),
+        #f7f9f4;
+    }
+    .f03-login-grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.05;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+    .f03-login-float {
+      position: absolute;
+      border: 3px solid #355115;
+      border-radius: 9999px;
+    }
+
+    /* ---------- left column ---------- */
+    #f03-login-left {
+      position: absolute;
+      left: 140px;
+      top: 230px;
+      width: 900px;
+      height: 520px;
+    }
+    #f03-login-headline {
+      position: absolute;
+      left: 0;
+      top: 0;
+      margin: 0;
+      font-family: "Prompt", sans-serif;
+      font-weight: 800;
+      font-size: 128px;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: #23350e;
+      white-space: nowrap;
+    }
+    .f03-login-word { display: inline-block; }
+    #f03-login-accent {
+      position: absolute;
+      left: 4px;
+      top: 190px;
+      width: 96px;
+      height: 8px;
+      border-radius: 9999px;
+      background: #4a6b22;
+      transform-origin: 0% 50%;
+    }
+    .f03-login-cap {
+      position: absolute;
+      left: 0;
+      top: 250px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 22px 40px 22px 30px;
+      background: #ffffff;
+      border: 3px solid #355115;
+      border-radius: 9999px;
+      box-shadow: 6px 6px 0 rgba(35, 53, 14, 0.10);
+      font-family: "Anuphan", sans-serif;
+      font-weight: 600;
+      font-size: 48px;
+      line-height: 1.3;
+      white-space: nowrap;
+      color: #23350e;
+    }
+    .f03-login-cap-emoji { font-size: 46px; line-height: 1; }
+    #f03-login-steps {
+      position: absolute;
+      left: 6px;
+      top: 410px;
+      display: flex;
+      gap: 18px;
+    }
+    .f03-login-step {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 3px solid #355115;
+      background: #f7f9f4;
+      box-sizing: border-box;
+    }
+
+    /* ---------- app card (focal) ---------- */
+    #f03-login-card {
+      position: absolute;
+      left: 1200px;
+      top: 70px;
+      width: 600px;
+      height: 800px;
+      box-sizing: border-box;
+      border: 3px solid #355115;
+      border-radius: 2rem;
+      background: #ffffff;
+      box-shadow: 12px 12px 0 rgba(35, 53, 14, 0.10);
+      overflow: hidden;
+    }
+    /* coordinate-target-zoom: outer scales, inner translates */
+    #f03-login-zoom-outer {
+      position: absolute;
+      inset: 0;
+      transform-origin: 50% 50%;
+    }
+    #f03-login-zoom-inner {
+      position: absolute;
+      inset: 0;
+    }
+    .f03-login-body {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* screen A — welcome */
+    #f03-login-sprout {
+      position: absolute;
+      left: 207px;
+      top: 90px;
+      width: 180px;
+      height: 180px;
+      box-sizing: border-box;
+      border-radius: 50%;
+      border: 3px solid #355115;
+      background: #e8f5e9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 96px;
+      line-height: 1;
+    }
+    #f03-login-app-title {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 300px;
+      text-align: center;
+      font-family: "Prompt", sans-serif;
+      font-weight: 700;
+      font-size: 56px;
+      line-height: 1.25;
+      color: #23350e;
+    }
+    #f03-login-welcome {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 385px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      font-family: "Anuphan", sans-serif;
+      font-weight: 500;
+      font-size: 40px;
+      line-height: 1.4;
+      color: #667058;
+    }
+    .f03-login-tts-mini {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #4a6b22;
+      border: 3px solid #355115;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      line-height: 1;
+    }
+    #f03-login-burst {
+      position: absolute;
+      left: 97px;
+      top: 570px;
+      width: 400px;
+      height: 80px;
+      border-radius: 9999px;
+      background: radial-gradient(ellipse at center, rgba(4, 140, 60, 0.9) 0%, rgba(4, 140, 60, 0) 70%);
+      filter: blur(24px);
+      opacity: 0;
+      z-index: 1;
+    }
+    #f03-login-line-btn {
+      position: absolute;
+      left: 57px;
+      top: 560px;
+      width: 480px;
+      height: 100px;
+      box-sizing: border-box;
+      border-radius: 9999px;
+      border: 3px solid #355115;
+      background: #06C755;
+      box-shadow: 6px 6px 0 rgba(35, 53, 14, 0.16);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Anuphan", sans-serif;
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 1.3;
+      color: #ffffff;
+      transform-origin: 50% 50%;
+      z-index: 2;
+      white-space: nowrap;
+    }
+
+    /* screen B — intro / instructions */
+    #f03-login-intro-title {
+      position: absolute;
+      right: 278px;
+      top: 146px;
+      margin: 0;
+      font-family: "Prompt", sans-serif;
+      font-weight: 700;
+      font-size: 50px;
+      line-height: 1.3;
+      white-space: nowrap;
+      color: #23350e;
+    }
+    #f03-login-tts-glow {
+      position: absolute;
+      left: 322px;
+      top: 134px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(253, 243, 208, 1) 35%, rgba(130, 149, 75, 0.55) 62%, rgba(130, 149, 75, 0) 72%);
+      opacity: 0;
+    }
+    #f03-login-tts-ring {
+      position: absolute;
+      left: 318px;
+      top: 130px;
+      width: 108px;
+      height: 108px;
+      box-sizing: border-box;
+      border-radius: 50%;
+      border: 5px solid #82954b;
+      opacity: 0;
+    }
+    #f03-login-tts {
+      position: absolute;
+      left: 332px;
+      top: 144px;
+      width: 80px;
+      height: 80px;
+      box-sizing: border-box;
+      border-radius: 50%;
+      border: 3px solid #355115;
+      background: #4a6b22;
+      box-shadow: 4px 4px 0 rgba(35, 53, 14, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      line-height: 1;
+      transform-origin: 50% 50%;
+    }
+    #f03-login-waves {
+      position: absolute;
+      left: 422px;
+      top: 134px;
+      width: 110px;
+      height: 100px;
+      overflow: visible;
+    }
+    .f03-login-row {
+      position: absolute;
+      left: 48px;
+      width: 498px;
+      height: 86px;
+      box-sizing: border-box;
+      border-radius: 9999px;
+      border: 3px solid #355115;
+      background: #f0f7e6;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 28px;
+      font-family: "Anuphan", sans-serif;
+      font-weight: 500;
+      font-size: 36px;
+      line-height: 1.3;
+      white-space: nowrap;
+      color: #2b331f;
+    }
+    .f03-login-row-emoji { font-size: 36px; line-height: 1; }
+    #f03-login-start-btn {
+      position: absolute;
+      left: 117px;
+      top: 650px;
+      width: 360px;
+      height: 92px;
+      box-sizing: border-box;
+      border-radius: 9999px;
+      border: 3px solid #355115;
+      background: linear-gradient(135deg, #82954b 0%, #4a6b22 100%);
+      box-shadow: 6px 6px 0 rgba(35, 53, 14, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Anuphan", sans-serif;
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 1.3;
+      color: #ffffff;
+    }
+
+    /* ---------- pointer layer ---------- */
+    .f03-login-ripple {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      box-sizing: border-box;
+      border-radius: 50%;
+      border: 4px solid #4a6b22;
+      pointer-events: none;
+      z-index: 40;
+    }
+    #f03-login-finger {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 72px;
+      height: 72px;
+      box-sizing: border-box;
+      border-radius: 50%;
+      background: rgba(35, 53, 14, 0.32);
+      border: 4px solid #ffffff;
+      box-shadow: 0 0 0 3px rgba(35, 53, 14, 0.35), 4px 4px 0 rgba(35, 53, 14, 0.12);
+      pointer-events: none;
+      z-index: 50;
+    }
+  </style>
+
+  <div id="root" data-composition-id="03-login" data-width="1920" data-height="1080" data-duration="7.5">
+    <!-- full-bleed ground -->
+    <div id="f03-login-bg" class="clip" data-start="0" data-duration="7.5" data-track-index="0">
+      <div class="f03-login-float" style="left:-60px; top:70px; width:220px; height:64px; background:#fdf3d0; transform:rotate(-18deg);"></div>
+      <div class="f03-login-float" style="left:760px; top:-26px; width:180px; height:60px; background:#e0ebd2; transform:rotate(12deg);"></div>
+      <div class="f03-login-float" style="left:1010px; top:110px; width:64px; height:64px; background:#82954b; border-radius:50%;"></div>
+      <div class="f03-login-float" style="left:1830px; top:150px; width:200px; height:62px; background:#fff9e6; transform:rotate(22deg);"></div>
+      <div class="f03-login-float" style="left:980px; top:780px; width:150px; height:56px; background:#e8f5e9; transform:rotate(-14deg);"></div>
+      <div class="f03-login-float" style="left:60px; top:800px; width:56px; height:56px; background:#fdf3d0; border-radius:50%;"></div>
+      <div class="f03-login-grain"></div>
+    </div>
+
+    <!-- left column: headline + swapping caption -->
+    <div id="f03-login-left">
+      <h1 id="f03-login-headline"><span class="f03-login-word">เริ่มต้น</span><span class="f03-login-word">ง่าย&nbsp;ๆ</span></h1>
+      <div id="f03-login-accent"></div>
+      <div class="f03-login-cap" id="f03-login-cap1"><span class="f03-login-cap-emoji">📲</span><span>เข้าสู่ระบบด้วย LINE</span></div>
+      <div class="f03-login-cap" id="f03-login-cap2"><span class="f03-login-cap-emoji">📖</span><span>อ่านคำชี้แจงก่อนเริ่ม</span></div>
+      <div class="f03-login-cap" id="f03-login-cap3"><span class="f03-login-cap-emoji">🔊</span><span>กดฟังเสียงได้ทุกหน้า</span></div>
+      <div id="f03-login-steps">
+        <div class="f03-login-step" id="f03-login-step1"></div>
+        <div class="f03-login-step" id="f03-login-step2"></div>
+        <div class="f03-login-step" id="f03-login-step3"></div>
+      </div>
+    </div>
+
+    <!-- right: phone-sized app card (focal) -->
+    <div id="f03-login-card">
+      <div id="f03-login-zoom-outer">
+        <div id="f03-login-zoom-inner">
+          <!-- screen A: welcome -->
+          <div class="f03-login-body" id="f03-login-bodyA">
+            <div id="f03-login-sprout">🌱</div>
+            <div id="f03-login-app-title">Memory Garden</div>
+            <div id="f03-login-welcome"><span>ยินดีต้อนรับ</span><span class="f03-login-tts-mini">🔊</span></div>
+            <div id="f03-login-burst"></div>
+            <div id="f03-login-line-btn">เข้าสู่ระบบด้วย LINE</div>
+          </div>
+          <!-- screen B: intro page -->
+          <div class="f03-login-body" id="f03-login-bodyB">
+            <h2 id="f03-login-intro-title">คำชี้แจง</h2>
+            <div id="f03-login-tts-glow"></div>
+            <div id="f03-login-tts-ring"></div>
+            <div id="f03-login-tts">🔊</div>
+            <svg id="f03-login-waves" viewBox="0 0 110 100">
+              <path class="f03-login-wave" d="M 14 34 Q 30 50 14 66" fill="none" stroke="#4a6b22" stroke-width="7" stroke-linecap="round" />
+              <path class="f03-login-wave" d="M 38 20 Q 66 50 38 80" fill="none" stroke="#4a6b22" stroke-width="7" stroke-linecap="round" />
+              <path class="f03-login-wave" d="M 62 6 Q 102 50 62 94" fill="none" stroke="#4a6b22" stroke-width="7" stroke-linecap="round" />
+            </svg>
+            <div class="f03-login-row" id="f03-login-row1" style="top:290px;"><span class="f03-login-row-emoji">🌿</span><span>นั่งในที่เงียบสบาย</span></div>
+            <div class="f03-login-row" id="f03-login-row2" style="top:400px;"><span class="f03-login-row-emoji">👓</span><span>ใส่แว่นถ้าใช้ประจำ</span></div>
+            <div class="f03-login-row" id="f03-login-row3" style="top:510px;"><span class="f03-login-row-emoji">💡</span><span>ตอบตามที่นึกได้</span></div>
+            <div id="f03-login-start-btn">เริ่มเลย</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- pointer layer (stage coordinates) -->
+    <div class="f03-login-ripple" id="f03-login-rip1" style="left:1450px; top:633px;"></div>
+    <div class="f03-login-ripple" id="f03-login-rip2" style="left:1450px; top:633px;"></div>
+    <div class="f03-login-ripple" id="f03-login-rip3" style="left:1450px; top:633px;"></div>
+    <div class="f03-login-ripple" id="f03-login-rip4" style="left:1450px; top:420px;"></div>
+    <div id="f03-login-finger"></div>
+  </div>
+
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script>
+    (function () {
+      var tl = gsap.timeline({ paused: true });
+      var Q = function (s) { return "#f03-login-" + s; };
+
+      // Stage geometry (baked from the absolute layout above).
+      // Card padding box origin = (1203, 73), size 594x794 -> screen center (1500, 470).
+      // LINE button center (screen 297,610) -> stage (1500, 683).
+      // TTS button center (screen 372,184); offset from screen center = (75, -213).
+      var FINGER_HALF = 36;
+      var BTN_X = 1500, BTN_Y = 683;
+      var SCREEN_CX = 1500, SCREEN_CY = 470;
+      var ZOOM_SCALE = 1.18;
+      var TTS_OFF_X = 372 - 297, TTS_OFF_Y = 184 - 397;
+
+      // ---- initial states for pointer FX (no CSS transforms on tweened elements)
+      tl.set([Q("rip1"), Q("rip2"), Q("rip3"), Q("rip4")], { scale: 0, opacity: 0 }, 0);
+      tl.set(Q("finger"), { x: 2000, y: 760, scale: 1 }, 0);
+      tl.set(".f03-login-wave", { opacity: 0, x: -10 }, 0);
+
+      // ================= Scene 1 (0.0–2.6s): establish + tap LINE =================
+      tl.fromTo(Q("card"), { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 0.05);
+      tl.fromTo(".f03-login-word", { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out", stagger: 0.14 }, 0.15);
+      tl.fromTo(Q("accent"), { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power2.out" }, 0.5);
+      tl.fromTo(Q("cap1"), { y: 30, opacity: 0, filter: "blur(6px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.45, ease: "power3.out" }, 0.6);
+      tl.fromTo([Q("step1"), Q("step2"), Q("step3")], { scale: 0 }, { scale: 1, duration: 0.35, ease: "back.out(2)", stagger: 0.08 }, 0.75);
+      tl.to(Q("step1"), { backgroundColor: "#4a6b22", duration: 0.3, ease: "power1.out" }, 1.0);
+      tl.fromTo(Q("sprout"), { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.8)" }, 0.35);
+      tl.fromTo(Q("line-btn"), { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 0.55);
+
+      // cursor-click-ripple: move (fingertip glides in) -> click -> ripple
+      tl.to(Q("finger"), { x: BTN_X - FINGER_HALF, y: BTN_Y - FINGER_HALF, duration: 0.7, ease: "back.out(1.3)" }, 1.0);
+      var CLICK_AT = 1.85;
+      tl.to(Q("finger"), { scale: 0.84, duration: 0.09, ease: "power2.in" }, CLICK_AT);
+      tl.to(Q("finger"), { scale: 1, duration: 0.09, ease: "power2.out" }, CLICK_AT + 0.09);
+      tl.set([Q("rip1"), Q("rip2"), Q("rip3")], { opacity: 1 }, CLICK_AT + 0.03);
+      tl.to([Q("rip1"), Q("rip2"), Q("rip3")], {
+        scale: 4, opacity: 0, duration: 0.7, ease: "power2.out", stagger: 0.08, immediateRender: false
+      }, CLICK_AT + 0.03);
+
+      // press-release-spring on the LINE button (linear press, spring release, burst behind)
+      tl.to(Q("line-btn"), { scale: 0.92, boxShadow: "2px 2px 0 rgba(35,53,14,0.16)", duration: 0.12, ease: "power1.in" }, CLICK_AT);
+      tl.to(Q("line-btn"), { scale: 1, boxShadow: "6px 6px 0 rgba(35,53,14,0.16)", duration: 0.6, ease: "back.out(2)" }, CLICK_AT + 0.12);
+      tl.fromTo(Q("burst"), { scale: 1, opacity: 0 }, { scale: 1.6, opacity: 0.7, duration: 0.4, ease: "power2.out" }, CLICK_AT + 0.12);
+      tl.to(Q("burst"), { opacity: 0, duration: 0.35, ease: "power2.in" }, CLICK_AT + 0.52);
+
+      // fingertip eases aside to rest beside the card
+      tl.to(Q("finger"), { x: 1740 - FINGER_HALF, y: 800 - FINGER_HALF, duration: 0.7, ease: "power2.inOut" }, 2.45);
+
+      // ================= Scene 2 (2.6–4.6s): crossfade to intro page =================
+      tl.to(Q("bodyA"), { opacity: 0, scale: 0.96, filter: "blur(6px)", duration: 0.35, ease: "power2.in" }, 2.6);
+      tl.fromTo(Q("bodyB"), { opacity: 0, scale: 1.04, filter: "blur(6px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "power3.out" }, 2.75);
+      tl.fromTo([Q("row1"), Q("row2"), Q("row3")], { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out", stagger: 0.38 }, 3.1);
+      tl.fromTo(Q("start-btn"), { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.8)" }, 4.15);
+
+      // caption swap 1 -> 2 (Z-scale + blur cut)
+      tl.to(Q("cap1"), { opacity: 0, y: -26, filter: "blur(6px)", duration: 0.3, ease: "power2.in" }, 2.7);
+      tl.fromTo(Q("cap2"), { opacity: 0, y: 30, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.45, ease: "power3.out" }, 2.85);
+      tl.to(Q("step2"), { backgroundColor: "#4a6b22", duration: 0.3, ease: "power1.out" }, 2.9);
+
+      // ================= Scene 3 (4.6–7.0s): zoom-to-target on the TTS button =================
+      var ZOOM_AT = 4.6, ZOOM_DUR = 1.0;
+      tl.to(Q("zoom-outer"), { scale: ZOOM_SCALE, duration: ZOOM_DUR, ease: "power3.inOut" }, ZOOM_AT);
+      tl.to(Q("zoom-inner"), { x: -TTS_OFF_X, y: -TTS_OFF_Y, duration: ZOOM_DUR, ease: "power3.inOut" }, ZOOM_AT);
+
+      // caption swap 2 -> 3
+      tl.to(Q("cap2"), { opacity: 0, y: -26, filter: "blur(6px)", duration: 0.3, ease: "power2.in" }, 4.65);
+      tl.fromTo(Q("cap3"), { opacity: 0, y: 30, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.45, ease: "power3.out" }, 4.8);
+      tl.to(Q("step3"), { backgroundColor: "#4a6b22", duration: 0.3, ease: "power1.out" }, 4.85);
+
+      // soft glow ring arrives with the punch-in
+      tl.fromTo(Q("tts-glow"), { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1.25, duration: 0.8, ease: "power2.out" }, 4.85);
+      tl.fromTo(Q("tts-ring"), { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }, 5.0);
+
+      // fingertip glides to the TTS button (lands at screen center once zoom settles) and taps
+      tl.to(Q("finger"), { x: SCREEN_CX - FINGER_HALF, y: SCREEN_CY - FINGER_HALF, duration: 0.8, ease: "power3.out" }, 4.85);
+      var TAP_AT = 5.75;
+      tl.to(Q("finger"), { scale: 0.84, duration: 0.09, ease: "power2.in" }, TAP_AT);
+      tl.to(Q("finger"), { scale: 1, duration: 0.09, ease: "power2.out" }, TAP_AT + 0.09);
+      tl.to(Q("tts"), { scale: 0.9, duration: 0.1, ease: "power1.in" }, TAP_AT);
+      tl.to(Q("tts"), { scale: 1, duration: 0.5, ease: "back.out(2)" }, TAP_AT + 0.1);
+      tl.set(Q("rip4"), { opacity: 1 }, TAP_AT + 0.03);
+      tl.to(Q("rip4"), { scale: 3, opacity: 0, duration: 0.7, ease: "power2.out", immediateRender: false }, TAP_AT + 0.03);
+      tl.to(Q("tts-ring"), { scale: 1.18, duration: 0.6, ease: "back.out(2)" }, TAP_AT + 0.1);
+
+      // three soundwave arcs radiate on the tap, then hold
+      tl.fromTo(".f03-login-wave", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out", stagger: 0.12, immediateRender: false }, TAP_AT + 0.1);
+
+      // fingertip lifts slightly off the button for the hold (no exit)
+      tl.to(Q("finger"), { x: SCREEN_CX - FINGER_HALF + 70, y: SCREEN_CY - FINGER_HALF + 110, duration: 0.6, ease: "power2.inOut" }, 6.2);
+
+      tl.to({}, { duration: 0.01 }, 6.99); // pin timeline length to the 7s frame
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["03-login"] = tl;
+    })();
+  </script>
+</template>

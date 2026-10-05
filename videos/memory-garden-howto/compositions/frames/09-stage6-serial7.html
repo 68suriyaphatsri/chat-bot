@@ -1,0 +1,263 @@
+<template>
+  <div id="root" data-composition-id="09-stage6-serial7" data-start="0" data-duration="6.5" data-width="1920" data-height="1080">
+    <style>
+@font-face{font-family:'Noto Color Emoji';src:url('assets/fonts/NotoColorEmoji.ttf') format('truetype');}
+      @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-Medium.ttf") format("truetype"); font-weight: 500; }
+      @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-SemiBold.ttf") format("truetype"); font-weight: 600; }
+      @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-Bold.ttf") format("truetype"); font-weight: 700; }
+      @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-ExtraBold.ttf") format("truetype"); font-weight: 800; }
+      @font-face { font-family: "Anuphan"; src: url("assets/fonts/Anuphan.ttf") format("truetype"); font-weight: 100 700; }
+
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        font-family: "Anuphan", sans-serif;
+        color: #23350e;
+      }
+      #root * { box-sizing: border-box; }
+
+      /* ground: cream + radial glows + grain (full-bleed clip, lowest track) */
+      .\30 9-stage6-serial7-bg {
+        position: absolute; inset: 0; width: 1920px; height: 1080px;
+        container-type: size;
+        background:
+          radial-gradient(circle at 14% 22%, rgba(130,149,75,0.13) 0, rgba(130,149,75,0) 34%),
+          radial-gradient(circle at 86% 74%, rgba(232,245,233,0.95) 0, rgba(232,245,233,0) 38%),
+          radial-gradient(circle at 70% 12%, rgba(253,243,208,0.85) 0, rgba(253,243,208,0) 30%),
+          #f7f9f4;
+      }
+      .\30 9-stage6-serial7-grain {
+        position: absolute; inset: 0; opacity: 0.04;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='7'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>");
+      }
+      .\30 9-stage6-serial7-fp { position: absolute; border: 3px solid #355115; border-radius: 9999px; }
+
+      .\30 9-stage6-serial7-content { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+
+      /* stage rail — handoff constant: center x=960, y=64, 8 dots 18px, gap 22px */
+      .\30 9-stage6-serial7-rail {
+        position: absolute; left: 811px; top: 55px; width: 298px; height: 18px;
+        display: flex; gap: 22px; align-items: center;
+      }
+      .\30 9-stage6-serial7-dot { width: 18px; height: 18px; flex: 0 0 18px; border-radius: 50%; border: 2px solid #355115; background: #ffffff; }
+      .\30 9-stage6-serial7-dot-done { background: #4a6b22; }
+      .\30 9-stage6-serial7-dot-cur { background: #82954b; }
+
+      .\30 9-stage6-serial7-stage { position: absolute; inset: 0; transform-origin: 960px 520px; }
+
+      .\30 9-stage6-serial7-tag {
+        position: absolute; left: 0; right: 0; top: 116px; margin: 0 auto; width: max-content;
+        padding: 8px 34px 10px; border-radius: 9999px; border: 3px solid #355115;
+        background: #fdf3d0; box-shadow: 6px 6px 0 rgba(35,53,14,0.10);
+        font-family: "Anuphan", sans-serif; font-weight: 600; font-size: 36px; line-height: 1.3; white-space: nowrap;
+      }
+
+      .\30 9-stage6-serial7-card {
+        position: absolute; left: 384px; top: 210px; width: 1152px; height: 410px;
+        background: #ffffff; border: 4px solid #355115; border-radius: 2rem;
+        box-shadow: 8px 8px 0 rgba(35,53,14,0.10);
+      }
+      .\30 9-stage6-serial7-counter {
+        position: absolute; right: 30px; top: 26px; height: 60px; padding: 0 26px;
+        display: flex; align-items: center; gap: 10px; border-radius: 9999px;
+        border: 3px solid #355115; background: #f0f7e6;
+        font-family: "Anuphan", sans-serif; font-weight: 600; font-size: 34px; white-space: nowrap;
+      }
+      .\30 9-stage6-serial7-cnt-slot { position: relative; display: inline-block; width: 24px; height: 44px; }
+      .\30 9-stage6-serial7-cnt-n { position: absolute; left: 0; top: 0; width: 24px; text-align: center; line-height: 44px; font-family: "Prompt", sans-serif; font-weight: 700; }
+
+      .\30 9-stage6-serial7-eq {
+        position: absolute; left: 0; right: 0; top: 112px; height: 220px;
+        display: flex; align-items: center; justify-content: center; gap: 30px;
+      }
+      .\30 9-stage6-serial7-slot { position: relative; height: 220px; flex: 0 0 auto; }
+      .\30 9-stage6-serial7-slot-m { width: 330px; }
+      .\30 9-stage6-serial7-slot-a { width: 270px; }
+      .\30 9-stage6-serial7-num {
+        position: absolute; left: 0; top: 0; width: 100%; height: 220px; text-align: center;
+        font-family: "Prompt", sans-serif; font-weight: 800; font-size: 170px; line-height: 220px;
+        letter-spacing: -0.03em; white-space: nowrap;
+      }
+      .\30 9-stage6-serial7-num-ink { color: #23350e; }
+      .\30 9-stage6-serial7-num-q { color: #82954b; }
+      .\30 9-stage6-serial7-num-ans { color: #4a6b22; }
+      .\30 9-stage6-serial7-dig { display: inline-block; }
+      .\30 9-stage6-serial7-op { position: relative; width: 96px; height: 220px; flex: 0 0 96px; }
+      .\30 9-stage6-serial7-bar { position: absolute; left: 8px; width: 80px; height: 18px; border-radius: 9999px; background: #23350e; }
+      .\30 9-stage6-serial7-seven {
+        width: 120px; height: 220px; flex: 0 0 120px; text-align: center;
+        font-family: "Prompt", sans-serif; font-weight: 800; font-size: 170px; line-height: 220px; color: #23350e;
+      }
+
+      .\30 9-stage6-serial7-trail {
+        position: absolute; left: 0; right: 0; top: 652px; height: 76px;
+        display: flex; align-items: center; justify-content: center; gap: 18px;
+      }
+      .\30 9-stage6-serial7-tpill {
+        height: 66px; min-width: 120px; padding: 0 24px; border-radius: 9999px;
+        border: 3px solid #355115; background: #e8ede0; color: rgba(35,53,14,0.62);
+        font-family: "Prompt", sans-serif; font-weight: 600; font-size: 40px; line-height: 60px; text-align: center;
+      }
+      .\30 9-stage6-serial7-tpill-last { background: #e8f5e9; color: #23350e; }
+      .\30 9-stage6-serial7-sep { width: 12px; height: 12px; border-radius: 50%; background: #82954b; flex: 0 0 12px; }
+
+      .\30 9-stage6-serial7-calm {
+        position: absolute; left: 0; right: 0; top: 770px; margin: 0 auto; width: max-content;
+        padding: 10px 40px 14px; border-radius: 9999px; border: 3px solid #355115;
+        background: #e8f5e9; box-shadow: 6px 6px 0 rgba(35,53,14,0.10);
+        font-family: "Anuphan", sans-serif; font-weight: 600; font-size: 44px; line-height: 1.3; white-space: nowrap;
+      }
+    </style>
+
+    <div id="09-stage6-serial7-bg" class="clip 09-stage6-serial7-bg" data-start="0" data-duration="6.5" data-track-index="0">
+      <div id="09-stage6-serial7-fp1" class="09-stage6-serial7-fp" style="left:96px; top:236px; width:150px; height:50px; background:#fdf3d0; rotate:-18deg;"></div>
+      <div id="09-stage6-serial7-fp2" class="09-stage6-serial7-fp" style="left:206px; top:690px; width:66px; height:66px; border-radius:50%; background:#e8f5e9;"></div>
+      <div id="09-stage6-serial7-fp3" class="09-stage6-serial7-fp" style="left:150px; top:470px; width:34px; height:34px; border-radius:50%; background:#82954b;"></div>
+      <div id="09-stage6-serial7-fp4" class="09-stage6-serial7-fp" style="left:1680px; top:190px; width:166px; height:54px; background:#e0ebd2; rotate:20deg;"></div>
+      <div id="09-stage6-serial7-fp5" class="09-stage6-serial7-fp" style="left:1752px; top:560px; width:56px; height:56px; border-radius:50%; background:#fdf3d0;"></div>
+      <div id="09-stage6-serial7-fp6" class="09-stage6-serial7-fp" style="left:1606px; top:770px; width:124px; height:46px; background:#e8ede0; rotate:-12deg;"></div>
+      <div class="09-stage6-serial7-grain"></div>
+    </div>
+
+    <div id="09-stage6-serial7-content" class="clip 09-stage6-serial7-content" data-start="0" data-duration="6.5" data-track-index="1">
+      <div id="09-stage6-serial7-rail" class="09-stage6-serial7-rail">
+          <div id="09-stage6-serial7-dot1" class="09-stage6-serial7-dot 09-stage6-serial7-dot-done"></div>
+          <div id="09-stage6-serial7-dot2" class="09-stage6-serial7-dot 09-stage6-serial7-dot-done"></div>
+          <div id="09-stage6-serial7-dot3" class="09-stage6-serial7-dot 09-stage6-serial7-dot-done"></div>
+          <div id="09-stage6-serial7-dot4" class="09-stage6-serial7-dot 09-stage6-serial7-dot-done"></div>
+          <div id="09-stage6-serial7-dot5" class="09-stage6-serial7-dot 09-stage6-serial7-dot-done"></div>
+          <div id="09-stage6-serial7-dot6" class="09-stage6-serial7-dot 09-stage6-serial7-dot-cur"></div>
+          <div id="09-stage6-serial7-dot7" class="09-stage6-serial7-dot 09-stage6-serial7-dot-todo"></div>
+          <div id="09-stage6-serial7-dot8" class="09-stage6-serial7-dot 09-stage6-serial7-dot-todo"></div>
+      </div>
+
+      <div id="09-stage6-serial7-stage" class="09-stage6-serial7-stage">
+        <div id="09-stage6-serial7-tag" class="09-stage6-serial7-tag">ด่าน 6 · ลบเลขทีละ 7</div>
+
+        <div id="09-stage6-serial7-card" class="09-stage6-serial7-card">
+          <div id="09-stage6-serial7-counter" class="09-stage6-serial7-counter">ข้อ <span class="09-stage6-serial7-cnt-slot"><span id="09-stage6-serial7-n1" class="09-stage6-serial7-cnt-n">1</span><span id="09-stage6-serial7-n2" class="09-stage6-serial7-cnt-n">2</span><span id="09-stage6-serial7-n3" class="09-stage6-serial7-cnt-n">3</span><span id="09-stage6-serial7-n4" class="09-stage6-serial7-cnt-n">4</span><span id="09-stage6-serial7-n5" class="09-stage6-serial7-cnt-n">5</span></span>/5</div>
+          <div class="09-stage6-serial7-eq">
+            <div class="09-stage6-serial7-slot 09-stage6-serial7-slot-m">
+              <span id="09-stage6-serial7-m0" class="09-stage6-serial7-num 09-stage6-serial7-num-ink">100</span>
+              <span id="09-stage6-serial7-m1" class="09-stage6-serial7-num 09-stage6-serial7-num-ink">93</span>
+              <span id="09-stage6-serial7-m2" class="09-stage6-serial7-num 09-stage6-serial7-num-ink">86</span>
+              <span id="09-stage6-serial7-m3" class="09-stage6-serial7-num 09-stage6-serial7-num-ink">79</span>
+              <span id="09-stage6-serial7-m4" class="09-stage6-serial7-num 09-stage6-serial7-num-ink">72</span>
+            </div>
+            <div id="09-stage6-serial7-minus" class="09-stage6-serial7-op"><div class="09-stage6-serial7-bar" style="top:101px;"></div></div>
+            <div id="09-stage6-serial7-seven" class="09-stage6-serial7-seven">7</div>
+            <div id="09-stage6-serial7-equals" class="09-stage6-serial7-op"><div class="09-stage6-serial7-bar" style="top:80px;"></div><div class="09-stage6-serial7-bar" style="top:122px;"></div></div>
+            <div class="09-stage6-serial7-slot 09-stage6-serial7-slot-a">
+              <span id="09-stage6-serial7-q0" data-layout-allow-overlap class="09-stage6-serial7-num 09-stage6-serial7-num-q">?</span>
+              <span id="09-stage6-serial7-a0" class="09-stage6-serial7-num 09-stage6-serial7-num-ans"><span id="09-stage6-serial7-a0d0" data-layout-allow-overlap class="09-stage6-serial7-dig">9</span><span id="09-stage6-serial7-a0d1" data-layout-allow-overlap class="09-stage6-serial7-dig">3</span></span>
+              <span id="09-stage6-serial7-q1" data-layout-allow-overlap class="09-stage6-serial7-num 09-stage6-serial7-num-q">?</span>
+              <span id="09-stage6-serial7-a1" class="09-stage6-serial7-num 09-stage6-serial7-num-ans"><span id="09-stage6-serial7-a1d0" data-layout-allow-overlap class="09-stage6-serial7-dig">8</span><span id="09-stage6-serial7-a1d1" data-layout-allow-overlap class="09-stage6-serial7-dig">6</span></span>
+              <span id="09-stage6-serial7-q2" data-layout-allow-overlap class="09-stage6-serial7-num 09-stage6-serial7-num-q">?</span>
+              <span id="09-stage6-serial7-a2" class="09-stage6-serial7-num 09-stage6-serial7-num-ans"><span id="09-stage6-serial7-a2d0" data-layout-allow-overlap class="09-stage6-serial7-dig">7</span><span id="09-stage6-serial7-a2d1" data-layout-allow-overlap class="09-stage6-serial7-dig">9</span></span>
+              <span id="09-stage6-serial7-q3" data-layout-allow-overlap class="09-stage6-serial7-num 09-stage6-serial7-num-q">?</span>
+              <span id="09-stage6-serial7-a3" class="09-stage6-serial7-num 09-stage6-serial7-num-ans"><span id="09-stage6-serial7-a3d0" data-layout-allow-overlap class="09-stage6-serial7-dig">7</span><span id="09-stage6-serial7-a3d1" data-layout-allow-overlap class="09-stage6-serial7-dig">2</span></span>
+              <span id="09-stage6-serial7-q4" data-layout-allow-overlap class="09-stage6-serial7-num 09-stage6-serial7-num-q">?</span>
+              <span id="09-stage6-serial7-a4" class="09-stage6-serial7-num 09-stage6-serial7-num-ans"><span id="09-stage6-serial7-a4d0" data-layout-allow-overlap class="09-stage6-serial7-dig">6</span><span id="09-stage6-serial7-a4d1" data-layout-allow-overlap class="09-stage6-serial7-dig">5</span></span>
+            </div>
+          </div>
+        </div>
+
+        <div id="09-stage6-serial7-trail" class="09-stage6-serial7-trail">
+          <span id="09-stage6-serial7-t0" data-layout-allow-overlap class="09-stage6-serial7-tpill">100</span>
+          <span id="09-stage6-serial7-sep1" data-layout-allow-overlap class="09-stage6-serial7-sep"></span>
+          <span id="09-stage6-serial7-t1" data-layout-allow-overlap class="09-stage6-serial7-tpill">93</span>
+          <span id="09-stage6-serial7-sep2" data-layout-allow-overlap class="09-stage6-serial7-sep"></span>
+          <span id="09-stage6-serial7-t2" data-layout-allow-overlap class="09-stage6-serial7-tpill">86</span>
+          <span id="09-stage6-serial7-sep3" data-layout-allow-overlap class="09-stage6-serial7-sep"></span>
+          <span id="09-stage6-serial7-t3" data-layout-allow-overlap class="09-stage6-serial7-tpill">79</span>
+          <span id="09-stage6-serial7-sep4" data-layout-allow-overlap class="09-stage6-serial7-sep"></span>
+          <span id="09-stage6-serial7-t4" data-layout-allow-overlap class="09-stage6-serial7-tpill">72</span>
+          <span id="09-stage6-serial7-sep5" data-layout-allow-overlap class="09-stage6-serial7-sep"></span>
+          <span id="09-stage6-serial7-t5" data-layout-allow-overlap class="09-stage6-serial7-tpill 09-stage6-serial7-tpill-last">65</span>
+        </div>
+
+        <div id="09-stage6-serial7-calm" class="09-stage6-serial7-calm">🌿 ค่อย ๆ คิด ไม่ต้องรีบ</div>
+      </div>
+    </div>
+
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script>
+      (function () {
+        var FID = "09-stage6-serial7";
+        var P = FID + "-";
+        var $ = function (id) { return document.getElementById(P + id); };
+        var tl = gsap.timeline({ paused: true });
+
+        // ---- initial states (seek-safe sets at t=0) ----
+        var hidden = [$("q0")];
+        for (var k = 1; k < 5; k++) { hidden.push($("m" + k), $("q" + k)); }
+        for (var k2 = 0; k2 < 5; k2++) { hidden.push($("a" + k2 + "d0"), $("a" + k2 + "d1")); }
+        for (var n = 2; n <= 5; n++) { hidden.push($("n" + n)); }
+        for (var t = 1; t <= 5; t++) { hidden.push($("t" + t), $("sep" + t)); }
+        tl.set(hidden, { opacity: 0 }, 0);
+        tl.set($("calm"), { opacity: 0 }, 0);
+
+        // ---- macro: a slow, quiet push under the whole shot ----
+        tl.fromTo($("stage"), { scale: 1 }, { scale: 1.02, duration: 6, ease: "none" }, 0);
+        // wallpaper drift (finite, linear)
+        tl.fromTo([$("fp1"), $("fp4"), $("fp6")], { y: 0 }, { y: -14, duration: 6, ease: "none" }, 0);
+        tl.fromTo([$("fp2"), $("fp3"), $("fp5")], { y: 0 }, { y: 12, duration: 6, ease: "none" }, 0);
+
+        // ---- Scene 1 (0.0–1.6): rail dot 6 current, tag, card, "100 − 7 = ?" ----
+        // rail container is static (handoff); only dot 6 settles into its enlarged state
+        tl.fromTo($("dot6"), { scale: 1 }, { scale: 1.45, duration: 0.4, ease: "back.out(2.2)" }, 0.1);
+        tl.fromTo($("tag"), { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.12);
+        tl.fromTo($("card"), { opacity: 0, y: 26, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "power3.out" }, 0.2);
+        tl.fromTo($("m0"), { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 0.5);
+        tl.fromTo($("minus"), { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.25, ease: "power2.out" }, 0.68);
+        tl.fromTo($("seven"), { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 0.78);
+        tl.fromTo($("equals"), { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.25, ease: "power2.out" }, 0.9);
+        tl.fromTo($("q0"), { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2.4)" }, 1.02);
+        tl.fromTo($("counter"), { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.35, ease: "power3.out" }, 1.1);
+        tl.fromTo($("trail"), { opacity: 0 }, { opacity: 1, duration: 0.01 }, 1.2);
+        tl.fromTo($("t0"), { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 1.25);
+
+        // ---- Scene 2 (1.6–4.8): five answers, each result slides into the minuend (cut-the-curve, leftward) ----
+        var D = 230;          // partial travel, same distance both sides
+        var EXIT = 0.14;      // power4.in exit
+        var ENTER = 0.2;      // power4.out entry (>= exit)
+        for (var c = 0; c < 5; c++) {
+          var ty = 1.6 + 0.7 * c;           // answer types in
+          // "?" hard-cuts out, digits type on
+          tl.set($("q" + c), { opacity: 0 }, ty);
+          tl.fromTo($("a" + c + "d0"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, ty);
+          tl.fromTo($("a" + c + "d1"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, ty + 0.09);
+          // counter steps ข้อ c+1/5
+          if (c > 0) {
+            tl.set($("n" + c), { opacity: 0 }, ty);
+            tl.fromTo($("n" + (c + 1)), { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)" }, ty);
+          }
+          // result joins the muted trail
+          tl.fromTo($("sep" + (c + 1)), { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.2, ease: "power2.out" }, ty + 0.12);
+          tl.fromTo($("t" + (c + 1)), { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, ty + 0.15);
+
+          if (c < 4) {
+            // cut-the-curve: outgoing minuend + answer accelerate left and fade early...
+            var ex = ty + 0.34;
+            tl.to([$("m" + c), $("a" + c)], { x: -D, duration: EXIT, ease: "power4.in" }, ex);
+            tl.to([$("m" + c), $("a" + c)], { opacity: 0, duration: EXIT * 0.7, ease: "none" }, ex + EXIT * 0.3);
+            // ...the result arrives as the new minuend, still travelling left, decelerating
+            var en = ex + EXIT;
+            tl.fromTo($("m" + (c + 1)), { x: D, opacity: 0 }, { x: 0, opacity: 1, duration: ENTER, ease: "power4.out" }, en);
+            tl.fromTo($("q" + (c + 1)), { x: D, opacity: 0 }, { x: 0, opacity: 1, duration: ENTER, ease: "power4.out" }, en);
+          }
+        }
+        // 5/5 lands: counter fill settles to lime-soft acknowledgement
+        tl.to($("counter"), { backgroundColor: "#e8f5e9", duration: 0.3, ease: "power2.out" }, 4.45);
+
+        // ---- Scene 3 (4.8–6.0): the breather ----
+        tl.fromTo($("calm"), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 4.85);
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines[FID] = tl;
+      })();
+    </script>
+  </div>
+</template>

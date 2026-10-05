@@ -1,0 +1,585 @@
+<template>
+  <style>
+@font-face{font-family:'Noto Color Emoji';src:url('assets/fonts/NotoColorEmoji.ttf') format('truetype');}
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; }
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-Medium.ttf") format("truetype"); font-weight: 500; font-style: normal; }
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-SemiBold.ttf") format("truetype"); font-weight: 600; font-style: normal; }
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-Bold.ttf") format("truetype"); font-weight: 700; font-style: normal; }
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-ExtraBold.ttf") format("truetype"); font-weight: 800; font-style: normal; }
+    @font-face { font-family: "Anuphan"; src: url("assets/fonts/Anuphan.ttf") format("truetype"); font-weight: 100 700; font-style: normal; }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      font-family: "Anuphan", sans-serif;
+      color: #23350e;
+      container-type: size;
+    }
+
+    /* ---------- atmosphere (full-bleed clip) ---------- */
+    .s06-stage2-clock-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 82% 30%, rgba(130, 149, 75, 0.14) 0%, rgba(130, 149, 75, 0) 42%),
+        radial-gradient(circle at 12% 78%, rgba(74, 107, 34, 0.09) 0%, rgba(74, 107, 34, 0) 40%),
+        radial-gradient(circle at 45% 8%, rgba(253, 243, 208, 0.7) 0%, rgba(253, 243, 208, 0) 35%),
+        #f7f9f4;
+    }
+    .s06-stage2-clock-grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>");
+    }
+    .s06-stage2-clock-float {
+      position: absolute;
+      border: 2px solid #355115;
+      border-radius: 9999px;
+    }
+
+    /* ---------- stage rail (handoff: static) ---------- */
+    .s06-stage2-clock-rail {
+      position: absolute;
+      left: 811px;
+      top: 55px;
+      width: 298px;
+      height: 18px;
+      display: flex;
+      gap: 22px;
+    }
+    .s06-stage2-clock-dot {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 18px;
+      box-sizing: border-box;
+      border-radius: 50%;
+      border: 2px solid #355115;
+      background: #ffffff;
+    }
+    .s06-stage2-clock-dot-done { background: #4a6b22; }
+    .s06-stage2-clock-dot-current { background: #82954b; transform: scale(1.5); }
+
+    /* ---------- camera wrapper ---------- */
+    .s06-stage2-clock-stage {
+      position: absolute;
+      inset: 0;
+      transform-origin: 960px 500px;
+    }
+
+    /* ---------- left column ---------- */
+    .s06-stage2-clock-tag {
+      position: absolute;
+      left: 110px;
+      top: 188px;
+      height: 60px;
+      padding: 0 30px;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+      background: #fdf3d0;
+      border: 2px solid #355115;
+      border-radius: 9999px;
+      box-shadow: 6px 6px 0 rgba(35, 53, 14, 0.10);
+      font-family: "Anuphan", sans-serif;
+      font-weight: 600;
+      font-size: 34px;
+      line-height: 1;
+      color: #23350e;
+      white-space: nowrap;
+    }
+    .s06-stage2-clock-headline {
+      position: absolute;
+      left: 106px;
+      top: 266px;
+      margin: 0;
+      font-family: "Prompt", sans-serif;
+      font-weight: 700;
+      font-size: 88px;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      color: #23350e;
+      white-space: nowrap;
+    }
+    .s06-stage2-clock-accent {
+      position: absolute;
+      left: 110px;
+      top: 392px;
+      width: 80px;
+      height: 6px;
+      border-radius: 9999px;
+      background: #4a6b22;
+      transform-origin: left center;
+    }
+    .s06-stage2-clock-step {
+      position: absolute;
+      left: 110px;
+      width: 780px;
+      height: 108px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      padding: 0 30px 0 22px;
+      background: #ffffff;
+      border: 2px solid #355115;
+      border-radius: 2rem;
+      box-shadow: 6px 6px 0 rgba(35, 53, 14, 0.10);
+      opacity: 0.45;
+      transform-origin: left center;
+    }
+    .s06-stage2-clock-step-icon {
+      position: relative;
+      width: 68px;
+      height: 68px;
+      flex: 0 0 68px;
+      box-sizing: border-box;
+      border-radius: 50%;
+      border: 2px solid #355115;
+      background: #e0ebd2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .s06-stage2-clock-step-num {
+      font-family: "Prompt", sans-serif;
+      font-weight: 700;
+      font-size: 36px;
+      line-height: 1;
+      color: #23350e;
+    }
+    .s06-stage2-clock-check {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 64px;
+      height: 64px;
+      overflow: visible;
+    }
+    .s06-stage2-clock-check path {
+      fill: none;
+      stroke: #ffffff;
+      stroke-width: 7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .s06-stage2-clock-step-text {
+      font-family: "Anuphan", sans-serif;
+      font-weight: 600;
+      font-size: 42px;
+      line-height: 1.3;
+      color: #23350e;
+      white-space: nowrap;
+    }
+
+    /* ---------- app card ---------- */
+    .s06-stage2-clock-card {
+      position: absolute;
+      left: 1070px;
+      top: 128px;
+      width: 740px;
+      height: 748px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 2px solid #355115;
+      border-radius: 24px;
+      box-shadow: 12px 12px 0 rgba(35, 53, 14, 0.10);
+    }
+    .s06-stage2-clock-card-head {
+      position: absolute;
+      left: 28px;
+      top: 26px;
+      width: 684px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .s06-stage2-clock-card-title {
+      font-family: "Prompt", sans-serif;
+      font-weight: 600;
+      font-size: 36px;
+      line-height: 1.2;
+      color: #23350e;
+      white-space: nowrap;
+    }
+    .s06-stage2-clock-tts {
+      width: 58px;
+      height: 58px;
+      box-sizing: border-box;
+      border-radius: 50%;
+      border: 2px solid #355115;
+      background: #fdf3d0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      line-height: 1;
+    }
+    .s06-stage2-clock-canvas {
+      position: absolute;
+      left: 28px;
+      top: 102px;
+      width: 524px;
+      height: 524px;
+      box-sizing: border-box;
+      border: 2px solid #355115;
+      border-radius: 24px;
+      background: #ffffff;
+      overflow: hidden;
+    }
+    .s06-stage2-clock-canvas-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(53, 81, 21, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(53, 81, 21, 0.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .s06-stage2-clock-svg {
+      position: absolute;
+      left: 30px;
+      top: 104px;
+      width: 520px;
+      height: 520px;
+      overflow: visible;
+    }
+    .s06-stage2-clock-trace-glow {
+      fill: none;
+      stroke: #82954b;
+      stroke-width: 12;
+      stroke-linecap: round;
+      opacity: 0.32;
+    }
+    .s06-stage2-clock-trace {
+      fill: none;
+      stroke: #2e4414;
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .s06-stage2-clock-tray {
+      position: absolute;
+      left: 576px;
+      top: 102px;
+      width: 136px;
+      height: 524px;
+      box-sizing: border-box;
+      border: 2px solid #355115;
+      border-radius: 2rem;
+      background: #f0f7e6;
+    }
+    .s06-stage2-clock-slot {
+      position: absolute;
+      width: 52px;
+      height: 52px;
+      box-sizing: border-box;
+      border-radius: 50%;
+      border: 2px dashed rgba(53, 81, 21, 0.35);
+    }
+    .s06-stage2-clock-numeral {
+      position: absolute;
+      width: 52px;
+      height: 52px;
+      box-sizing: border-box;
+      border-radius: 50%;
+      border: 2px solid #355115;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Prompt", sans-serif;
+      font-weight: 700;
+      font-size: 34px;
+      line-height: 1;
+      color: #23350e;
+      z-index: 3;
+    }
+    .s06-stage2-clock-hands {
+      position: absolute;
+      left: 30px;
+      top: 104px;
+      width: 520px;
+      height: 520px;
+      overflow: visible;
+      z-index: 4;
+    }
+    .s06-stage2-clock-finger {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 44px;
+      height: 44px;
+      z-index: 5;
+    }
+    .s06-stage2-clock-finger-dot {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(130, 149, 75, 0.85) 0%, rgba(130, 149, 75, 0.35) 45%, rgba(130, 149, 75, 0) 72%);
+    }
+    .s06-stage2-clock-finger-emoji {
+      position: absolute;
+      left: 6px;
+      top: 14px;
+      font-size: 56px;
+      line-height: 1;
+    }
+    .s06-stage2-clock-btn-glow {
+      position: absolute;
+      left: 28px;
+      top: 648px;
+      width: 684px;
+      height: 72px;
+      box-sizing: border-box;
+      border-radius: 9999px;
+      border: 6px solid #82954b;
+      opacity: 0;
+    }
+    .s06-stage2-clock-btn {
+      position: absolute;
+      left: 28px;
+      top: 648px;
+      width: 684px;
+      height: 72px;
+      box-sizing: border-box;
+      border-radius: 9999px;
+      border: 2px solid #355115;
+      background: #e0ebd2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Anuphan", sans-serif;
+      font-weight: 600;
+      font-size: 36px;
+      line-height: 1;
+      color: rgba(35, 53, 14, 0.55);
+      white-space: nowrap;
+    }
+  </style>
+
+  <div id="root" data-composition-id="06-stage2-clock" data-width="1920" data-height="1080" data-duration="8.5">
+    <!-- full-bleed ground -->
+    <div id="s06-stage2-clock-ground" class="clip s06-stage2-clock-bg" data-start="0" data-duration="8.5" data-track-index="0">
+      <div class="s06-stage2-clock-grain"></div>
+      <div class="s06-stage2-clock-float" style="left: 46px; top: 96px; width: 132px; height: 40px; background: #fdf3d0; transform: rotate(-18deg);"></div>
+      <div class="s06-stage2-clock-float" style="left: 1840px; top: 40px; width: 54px; height: 54px; background: #f0f7e6;"></div>
+      <div class="s06-stage2-clock-float" style="left: 942px; top: 214px; width: 96px; height: 32px; background: #e8ede0; transform: rotate(22deg);"></div>
+      <div class="s06-stage2-clock-float" style="left: 960px; top: 742px; width: 46px; height: 46px; background: #e8f5e9;"></div>
+      <div class="s06-stage2-clock-float" style="left: 1838px; top: 470px; width: 64px; height: 30px; background: #e0ebd2; transform: rotate(-12deg);"></div>
+    </div>
+
+    <!-- content (camera wrapper) -->
+    <div id="s06-stage2-clock-stage" class="clip s06-stage2-clock-stage" data-layout-allow-overflow data-start="0" data-duration="8.5" data-track-index="1">
+      <div id="s06-stage2-clock-tag" class="s06-stage2-clock-tag">3 ขั้นตอน</div>
+      <h1 id="s06-stage2-clock-headline" class="s06-stage2-clock-headline">ด่าน 2 · วาดนาฬิกา</h1>
+      <div id="s06-stage2-clock-accent" class="s06-stage2-clock-accent"></div>
+
+      <div id="s06-stage2-clock-step1" class="s06-stage2-clock-step" style="top: 438px;">
+        <div id="s06-stage2-clock-icon1" class="s06-stage2-clock-step-icon">
+          <span id="s06-stage2-clock-num1" class="s06-stage2-clock-step-num">1</span>
+          <svg class="s06-stage2-clock-check" viewBox="0 0 64 64"><path id="s06-stage2-clock-chk1" d="M19 33 L28 42 L46 23" /></svg>
+        </div>
+        <span class="s06-stage2-clock-step-text">วาดวงกลม</span>
+      </div>
+      <div id="s06-stage2-clock-step2" class="s06-stage2-clock-step" style="top: 570px;">
+        <div id="s06-stage2-clock-icon2" class="s06-stage2-clock-step-icon">
+          <span id="s06-stage2-clock-num2" class="s06-stage2-clock-step-num">2</span>
+          <svg class="s06-stage2-clock-check" viewBox="0 0 64 64"><path id="s06-stage2-clock-chk2" d="M19 33 L28 42 L46 23" /></svg>
+        </div>
+        <span class="s06-stage2-clock-step-text">วางเลข 1–12</span>
+      </div>
+      <div id="s06-stage2-clock-step3" class="s06-stage2-clock-step" style="top: 702px;">
+        <div id="s06-stage2-clock-icon3" class="s06-stage2-clock-step-icon">
+          <span id="s06-stage2-clock-num3" class="s06-stage2-clock-step-num">3</span>
+          <svg class="s06-stage2-clock-check" viewBox="0 0 64 64"><path id="s06-stage2-clock-chk3" d="M19 33 L28 42 L46 23" /></svg>
+        </div>
+        <span class="s06-stage2-clock-step-text">ตั้งเข็ม 11:10</span>
+      </div>
+
+      <div id="s06-stage2-clock-card" class="s06-stage2-clock-card">
+        <div class="s06-stage2-clock-card-head">
+          <span class="s06-stage2-clock-card-title">🕰️ วาดหน้าปัดนาฬิกา</span>
+          <div class="s06-stage2-clock-tts">🔊</div>
+        </div>
+        <div class="s06-stage2-clock-canvas"><div class="s06-stage2-clock-canvas-grid"></div></div>
+        <svg class="s06-stage2-clock-svg" viewBox="0 0 320 320">
+          <path id="s06-stage2-clock-trace-glow" class="s06-stage2-clock-trace-glow" d="M160 30 A130 130 0 1 1 160 290 A130 130 0 1 1 160 30" />
+          <path id="s06-stage2-clock-trace" class="s06-stage2-clock-trace" d="M160 30 A130 130 0 1 1 160 290 A130 130 0 1 1 160 30" />
+        </svg>
+        <div id="s06-stage2-clock-tray" class="s06-stage2-clock-tray"></div>
+        <div id="s06-stage2-clock-numlayer"></div>
+        <svg id="s06-stage2-clock-hands" class="s06-stage2-clock-hands" viewBox="0 0 320 320">
+          <g id="s06-stage2-clock-hands-g" opacity="0">
+            <line id="s06-stage2-clock-hand-hr" x1="160" y1="160" x2="160" y2="100" stroke="#2e4414" stroke-width="9" stroke-linecap="round" />
+            <line id="s06-stage2-clock-hand-min" x1="160" y1="160" x2="160" y2="76" stroke="#4a6b22" stroke-width="5.5" stroke-linecap="round" />
+            <circle cx="160" cy="160" r="8" fill="#82954b" stroke="#355115" stroke-width="2" />
+          </g>
+        </svg>
+        <div id="s06-stage2-clock-finger" class="s06-stage2-clock-finger" style="opacity: 0;" data-layout-allow-overflow>
+          <div class="s06-stage2-clock-finger-dot"></div>
+          <div class="s06-stage2-clock-finger-emoji">👆</div>
+        </div>
+        <div id="s06-stage2-clock-btn-glow" class="s06-stage2-clock-btn-glow"></div>
+        <div id="s06-stage2-clock-btn" class="s06-stage2-clock-btn">ส่งคำตอบนาฬิกา</div>
+      </div>
+    </div>
+
+    <!-- stage rail: static handoff (x=960 y=64, 8 dots, 18px / 22px gap) -->
+    <div id="s06-stage2-clock-rail-clip" class="clip" data-start="0" data-duration="8.5" data-track-index="2" style="position: absolute; inset: 0;">
+      <div class="s06-stage2-clock-rail">
+        <div class="s06-stage2-clock-dot s06-stage2-clock-dot-done"></div>
+        <div class="s06-stage2-clock-dot s06-stage2-clock-dot-current"></div>
+        <div class="s06-stage2-clock-dot"></div>
+        <div class="s06-stage2-clock-dot"></div>
+        <div class="s06-stage2-clock-dot"></div>
+        <div class="s06-stage2-clock-dot"></div>
+        <div class="s06-stage2-clock-dot"></div>
+        <div class="s06-stage2-clock-dot"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script>
+    (function () {
+      var ID = "06-stage2-clock";
+      var $ = function (s) { return document.getElementById("s06-stage2-clock-" + s); };
+      var tl = gsap.timeline({ paused: true });
+
+      // ---- geometry (card padding-box px) ----
+      var K = 520 / 320;           // 320px app canvas scaled up
+      var OX = 30, OY = 104;       // svg origin inside card
+      var CX = OX + 160 * K, CY = OY + 160 * K;
+      var NUM_R = 104 * K;
+
+      // ---- build tray slots + numerals (deterministic) ----
+      var tray = $("tray");
+      var layer = $("numlayer");
+      var nums = [];
+      for (var n = 1; n <= 12; n++) {
+        var col = (n - 1) % 2, row = Math.floor((n - 1) / 2);
+        var tx = 576 + (col === 0 ? 36 : 100);
+        var ty = 102 + 52 + row * 84;
+        var slot = document.createElement("div");
+        slot.className = "s06-stage2-clock-slot";
+        slot.style.left = (tx - 576 - 26 - 2) + "px";
+        slot.style.top = (ty - 102 - 26 - 2) + "px";
+        tray.appendChild(slot);
+
+        var a = (n * 30 - 90) * Math.PI / 180;
+        var fx = CX + NUM_R * Math.cos(a), fy = CY + NUM_R * Math.sin(a);
+        var el = document.createElement("div");
+        el.className = "s06-stage2-clock-numeral";
+        el.id = "s06-stage2-clock-n" + n;
+        el.textContent = String(n);
+        el.style.left = (fx - 26).toFixed(2) + "px";
+        el.style.top = (fy - 26).toFixed(2) + "px";
+        layer.appendChild(el);
+        nums.push({ el: el, dx: tx - fx, dy: ty - fy });
+      }
+
+      // ---- camera: slow push under everything (rail excluded) ----
+      tl.fromTo($("stage"), { scale: 1 }, { scale: 1.015, duration: 8, ease: "none" }, 0);
+
+      // ---- Scene 1 (0.0–2.6): establish, circle trace, step 1 ✓ ----
+      tl.fromTo($("card"), { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0);
+      tl.fromTo($("tag"), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.05);
+      tl.fromTo($("headline"), { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.12);
+      tl.fromTo($("accent"), { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power2.out" }, 0.4);
+      [1, 2, 3].forEach(function (i, k) {
+        tl.fromTo($("step" + i), { opacity: 0, x: -30 }, { opacity: 0.45, x: 0, duration: 0.4, ease: "power2.out" }, 0.5 + k * 0.12);
+      });
+
+      function activate(i, t) {
+        var s = $("step" + i);
+        tl.to(s, { opacity: 1, scale: 1.03, backgroundColor: "#fdf3d0", duration: 0.3, ease: "power2.out" }, t);
+        tl.to($("icon" + i), { backgroundColor: "#82954b", duration: 0.3, ease: "power1.out" }, t);
+      }
+      function done(i, t) {
+        var s = $("step" + i);
+        var chk = $("chk" + i);
+        tl.to(s, { scale: 1, backgroundColor: "#ffffff", duration: 0.35, ease: "power2.out" }, t);
+        tl.to($("icon" + i), { backgroundColor: "#4a6b22", duration: 0.2, ease: "power1.out" }, t);
+        tl.fromTo($("icon" + i), { scale: 1 }, { scale: 1.18, duration: 0.14, ease: "power2.out" }, t);
+        tl.to($("icon" + i), { scale: 1, duration: 0.3, ease: "back.out(3)" }, t + 0.14);
+        tl.fromTo($("num" + i), { opacity: 1 }, { opacity: 0, duration: 0.12, ease: "none" }, t);
+        var L = chk.getTotalLength();
+        tl.fromTo(chk, { strokeDasharray: L, strokeDashoffset: L }, { strokeDashoffset: 0, duration: 0.32, ease: "power2.out" }, t + 0.06);
+      }
+
+      // trace circle (svg-path-draw) driven by one proxy so the fingertip rides the pen tip
+      var trace = $("trace"), glow = $("trace-glow"), finger = $("finger");
+      var TL_LEN = trace.getTotalLength() * 1.01;
+      [trace, glow].forEach(function (p) {
+        p.style.strokeDasharray = TL_LEN;
+        p.style.strokeDashoffset = TL_LEN;
+      });
+      function placeFinger(p) {
+        var ang = (-90 + 360 * p) * Math.PI / 180;
+        var x = OX + (160 + 130 * Math.cos(ang)) * K - 22;
+        var y = OY + (160 + 130 * Math.sin(ang)) * K - 22;
+        finger.style.transform = "translate(" + x.toFixed(2) + "px," + y.toFixed(2) + "px)";
+      }
+      var pen = { p: 0 };
+      placeFinger(0);
+      activate(1, 0.95);
+      tl.fromTo(finger, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power1.out" }, 1.0);
+      tl.fromTo(pen, { p: 0 }, {
+        p: 1, duration: 1.2, ease: "none",
+        onUpdate: function () {
+          var off = TL_LEN * (1 - pen.p);
+          trace.style.strokeDashoffset = off;
+          glow.style.strokeDashoffset = off;
+          placeFinger(pen.p);
+        }
+      }, 1.2);
+      tl.to(finger, { opacity: 0, duration: 0.25, ease: "power1.out" }, 2.45);
+      tl.fromTo(glow, { opacity: 0.32 }, { opacity: 0.12, duration: 0.4, ease: "power1.out" }, 2.4);
+      done(1, 2.4);
+
+      // ---- Scene 2 (2.6–5.2): numerals drop from tray and snap-lock onto the dial ----
+      activate(2, 2.65);
+      var START = 2.8, STAG = 0.17, FLY = 0.34;
+      nums.forEach(function (o, k) {
+        var t0 = START + k * STAG;
+        tl.fromTo(o.el, { x: o.dx, y: o.dy, scale: 1 }, { x: 0, y: 0, scale: 1.3, duration: FLY, ease: "power2.in" }, t0);
+        tl.to(o.el, { scale: 1, duration: 0.22, ease: "back.out(3)" }, t0 + FLY);
+        tl.fromTo(o.el,
+          { backgroundColor: "rgba(255,255,255,1)", borderColor: "rgba(53,81,21,1)" },
+          { backgroundColor: "rgba(255,255,255,0)", borderColor: "rgba(53,81,21,0)", duration: 0.14, ease: "none" },
+          t0 + FLY);
+      });
+      done(2, START + 11 * STAG + FLY + 0.18); // ≈ 5.19
+
+      // ---- Scene 3 (5.2–8.0): hands swing to 11:10, step 3 ✓, submit glows ----
+      activate(3, 5.25);
+      var handsG = $("hands-g"), hr = $("hand-hr"), mn = $("hand-min");
+      tl.fromTo(handsG, { attr: { opacity: 0 } }, { attr: { opacity: 1 }, duration: 0.25, ease: "power1.out" }, 5.3);
+      var mState = { m: 0 }, hState = { h: 0 };
+      hr.setAttribute("transform", "rotate(0 160 160)");
+      mn.setAttribute("transform", "rotate(0 160 160)");
+      tl.fromTo(mState, { m: 0 }, {
+        m: 60, duration: 1.1, ease: "power3.inOut",
+        onUpdate: function () { mn.setAttribute("transform", "rotate(" + mState.m.toFixed(3) + " 160 160)"); }
+      }, 5.45);
+      tl.fromTo(hState, { h: 0 }, {
+        h: -25, duration: 1.0, ease: "power3.inOut", immediateRender: false,
+        onUpdate: function () { hr.setAttribute("transform", "rotate(" + hState.h.toFixed(3) + " 160 160)"); }
+      }, 5.55);
+      done(3, 6.6);
+
+      var btn = $("btn"), bg = $("btn-glow");
+      tl.to(btn, { backgroundColor: "#4a6b22", color: "#ffffff", duration: 0.35, ease: "power2.out" }, 6.8);
+      tl.fromTo(btn, { scale: 1 }, { scale: 1.04, duration: 0.2, ease: "power2.out" }, 6.8);
+      tl.to(btn, { scale: 1, duration: 0.35, ease: "back.out(2.5)" }, 7.0);
+      tl.fromTo(bg, { opacity: 0.8, scale: 1 }, { opacity: 0, scale: 1.12, duration: 0.6, ease: "power2.out" }, 6.85);
+      tl.fromTo(bg, { opacity: 0.8, scale: 1 }, { opacity: 0.45, scale: 1.06, duration: 0.5, ease: "power2.out", immediateRender: false }, 7.45);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines[ID] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,374 @@
+<template>
+  <div
+    id="root"
+    data-composition-id="10-stage7-8-recall-orientation"
+    data-start="0"
+    data-duration="8.4"
+    data-width="1920"
+    data-height="1080"
+  >
+    <style>
+@font-face{font-family:'Noto Color Emoji';src:url('assets/fonts/NotoColorEmoji.ttf') format('truetype');}
+      @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-Regular.ttf") format("truetype"); font-weight: 400; }
+      @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-Medium.ttf") format("truetype"); font-weight: 500; }
+      @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-SemiBold.ttf") format("truetype"); font-weight: 600; }
+      @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-Bold.ttf") format("truetype"); font-weight: 700; }
+      @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-ExtraBold.ttf") format("truetype"); font-weight: 800; }
+      @font-face { font-family: "Anuphan"; src: url("assets/fonts/Anuphan.ttf") format("truetype"); font-weight: 100 700; }
+
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        font-family: "Anuphan", "Noto Color Emoji", sans-serif;
+        color: #23350e;
+      }
+      #root * { box-sizing: border-box; }
+
+      /* ---------- ground ---------- */
+      #f10-bg {
+        position: absolute; inset: 0;
+        background:
+          radial-gradient(ellipse 900px 700px at 12% 18%, rgba(130,149,75,0.13), transparent 70%),
+          radial-gradient(ellipse 800px 650px at 88% 78%, rgba(253,243,208,0.95), transparent 70%),
+          radial-gradient(ellipse 700px 600px at 70% 10%, rgba(224,235,210,0.7), transparent 70%),
+          #f7f9f4;
+      }
+      #f10-grain {
+        position: absolute; inset: 0; opacity: 0.04; pointer-events: none;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='7' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      }
+      .f10-float {
+        position: absolute; border: 2px solid #355115; border-radius: 9999px;
+        display: flex; align-items: center; justify-content: center;
+        font-family: "Noto Color Emoji", sans-serif; font-size: 34px;
+      }
+
+      /* ---------- stage rail (handoff contract) ---------- */
+      #f10-rail { position: absolute; left: 811px; top: 55px; width: 298px; height: 18px; }
+      .f10-dot {
+        position: absolute; top: 0; width: 18px; height: 18px; border-radius: 50%;
+        border: 2px solid #355115; background: #ffffff;
+      }
+      .f10-dot.f10-done { background: #4a6b22; }
+
+      /* ---------- left column ---------- */
+      .f10-left { position: absolute; left: 130px; top: 210px; width: 660px; }
+      .f10-icon {
+        width: 150px; height: 150px; border-radius: 50%;
+        border: 2px solid #355115; background: #f0f7e6;
+        box-shadow: 6px 6px 0 rgba(35,53,14,0.10);
+        display: flex; align-items: center; justify-content: center;
+        font-family: "Noto Color Emoji", sans-serif; font-size: 76px; line-height: 1;
+      }
+      .f10-stagepill {
+        display: inline-block; margin-top: 40px; padding: 8px 30px;
+        background: #fdf3d0; border: 2px solid #355115; border-radius: 9999px;
+        box-shadow: 6px 6px 0 rgba(35,53,14,0.10);
+        font-family: "Anuphan"; font-weight: 600; font-size: 38px; line-height: 1.3;
+      }
+      .f10-head {
+        margin-top: 26px; font-family: "Prompt"; font-weight: 700; color: #23350e;
+        font-size: 120px; line-height: 1.12;
+      }
+      .f10-head.f10-two { font-size: 100px; }
+      .f10-accent { margin-top: 30px; width: 80px; height: 6px; border-radius: 9999px; background: #4a6b22; }
+
+      /* ---------- card ---------- */
+      #f10-card {
+        position: absolute; left: 860px; top: 140px; width: 960px; height: 730px;
+        background: #ffffff; border: 2px solid #355115; border-radius: 32px;
+        box-shadow: 8px 8px 0 rgba(35,53,14,0.10);
+      }
+      .f10-panel { position: absolute; left: 56px; right: 56px; top: 48px; bottom: 48px; }
+
+      /* stage 7 */
+      .f10-cardhead { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+      .f10-cardtitle { font-family: "Prompt"; font-weight: 600; font-size: 40px; }
+      .f10-count {
+        padding: 4px 22px; border: 2px solid #355115; border-radius: 9999px; background: #e8f5e9;
+        font-family: "Prompt"; font-weight: 700; font-size: 34px; min-width: 110px; text-align: center;
+      }
+      .f10-slots { position: absolute; top: 84px; left: 0; right: 0; }
+      .f10-slotrow { display: flex; align-items: center; height: 76px; margin-bottom: 14px; }
+      .f10-num {
+        width: 56px; height: 56px; flex: 0 0 56px; border-radius: 50%;
+        border: 2px solid #355115; background: #f0f7e6;
+        display: flex; align-items: center; justify-content: center;
+        font-family: "Prompt"; font-weight: 700; font-size: 34px;
+      }
+      .f10-slot {
+        position: relative; margin-left: 22px; flex: 1; height: 76px;
+        border: 2px dashed rgba(53,81,21,0.45); border-radius: 9999px; background: #f7f9f4;
+      }
+      .f10-chip {
+        position: absolute; inset: -2px; border: 2px solid #355115; border-radius: 9999px;
+        display: flex; align-items: center; justify-content: space-between; padding: 0 30px;
+        font-family: "Anuphan"; font-weight: 600; font-size: 40px;
+        box-shadow: 4px 4px 0 rgba(35,53,14,0.10); opacity: 0;
+      }
+      .f10-chip .f10-tick { font-family: "Prompt"; font-weight: 700; color: #4a6b22; font-size: 38px; }
+      #f10-hintwrap { position: absolute; left: 50%; top: 556px; width: 360px; margin-left: -180px; height: 78px; }
+      #f10-hintglow {
+        position: absolute; inset: 0; border-radius: 9999px;
+        box-shadow: 0 0 0 10px rgba(253,220,120,0.85), 0 0 40px 14px rgba(253,210,90,0.65);
+        opacity: 0;
+      }
+      #f10-hint {
+        position: absolute; inset: 0; border-radius: 9999px; border: 2px solid #355115;
+        background: #fdf3d0; box-shadow: 4px 4px 0 rgba(35,53,14,0.10);
+        display: flex; align-items: center; justify-content: center; gap: 12px;
+        font-family: "Anuphan"; font-weight: 600; font-size: 38px;
+      }
+      #f10-hint .f10-emo { font-family: "Noto Color Emoji"; font-size: 36px; }
+
+      /* stage 8 */
+      .f10-rows { position: absolute; top: 4px; left: 0; right: 0; }
+      .f10-row { display: flex; align-items: center; height: 68px; margin-bottom: 13px; }
+      .f10-label { width: 200px; flex: 0 0 200px; font-family: "Anuphan"; font-weight: 500; font-size: 36px; }
+      .f10-field {
+        position: relative; flex: 1; height: 68px; border: 2px solid #355115; border-radius: 9999px;
+        background: #ffffff; display: flex; align-items: center; padding: 0 30px;
+      }
+      .f10-val {
+        font-family: "Prompt"; font-weight: 600; font-size: 38px; white-space: nowrap;
+      }
+      .f10-caret {
+        display: inline-block; width: 4px; height: 40px; margin-left: 4px; background: #4a6b22;
+        border-radius: 2px; opacity: 0;
+      }
+      .f10-arrow {
+        position: absolute; right: 26px; top: 50%; margin-top: -20px; height: 40px; line-height: 40px;
+        font-family: "Prompt"; font-size: 30px; color: #4a6b22;
+      }
+      #f10-sendwrap { position: absolute; left: 50%; top: 516px; width: 440px; margin-left: -220px; height: 92px; }
+      #f10-sendglow {
+        position: absolute; inset: -4px; border-radius: 9999px;
+        box-shadow: 0 0 0 8px rgba(130,149,75,0.35), 0 6px 36px 10px rgba(130,149,75,0.45);
+        opacity: 0;
+      }
+      #f10-send {
+        position: absolute; inset: 0; border-radius: 9999px; border: 2px solid #355115;
+        background: linear-gradient(135deg, #82954b, #4a6b22);
+        box-shadow: 0 4px 15px rgba(130,149,75,0.35);
+        display: flex; align-items: center; justify-content: center;
+        font-family: "Prompt"; font-weight: 600; font-size: 42px; color: #ffffff;
+      }
+      #f10-check {
+        position: absolute; right: -26px; top: -26px; width: 64px; height: 64px; border-radius: 50%;
+        border: 2px solid #355115; background: #e8f5e9; color: #4a6b22;
+        display: flex; align-items: center; justify-content: center;
+        font-family: "Prompt"; font-weight: 800; font-size: 38px; opacity: 0;
+      }
+      .f10-ripple {
+        position: absolute; left: 50%; top: 50%; width: 100px; height: 100px; margin: -50px 0 0 -50px;
+        border-radius: 50%; border: 3px solid #82954b; opacity: 0; pointer-events: none;
+      }
+
+      /* cursor */
+      #f10-cursor { position: absolute; left: 0; top: 0; width: 52px; height: 64px; z-index: 50; pointer-events: none; opacity: 0; }
+    </style>
+
+    <!-- ground -->
+    <div id="f10-bg" class="clip" data-start="0" data-duration="8.4" data-track-index="0">
+      <div id="f10-grain"></div>
+      <div class="f10-float" style="left:-30px; top:640px; width:150px; height:64px; background:#e0ebd2; transform:rotate(-18deg);">🌿</div>
+      <div class="f10-float" style="left:120px; top:96px; width:76px; height:76px; border-radius:50%; background:#fdf3d0; transform:rotate(12deg);">🌼</div>
+      <div class="f10-float" style="left:1780px; top:40px; width:140px; height:60px; background:#e8f5e9; transform:rotate(20deg);">🍃</div>
+      <div class="f10-float" style="left:640px; top:790px; width:120px; height:56px; background:#f0f7e6; transform:rotate(14deg);">🌱</div>
+    </div>
+
+    <!-- main stage -->
+    <div id="f10-stage" class="clip" data-start="0" data-duration="8.4" data-track-index="1" style="position:absolute; inset:0;">
+
+      <!-- stage rail: 8 dots, 18px, 22px gap, centered on x=960 y=64 -->
+      <div id="f10-rail">
+        <div class="f10-dot f10-done" style="left:0px"></div>
+        <div class="f10-dot f10-done" style="left:40px"></div>
+        <div class="f10-dot f10-done" style="left:80px"></div>
+        <div class="f10-dot f10-done" style="left:120px"></div>
+        <div class="f10-dot f10-done" style="left:160px"></div>
+        <div class="f10-dot f10-done" style="left:200px"></div>
+        <div class="f10-dot" id="f10-dot7" style="left:240px"></div>
+        <div class="f10-dot" id="f10-dot8" style="left:280px"></div>
+      </div>
+
+      <!-- left: stage 7 -->
+      <div class="f10-left" id="f10-leftA">
+        <div class="f10-icon">🌹</div>
+        <div class="f10-stagepill">ด่าน 7/8</div>
+        <div class="f10-head">ระลึกคำ</div>
+        <div class="f10-accent"></div>
+      </div>
+      <!-- left: stage 8 -->
+      <div class="f10-left" id="f10-leftB" style="opacity:0">
+        <div class="f10-icon" style="background:#fdf3d0">🗺️</div>
+        <div class="f10-stagepill" style="background:#e0ebd2">ด่าน 8/8</div>
+        <div class="f10-head f10-two">วันเวลา<br />และสถานที่</div>
+        <div class="f10-accent"></div>
+      </div>
+
+      <!-- the card -->
+      <div id="f10-card">
+        <!-- stage 7 panel -->
+        <div class="f10-panel" id="f10-panelA">
+          <div class="f10-cardhead">
+            <div class="f10-cardtitle">คำที่จำได้</div>
+            <div class="f10-count" id="f10-count">0/5</div>
+          </div>
+          <div class="f10-slots">
+            <div class="f10-slotrow"><div class="f10-num">1</div><div class="f10-slot"><div class="f10-chip" id="f10-chip1" style="background:#e8f5e9">ดอกกุหลาบ<span class="f10-tick">✓</span></div></div></div>
+            <div class="f10-slotrow"><div class="f10-num">2</div><div class="f10-slot"><div class="f10-chip" id="f10-chip2" style="background:#fdf3d0">แมลงปอ<span class="f10-tick">✓</span></div></div></div>
+            <div class="f10-slotrow"><div class="f10-num">3</div><div class="f10-slot"><div class="f10-chip" id="f10-chip3" style="background:#e0ebd2">ม้านั่ง<span class="f10-tick">✓</span></div></div></div>
+            <div class="f10-slotrow"><div class="f10-num">4</div><div class="f10-slot"><div class="f10-chip" id="f10-chip4" style="background:#fff9e6">สายรุ้ง<span class="f10-tick">✓</span></div></div></div>
+            <div class="f10-slotrow"><div class="f10-num">5</div><div class="f10-slot"><div class="f10-chip" id="f10-chip5" style="background:#f0f7e6">ตะกร้า<span class="f10-tick">✓</span></div></div></div>
+          </div>
+          <div id="f10-hintwrap">
+            <div id="f10-hintglow"></div>
+            <div id="f10-hint"><span class="f10-emo">💡</span>ขอคำใบ้</div>
+          </div>
+        </div>
+
+        <!-- stage 8 panel -->
+        <div class="f10-panel" id="f10-panelB" style="opacity:0">
+          <div class="f10-rows">
+            <div class="f10-row"><div class="f10-label">วันที่</div><div class="f10-field" id="f10-f0"><span class="f10-val"></span><span class="f10-caret"></span><span class="f10-arrow">▾</span></div></div>
+            <div class="f10-row"><div class="f10-label">เดือน</div><div class="f10-field" id="f10-f1"><span class="f10-val"></span><span class="f10-caret"></span><span class="f10-arrow">▾</span></div></div>
+            <div class="f10-row"><div class="f10-label">ปี พ.ศ.</div><div class="f10-field" id="f10-f2"><span class="f10-val"></span><span class="f10-caret"></span><span class="f10-arrow">▾</span></div></div>
+            <div class="f10-row"><div class="f10-label">วัน</div><div class="f10-field" id="f10-f3"><span class="f10-val"></span><span class="f10-caret"></span><span class="f10-arrow">▾</span></div></div>
+            <div class="f10-row"><div class="f10-label">ช่วงเวลา</div><div class="f10-field" id="f10-f4"><span class="f10-val"></span><span class="f10-caret"></span><span class="f10-arrow">▾</span></div></div>
+            <div class="f10-row"><div class="f10-label">จังหวัด</div><div class="f10-field" id="f10-f5"><span class="f10-val"></span><span class="f10-caret"></span><span class="f10-arrow">▾</span></div></div>
+          </div>
+          <div id="f10-sendwrap">
+            <div id="f10-sendglow"></div>
+            <div id="f10-send">ส่งคำตอบ</div>
+            <div class="f10-ripple" id="f10-rip1"></div>
+            <div class="f10-ripple" id="f10-rip2"></div>
+            <div class="f10-ripple" id="f10-rip3"></div>
+            <div id="f10-check">✓</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- cursor (tip at element origin) -->
+      <svg id="f10-cursor" viewBox="0 0 26 32" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 2 L2 26 L8.5 20 L13 30 L17.5 28 L13 18.5 L22 18.5 Z" fill="#23350e" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" />
+      </svg>
+    </div>
+
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script>
+      (function () {
+        var ID = "10-stage7-8-recall-orientation";
+        var root = document.querySelector('[data-composition-id="' + ID + '"]');
+        var q = function (s) { return root.querySelector(s); };
+        var tl = gsap.timeline({ paused: true });
+        var DUR = 8;
+
+        // ---------- rail: dot 7 current at the cut ----------
+        tl.set("#f10-dot7", { backgroundColor: "#82954b", scale: 1.4 }, 0);
+        tl.set("#f10-dot8", { backgroundColor: "#ffffff", scale: 1 }, 0);
+
+        // ---------- Scene 1 (0–3.6): words drop back into slots (waterfall-entry, from above) ----------
+        var chipStarts = [0.75, 0.97, 1.16, 1.33, 1.48];
+        var chipDurs = [0.2, 0.18, 0.17, 0.16, 0.16];
+        var chipY = [-80, -60, -55, -50, -50];
+        for (var i = 0; i < 5; i++) {
+          var sel = "#f10-chip" + (i + 1);
+          tl.set(sel, { opacity: 1, y: chipY[i] }, chipStarts[i]);
+          tl.to(sel, { y: 0, duration: chipDurs[i], ease: "power4.out" }, chipStarts[i]);
+        }
+
+        // hint button glows once on "คำใบ้"
+        var HINT = 2.5;
+        tl.fromTo("#f10-hintglow", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1.04, duration: 0.3, ease: "power2.out" }, HINT);
+        tl.to("#f10-hintglow", { opacity: 0.25, scale: 1, duration: 0.6, ease: "power2.inOut" }, HINT + 0.3);
+        tl.fromTo("#f10-hint", { scale: 1 }, { scale: 1.07, duration: 0.18, ease: "power2.out" }, HINT);
+        tl.to("#f10-hint", { scale: 1, duration: 0.35, ease: "back.out(2)" }, HINT + 0.18);
+
+        // ---------- Scene 2 (3.6–6.6): swap to stage 8 ----------
+        var SW = 3.55;
+        tl.to("#f10-dot7", { backgroundColor: "#4a6b22", scale: 1, duration: 0.25, ease: "power2.out" }, SW);
+        tl.to("#f10-dot8", { backgroundColor: "#82954b", scale: 1.4, duration: 0.3, ease: "back.out(2)" }, SW + 0.05);
+        tl.to("#f10-leftA", { opacity: 0, x: -30, duration: 0.22, ease: "power2.in" }, SW);
+        tl.fromTo("#f10-leftB", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, SW + 0.18);
+        tl.to("#f10-panelA", { opacity: 0, scale: 0.96, duration: 0.22, ease: "power2.in" }, SW);
+        tl.fromTo("#f10-panelB", { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: 0.38, ease: "power3.out" }, SW + 0.18);
+
+        // typed values (discrete-text-sequence), one row after another
+        var FIELDS = [
+          { s: 3.95, seq: ["5"] },
+          { s: 4.3, seq: ["ตุ", "ตุลา", "ตุลาคม"] },
+          { s: 4.75, seq: ["2", "25", "256", "2569"] },
+          { s: 5.2, seq: ["จัน", "จันทร์"] },
+          { s: 5.6, seq: ["เช", "เช้า"] },
+          { s: 5.95, seq: ["กรุง", "กรุงเทพ", "กรุงเทพฯ"] }
+        ];
+        var STEP = 0.08;
+        var fieldEls = FIELDS.map(function (f, k) {
+          var el = q("#f10-f" + k);
+          f.end = f.s + STEP * (f.seq.length - 1);
+          return { field: el, val: el.querySelector(".f10-val"), caret: el.querySelector(".f10-caret") };
+        });
+        function valAt(f, t) {
+          if (t < f.s) return "";
+          var idx = Math.min(f.seq.length - 1, Math.floor((t - f.s) / STEP + 1e-6));
+          return f.seq[idx];
+        }
+        FIELDS.forEach(function (f, k) {
+          tl.set("#f10-f" + k, { backgroundColor: "#e8f5e9" }, f.end + 0.12);
+          tl.fromTo("#f10-f" + k, { scale: 1 }, { scale: 1.025, duration: 0.08, ease: "power2.out" }, f.s - 0.04);
+          tl.to("#f10-f" + k, { scale: 1, duration: 0.18, ease: "power2.out" }, f.s + 0.04);
+        });
+
+        var countEl = q("#f10-count");
+        var driver = { t: 0 };
+        tl.to(driver, {
+          t: DUR, duration: DUR, ease: "none",
+          onUpdate: function () {
+            var t = driver.t;
+            // recall counter
+            var n = 0;
+            for (var c = 0; c < 5; c++) if (t >= chipStarts[c] + chipDurs[c]) n++;
+            countEl.textContent = n + "/5";
+            // fields + carets
+            var blinkOn = Math.sin(t * Math.PI * 2 / 0.6) > -0.2;
+            for (var k = 0; k < FIELDS.length; k++) {
+              var f = FIELDS[k];
+              var txt = valAt(f, t);
+              if (fieldEls[k].val.textContent !== txt) fieldEls[k].val.textContent = txt;
+              var active = t >= f.s - 0.1 && t < f.end + 0.3;
+              fieldEls[k].caret.style.opacity = active && blinkOn ? "1" : "0";
+            }
+          }
+        }, 0);
+
+        // ---------- Scene 3 (6.6–8.0): send glows, cursor taps (cursor-click-ripple) ----------
+        // button centre in frame coords: card(860,140)+panel(56,48)+wrap(204+220, 516+46)
+        var BX = 860 + 56 + 204 + 220, BY = 140 + 48 + 516 + 46;
+        tl.fromTo("#f10-sendglow", { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1.03, duration: 0.5, ease: "power2.out" }, 6.6);
+        tl.to("#f10-sendglow", { opacity: 0.6, scale: 1, duration: 0.4, ease: "power2.inOut" }, 7.1);
+
+        tl.set("#f10-cursor", { opacity: 1, x: 1700, y: 800, scale: 1, transformOrigin: "0% 0%" }, 6.5);
+        tl.to("#f10-cursor", { x: BX + 18, y: BY + 4, duration: 0.6, ease: "back.out(1.3)" }, 6.5);
+        var CLICK = 7.25;
+        tl.to("#f10-cursor", { scale: 0.85, duration: 0.08, ease: "power2.in" }, CLICK);
+        tl.to("#f10-cursor", { scale: 1, duration: 0.08, ease: "power2.out" }, CLICK + 0.08);
+        tl.to("#f10-send", { scale: 0.95, duration: 0.08, ease: "power2.in" }, CLICK);
+        tl.to("#f10-send", { scale: 1, duration: 0.08, ease: "power2.out" }, CLICK + 0.08);
+        tl.set(["#f10-rip1", "#f10-rip2", "#f10-rip3"], { opacity: 1, scale: 0 }, CLICK + 0.02);
+        tl.to(["#f10-rip1", "#f10-rip2", "#f10-rip3"], {
+          scale: 5, opacity: 0, duration: 0.6, ease: "power2.out", stagger: 0.08, immediateRender: false
+        }, CLICK + 0.02);
+
+        // success: check stamp + all 8 rail dots green
+        tl.fromTo("#f10-check", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2.2)" }, CLICK + 0.12);
+        tl.to("#f10-dot8", { backgroundColor: "#4a6b22", scale: 1, duration: 0.25, ease: "power2.out" }, CLICK + 0.15);
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines[ID] = tl;
+      })();
+    </script>
+  </div>
+</template>

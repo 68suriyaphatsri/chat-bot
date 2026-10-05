@@ -1,0 +1,550 @@
+<template>
+  <style>
+@font-face{font-family:'Noto Color Emoji';src:url('assets/fonts/NotoColorEmoji.ttf') format('truetype');}
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-Regular.ttf") format("truetype"); font-weight: 400; }
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-Medium.ttf") format("truetype"); font-weight: 500; }
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-SemiBold.ttf") format("truetype"); font-weight: 600; }
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-Bold.ttf") format("truetype"); font-weight: 700; }
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-ExtraBold.ttf") format("truetype"); font-weight: 800; }
+    @font-face { font-family: "Anuphan"; src: url("assets/fonts/Anuphan.ttf") format("truetype"); font-weight: 100 700; }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      color: #23350e;
+      font-family: "Anuphan", sans-serif;
+    }
+    #root * { box-sizing: border-box; }
+
+    /* ---------- ground + atmosphere ---------- */
+    .s8-ground {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(130, 149, 75, 0.13) 0, rgba(130, 149, 75, 0) 34%),
+        radial-gradient(circle at 88% 82%, rgba(253, 243, 208, 0.9) 0, rgba(253, 243, 208, 0) 38%),
+        radial-gradient(circle at 70% 10%, rgba(224, 235, 210, 0.7) 0, rgba(224, 235, 210, 0) 30%),
+        #f7f9f4;
+    }
+    .s8-grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='8'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+    .s8-float {
+      position: absolute;
+      border: 2px solid #355115;
+      border-radius: 9999px;
+    }
+
+    /* ---------- stage rail (static handoff) ---------- */
+    .s8-rail {
+      position: absolute;
+      left: 811px; /* 960 - 298/2 */
+      top: 55px;   /* centre line y = 64 */
+      width: 298px;
+      height: 18px;
+    }
+    .s8-dot {
+      position: absolute;
+      top: 0;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid #355115;
+      background: #ffffff;
+    }
+    .s8-dot.done { background: #4a6b22; }
+    .s8-dot.now {
+      top: -5px;
+      width: 28px;
+      height: 28px;
+      margin-left: -5px;
+      background: #82954b;
+      box-shadow: 3px 3px 0 rgba(35, 53, 14, 0.1);
+    }
+
+    /* ---------- left column ---------- */
+    .s8-tag {
+      position: absolute;
+      left: 120px;
+      top: 196px;
+      padding: 8px 30px;
+      background: #fdf3d0;
+      border: 2px solid #355115;
+      border-radius: 9999px;
+      box-shadow: 6px 6px 0 rgba(35, 53, 14, 0.1);
+      font-size: 38px;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .s8-headline {
+      position: absolute;
+      left: 116px;
+      top: 270px;
+      font-family: "Prompt", sans-serif;
+      font-weight: 700;
+      font-size: 112px;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+    .s8-time {
+      position: absolute;
+      left: 120px;
+      top: 432px;
+      padding: 8px 32px 8px 24px;
+      background: #e0ebd2;
+      border: 2px solid #355115;
+      border-radius: 9999px;
+      box-shadow: 6px 6px 0 rgba(35, 53, 14, 0.1);
+      font-family: "Prompt", sans-serif;
+      font-size: 46px;
+      font-weight: 600;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .s8-mic {
+      position: absolute;
+      left: 120px;
+      top: 548px;
+      width: 560px;
+      height: 124px;
+      background: #ffffff;
+      border: 2px solid #355115;
+      border-radius: 2rem;
+      box-shadow: 8px 8px 0 rgba(35, 53, 14, 0.1);
+    }
+    .s8-mic-ring {
+      position: absolute;
+      left: 22px;
+      top: 14px;
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      border: 3px solid #82954b;
+      opacity: 0;
+    }
+    .s8-mic-icon {
+      position: absolute;
+      left: 22px;
+      top: 14px;
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      border: 2px solid #355115;
+      background: #82954b;
+      font-size: 46px;
+      line-height: 88px;
+      text-align: center;
+    }
+    .s8-mic-text {
+      position: absolute;
+      left: 136px;
+      top: 30px;
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 1.5;
+      white-space: nowrap;
+    }
+    .s8-wave {
+      position: absolute;
+      left: 352px;
+      top: 30px;
+      width: 180px;
+      height: 64px;
+    }
+    .s8-wbar {
+      position: absolute;
+      bottom: 0;
+      width: 18px;
+      height: 64px;
+      border-radius: 9999px;
+      border: 2px solid #355115;
+      background: #4a6b22;
+      transform-origin: 50% 100%;
+    }
+    .s8-badge {
+      position: absolute;
+      left: 120px;
+      top: 706px;
+      width: 640px;
+      height: 150px;
+      background: #e8f5e9;
+      border: 2px solid #355115;
+      border-radius: 2rem;
+      box-shadow: 8px 8px 0 rgba(35, 53, 14, 0.1);
+      transform-origin: 30% 50%;
+    }
+    .s8-badge-icon {
+      position: absolute;
+      left: 22px;
+      top: 21px;
+      width: 104px;
+      height: 104px;
+      border-radius: 50%;
+      border: 2px solid #355115;
+      background: #fdf3d0;
+      font-size: 58px;
+      line-height: 100px;
+      text-align: center;
+    }
+    .s8-badge-small {
+      position: absolute;
+      left: 152px;
+      top: 14px;
+      font-size: 36px;
+      font-weight: 600;
+      line-height: 1.4;
+      white-space: nowrap;
+    }
+    .s8-badge-big {
+      position: absolute;
+      left: 150px;
+      top: 58px;
+      font-family: "Prompt", sans-serif;
+      font-size: 60px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #23350e;
+      white-space: nowrap;
+    }
+
+    /* ---------- right card ---------- */
+    .s8-card {
+      position: absolute;
+      left: 900px;
+      top: 150px;
+      width: 900px;
+      height: 692px;
+      background: #ffffff;
+      border: 2px solid #355115;
+      border-radius: 2rem;
+      box-shadow: 8px 8px 0 rgba(35, 53, 14, 0.1);
+    }
+    .s8-clock {
+      position: absolute;
+      left: 34px;
+      top: 30px;
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      border: 2px solid #355115;
+      background: #fdf3d0;
+      font-size: 40px;
+      line-height: 72px;
+      text-align: center;
+    }
+    .s8-track {
+      position: absolute;
+      left: 132px;
+      top: 42px;
+      width: 500px;
+      height: 52px;
+      background: #f7f9f4;
+      border: 2px solid #355115;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+    .s8-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: #82954b;
+      border-radius: 9999px;
+      transform-origin: 0% 50%;
+    }
+    .s8-readout {
+      position: absolute;
+      left: 652px;
+      top: 22px;
+      width: 214px;
+      text-align: center;
+      font-family: "Prompt", sans-serif;
+      font-weight: 700;
+      font-size: 66px;
+      line-height: 1.3;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.02em;
+    }
+    .s8-box {
+      position: absolute;
+      left: 34px;
+      top: 126px;
+      width: 584px;
+      height: 528px;
+      background: #f7f9f4;
+      border: 2px solid #355115;
+      border-radius: 2rem;
+    }
+    .s8-chip {
+      position: absolute;
+      width: 172px;
+      height: 84px;
+      background: #ffffff;
+      border: 2px solid #355115;
+      border-radius: 9999px;
+      box-shadow: 4px 4px 0 rgba(35, 53, 14, 0.1);
+      font-size: 36px;
+      font-weight: 600;
+      line-height: 80px;
+      text-align: center;
+      white-space: nowrap;
+      transform-origin: 50% 50%;
+    }
+    .s8-tile {
+      position: absolute;
+      left: 640px;
+      top: 126px;
+      width: 226px;
+      height: 528px;
+      background: #ffffff;
+      border: 2px solid #355115;
+      border-radius: 2rem;
+      box-shadow: 6px 6px 0 rgba(35, 53, 14, 0.1);
+    }
+    .s8-tile-bg {
+      position: absolute;
+      inset: 0;
+      border-radius: 2rem;
+      background: #e8f5e9;
+      opacity: 0;
+    }
+    .s8-tile-label {
+      position: absolute;
+      left: 0;
+      top: 40px;
+      width: 100%;
+      text-align: center;
+      font-size: 38px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+    .s8-count-wrap {
+      position: absolute;
+      left: 0;
+      top: 150px;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .s8-count {
+      display: inline-block;
+      font-family: "Prompt", sans-serif;
+      font-weight: 800;
+      font-size: 168px;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      font-variant-numeric: tabular-nums;
+      color: #82954b;
+      transform-origin: 50% 50%;
+    }
+    .s8-goal {
+      position: absolute;
+      left: 23px;
+      top: 410px;
+      width: 180px;
+      height: 70px;
+      border: 2px solid #355115;
+      border-radius: 9999px;
+      background: #fdf3d0;
+      text-align: center;
+      font-size: 34px;
+      font-weight: 600;
+      line-height: 66px;
+      white-space: nowrap;
+    }
+    .s8-check {
+      position: absolute;
+      left: 160px;
+      top: 98px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 2px solid #355115;
+      background: #4a6b22;
+      color: #ffffff;
+      font-family: "Prompt", sans-serif;
+      font-weight: 800;
+      font-size: 34px;
+      line-height: 52px;
+      text-align: center;
+    }
+  </style>
+
+  <div id="root" data-composition-id="08-stage5-animals" data-start="0" data-duration="7.5" data-width="1920" data-height="1080">
+    <!-- full-bleed ground -->
+    <div class="clip" data-start="0" data-duration="7.5" data-track-index="0" style="position:absolute;inset:0;">
+      <div class="s8-ground"></div>
+      <div class="s8-float" style="left:-40px;top:120px;width:150px;height:54px;background:#e0ebd2;transform:rotate(-18deg);"></div>
+      <div class="s8-float" style="left:1830px;top:96px;width:140px;height:52px;background:#fdf3d0;transform:rotate(22deg);"></div>
+      <div class="s8-float" style="left:1300px;top:40px;width:56px;height:56px;border-radius:50%;background:#f0f7e6;"></div>
+      <div class="s8-float" style="left:580px;top:58px;width:110px;height:40px;background:#e8f5e9;transform:rotate(12deg);"></div>
+      <div class="s8-float" style="left:1838px;top:620px;width:120px;height:46px;background:#e8ede0;transform:rotate(-24deg);"></div>
+      <div class="s8-float" style="left:790px;top:790px;width:48px;height:48px;border-radius:50%;background:#fdf3d0;"></div>
+      <div class="s8-grain"></div>
+    </div>
+
+    <!-- content -->
+    <div class="clip" data-start="0" data-duration="7.5" data-track-index="1" style="position:absolute;inset:0;">
+      <!-- stage rail: static, 8 dots, centre x=960 y=64 -->
+      <div class="s8-rail">
+        <div class="s8-dot done" style="left:0px;"></div>
+        <div class="s8-dot done" style="left:40px;"></div>
+        <div class="s8-dot done" style="left:80px;"></div>
+        <div class="s8-dot done" style="left:120px;"></div>
+        <div class="s8-dot now" style="left:160px;"></div>
+        <div class="s8-dot" style="left:200px;"></div>
+        <div class="s8-dot" style="left:240px;"></div>
+        <div class="s8-dot" style="left:280px;"></div>
+      </div>
+
+      <!-- left column -->
+      <div class="s8-tag" id="s8-tag">ด่าน 5 / 8</div>
+      <div class="s8-headline" id="s8-headline">บอกชื่อสัตว์</div>
+      <div class="s8-time" id="s8-time">⏱️ 60 วินาที</div>
+      <div class="s8-mic" id="s8-mic">
+        <div class="s8-mic-ring" id="s8-ring"></div>
+        <div class="s8-mic-icon">🎤</div>
+        <div class="s8-mic-text">กำลังฟัง…</div>
+        <div class="s8-wave">
+          <div class="s8-wbar" style="left:0px;"></div>
+          <div class="s8-wbar" style="left:40px;"></div>
+          <div class="s8-wbar" style="left:80px;"></div>
+          <div class="s8-wbar" style="left:120px;"></div>
+          <div class="s8-wbar" style="left:160px;"></div>
+        </div>
+      </div>
+      <div class="s8-badge" id="s8-badge">
+        <div class="s8-badge-icon">🏆</div>
+        <div class="s8-badge-small">11 ชนิดขึ้นไป =</div>
+        <div class="s8-badge-big" data-layout-allow-overlap>คะแนนเต็ม</div>
+      </div>
+
+      <!-- right card: timer + answer box + counter -->
+      <div class="s8-card" id="s8-card">
+        <div class="s8-clock">⏱️</div>
+        <div class="s8-track"><div class="s8-fill" id="s8-fill"></div></div>
+        <div class="s8-readout" id="s8-readout">00:60</div>
+
+        <div class="s8-box" id="s8-box" data-layout-allow-overlap></div>
+
+        <div class="s8-tile" id="s8-tile">
+          <div class="s8-tile-bg" id="s8-tile-bg"></div>
+          <div class="s8-tile-label" id="s8-tile-label">คำที่ได้</div>
+          <div class="s8-count-wrap"><span class="s8-count" id="s8-count">0</span></div>
+          <div class="s8-check" id="s8-check">✓</div>
+          <div class="s8-goal" id="s8-goal">เป้า 11</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script>
+    (function () {
+      const ID = "08-stage5-animals";
+      const root = document.querySelector('[data-composition-id="' + ID + '"]');
+      const q = (sel) => root.querySelector(sel);
+      const tl = gsap.timeline({ paused: true });
+
+      // ---------- Scene 1 (0.0–2.0): title, timer, mic ----------
+      tl.fromTo(q("#s8-tag"), { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "power3.out" }, 0.0);
+      tl.fromTo(q("#s8-headline"), { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 0.08);
+      tl.fromTo(q("#s8-card"), { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.15);
+      tl.fromTo(q("#s8-time"), { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "power3.out" }, 0.45);
+      tl.fromTo(q("#s8-mic"), { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.75);
+
+      // 60-second bar drains linearly; readout ticks down (compressed clock)
+      const DRAIN_AT = 0.7, DRAIN_DUR = 6.3, END_SEC = 19;
+      tl.fromTo(q("#s8-fill"), { scaleX: 1 }, { scaleX: END_SEC / 60, duration: DRAIN_DUR, ease: "none" }, DRAIN_AT);
+      const readout = q("#s8-readout");
+      const clock = { v: 60 };
+      tl.fromTo(clock, { v: 60 }, {
+        v: END_SEC, duration: DRAIN_DUR, ease: "none",
+        onUpdate: () => { readout.textContent = "00:" + String(Math.ceil(clock.v)).padStart(2, "0"); }
+      }, DRAIN_AT);
+
+      // mic listening: deterministic wave-bar pulses + ring ripples (finite tweens, no repeat)
+      const bars = root.querySelectorAll(".s8-wbar");
+      tl.set(bars, { scaleY: 0.25 }, 0);
+      const STEP = 0.18, WAVE_FROM = 1.0, WAVE_TO = 5.2;
+      for (let k = 0, t = WAVE_FROM; t < WAVE_TO; k++, t += STEP) {
+        bars.forEach((b, i) => {
+          const s = 0.3 + 0.7 * Math.abs(Math.sin(k * 1.7 + i * 2.3));
+          tl.to(b, { scaleY: s, duration: STEP, ease: "sine.inOut" }, t);
+        });
+      }
+      tl.to(bars, { scaleY: 0.25, duration: 0.4, ease: "power2.out" }, WAVE_TO);
+      const ring = q("#s8-ring");
+      [1.0, 2.2, 3.4, 4.6].forEach((t) => {
+        tl.fromTo(ring, { scale: 1, opacity: 0.8 }, { scale: 1.55, opacity: 0, duration: 1.0, ease: "power2.out" }, t);
+      });
+
+      // ---------- Scene 2 (2.0–5.2): chips fly into the box, counter climbs 0 → 11 ----------
+      const animals = [
+        "🐘 ช้าง", "🐎 ม้า", "🐄 วัว", "🐅 เสือ", "🐦 นก", "🐟 ปลา",
+        "🐕 หมา", "🐈 แมว", "🐒 ลิง", "🐍 งู", "🦆 เป็ด"
+      ];
+      const fills = ["#ffffff", "#e0ebd2", "#fdf3d0", "#f0f7e6", "#e8ede0", "#e8f5e9"];
+      const box = q("#s8-box");
+      // box sits at absolute (936, 278); mic icon centre at (188, 624)
+      const BOX_X = 900 + 2 + 34, BOX_Y = 150 + 2 + 126;
+      const MIC_X = 120 + 2 + 22 + 46, MIC_Y = 548 + 2 + 14 + 46;
+      const COUNT_AT = 2.0, COUNT_DUR = 3.2, FLY = 0.5;
+      animals.forEach((label, i) => {
+        const c = i % 3, r = Math.floor(i / 3);
+        const left = 17 + c * 188, top = 52 + r * 112;
+        const chip = document.createElement("div");
+        chip.className = "s8-chip";
+        chip.style.left = left + "px";
+        chip.style.top = top + "px";
+        chip.style.background = fills[i % fills.length];
+        chip.textContent = label;
+        box.appendChild(chip);
+        // landing time matches the counter's power1.out curve crossing (i + 0.5)
+        const y = (i + 0.5) / 11;
+        const land = COUNT_AT + COUNT_DUR * (1 - Math.sqrt(1 - y));
+        const dx = MIC_X - (BOX_X + left + 86);
+        const dy = MIC_Y - (BOX_Y + top + 42);
+        tl.fromTo(chip,
+          { x: dx, y: dy, scale: 0.35, opacity: 0, rotation: i % 2 ? 10 : -10 },
+          { x: 0, y: 0, scale: 1, opacity: 1, rotation: 0, duration: FLY, ease: "power3.out" },
+          land - FLY * 0.6);
+      });
+
+      const tile = q("#s8-tile");
+      tl.fromTo(q("#s8-tile-label"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 1.2);
+      tl.fromTo(q("#s8-goal"), { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "power3.out" }, 1.45);
+
+      const counter = q("#s8-count");
+      const state = { value: 0 };
+      tl.fromTo(state, { value: 0 }, {
+        value: 11, duration: COUNT_DUR, ease: "power1.out",
+        onUpdate: () => { counter.textContent = String(Math.round(state.value)); }
+      }, COUNT_AT);
+      tl.fromTo(counter, { scale: 0.5 }, { scale: 1, duration: COUNT_DUR, ease: "power1.out" }, COUNT_AT);
+
+      // ---------- Scene 3 (5.2–7.0): full marks ----------
+      const HIT = COUNT_AT + COUNT_DUR; // 5.2
+      tl.to(counter, { color: "#4a6b22", duration: 0.35, ease: "power2.out" }, HIT);
+      tl.fromTo(q("#s8-tile-bg"), { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, HIT);
+      tl.fromTo(q("#s8-check"), { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.8)" }, HIT + 0.05);
+      tl.to(box, { borderColor: "#4a6b22", backgroundColor: "#f0f7e6", duration: 0.35, ease: "power2.out" }, HIT);
+      tl.fromTo(q("#s8-badge"),
+        { scale: 0, opacity: 0, rotation: -4 },
+        { scale: 1, opacity: 1, rotation: 0, duration: 0.6, ease: "back.out(1.7)" }, HIT + 0.12);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines[ID] = tl;
+    })();
+  </script>
+</template>

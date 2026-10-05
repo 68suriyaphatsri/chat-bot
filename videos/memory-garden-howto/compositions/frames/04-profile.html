@@ -1,0 +1,438 @@
+<template>
+  <script src="assets/vendor/gsap.min.js"></script>
+  <style>
+@font-face{font-family:'Noto Color Emoji';src:url('assets/fonts/NotoColorEmoji.ttf') format('truetype');}
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-Regular.ttf") format("truetype"); font-weight: 400; }
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-Medium.ttf") format("truetype"); font-weight: 500; }
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-SemiBold.ttf") format("truetype"); font-weight: 600; }
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-Bold.ttf") format("truetype"); font-weight: 700; }
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-ExtraBold.ttf") format("truetype"); font-weight: 800; }
+    @font-face { font-family: "Anuphan"; src: url("assets/fonts/Anuphan.ttf") format("truetype"); font-weight: 100 700; }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      font-family: "Anuphan", sans-serif;
+      color: #23350e;
+      container-type: size;
+    }
+
+    /* ---------- ground: cream + glows + grain ---------- */
+    .p04-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 30%, rgba(130, 149, 75, 0.13) 0, rgba(130, 149, 75, 0) 38%),
+        radial-gradient(circle at 78% 22%, rgba(253, 243, 208, 0.9) 0, rgba(253, 243, 208, 0) 40%),
+        radial-gradient(circle at 70% 85%, rgba(74, 107, 34, 0.08) 0, rgba(74, 107, 34, 0) 42%),
+        #f7f9f4;
+    }
+    .p04-grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='4' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+    .p04-float {
+      position: absolute;
+      border: 3px solid #355115;
+      border-radius: 9999px;
+    }
+    .p04-f1 { left: -40px; top: 70px; width: 190px; height: 62px; background: #e0ebd2; transform: rotate(-18deg); }
+    .p04-f2 { left: 860px; top: 40px; width: 56px; height: 56px; border-radius: 50%; background: #fdf3d0; }
+    .p04-f3 { left: 120px; top: 800px; width: 150px; height: 52px; background: #fff9e6; transform: rotate(14deg); }
+    .p04-f4 { left: 1840px; top: 520px; width: 160px; height: 58px; background: #e8f5e9; transform: rotate(22deg); }
+    .p04-f5 { left: 900px; top: 820px; width: 44px; height: 44px; border-radius: 50%; background: #e8ede0; }
+
+    /* ---------- stage (locked camera, gentle push) ---------- */
+    .p04-stage {
+      position: absolute;
+      inset: 0;
+      transform-origin: 66% 45%;
+    }
+
+    /* ---------- left column ---------- */
+    .p04-left {
+      position: absolute;
+      left: 120px;
+      top: 250px;
+      width: 820px;
+    }
+    .p04-step {
+      display: inline-block;
+      padding: 10px 30px;
+      background: #fdf3d0;
+      border: 3px solid #355115;
+      border-radius: 9999px;
+      box-shadow: 6px 6px 0 rgba(35, 53, 14, 0.1);
+      font-family: "Anuphan", sans-serif;
+      font-weight: 600;
+      font-size: 36px;
+      line-height: 1.3;
+    }
+    .p04-head {
+      margin-top: 34px;
+      font-family: "Prompt", sans-serif;
+      font-weight: 700;
+      font-size: 104px;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: #23350e;
+    }
+    .p04-accent {
+      margin-top: 28px;
+      width: 80px;
+      height: 6px;
+      border-radius: 9999px;
+      background: #4a6b22;
+      transform-origin: 0% 50%;
+    }
+    .p04-note {
+      margin-top: 56px;
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 30px;
+      background: #ffffff;
+      border: 3px solid #355115;
+      border-radius: 2rem;
+      box-shadow: 6px 6px 0 rgba(35, 53, 14, 0.1);
+      font-family: "Prompt", sans-serif;
+      font-weight: 600;
+      font-size: 46px;
+      line-height: 1.3;
+      transform-origin: 0% 50%;
+    }
+    .p04-hl {
+      display: inline-block;
+      padding: 2px 22px;
+      background: #82954b;
+      color: #ffffff;
+      border: 3px solid #355115;
+      border-radius: 9999px;
+    }
+
+    /* ---------- form card ---------- */
+    .p04-card {
+      position: absolute;
+      left: 1080px;
+      top: 96px;
+      width: 720px;
+      height: 760px;
+      box-sizing: border-box;
+      padding: 40px 48px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 3px solid #355115;
+      border-radius: 24px;
+      box-shadow: 12px 12px 0 rgba(35, 53, 14, 0.1);
+      transform-origin: 50% 50%;
+    }
+    .p04-row { position: relative; height: 136px; }
+    .p04-label {
+      font-family: "Anuphan", sans-serif;
+      font-weight: 600;
+      font-size: 34px;
+      line-height: 44px;
+      color: #4a6b22;
+    }
+    .p04-field {
+      position: relative;
+      margin-top: 6px;
+      height: 74px;
+      box-sizing: border-box;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      background: #f7f9f4;
+      border: 3px solid #355115;
+      border-radius: 9999px;
+      font-family: "Prompt", sans-serif;
+      font-weight: 500;
+      font-size: 40px;
+      color: #23350e;
+      white-space: nowrap;
+    }
+    .p04-sel-fill {
+      position: absolute;
+      inset: 0;
+      border-radius: 9999px;
+      background: #e8f5e9;
+      transform-origin: 0% 50%;
+    }
+    .p04-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      min-width: 420px;
+      white-space: pre;
+    }
+    .p04-caret {
+      display: inline-block;
+      width: 4px;
+      height: 44px;
+      margin-left: 4px;
+      border-radius: 2px;
+      background: #4a6b22;
+    }
+    .p04-ph { color: rgba(35, 53, 14, 0.4); }
+    .p04-chev {
+      position: absolute;
+      right: 28px;
+      top: 50%;
+      margin-top: -22px;
+      font-size: 34px;
+      line-height: 44px;
+      color: #4a6b22;
+    }
+    .p04-check {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      margin-top: -24px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #4a6b22;
+      border: 3px solid #355115;
+      box-sizing: border-box;
+      color: #ffffff;
+      font-size: 28px;
+      line-height: 42px;
+      text-align: center;
+      font-family: "Prompt", sans-serif;
+      font-weight: 700;
+    }
+
+    /* ---------- button ---------- */
+    .p04-btnzone {
+      position: absolute;
+      left: 48px;
+      right: 48px;
+      bottom: 40px;
+      height: 96px;
+    }
+    .p04-burst {
+      position: absolute;
+      opacity: 0;
+      inset: 0;
+      border-radius: 9999px;
+      background: radial-gradient(circle, rgba(74, 107, 34, 0.75) 0, rgba(74, 107, 34, 0) 70%);
+      filter: blur(30px);
+      z-index: 1;
+    }
+    .p04-btn {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: #4a6b22;
+      color: #ffffff;
+      border: 3px solid #355115;
+      border-radius: 9999px;
+      box-shadow: 8px 8px 0 rgba(35, 53, 14, 0.14);
+      font-family: "Prompt", sans-serif;
+      font-weight: 700;
+      font-size: 44px;
+      transform-origin: 50% 50%;
+    }
+
+    /* ---------- badge ---------- */
+    .p04-badge {
+      position: absolute;
+      left: 1560px;
+      top: 50px;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 30px;
+      background: #f6d77a;
+      border: 3px solid #355115;
+      border-radius: 9999px;
+      box-shadow: 6px 6px 0 rgba(35, 53, 14, 0.12);
+      font-family: "Prompt", sans-serif;
+      font-weight: 800;
+      font-size: 42px;
+      line-height: 1.2;
+      color: #23350e;
+      white-space: nowrap;
+      transform-origin: 50% 50%;
+    }
+    .p04-badge-emoji { font-size: 48px; line-height: 1; }
+
+    /* ---------- fingertip + ripple ---------- */
+    .p04-finger {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 6;
+      font-size: 88px;
+      line-height: 1;
+      transform-origin: 30% 0%;
+    }
+    .p04-ripple {
+      position: absolute;
+      opacity: 0;
+      left: 0;
+      top: 0;
+      width: 70px;
+      height: 70px;
+      margin-left: -35px;
+      margin-top: -35px;
+      border-radius: 50%;
+      border: 5px solid #4a6b22;
+      box-sizing: border-box;
+      z-index: 4;
+    }
+  </style>
+
+  <div id="root" data-composition-id="04-profile" data-width="1920" data-height="1080" data-duration="6.4">
+    <div class="p04-bg clip" id="p04-bg" data-start="0" data-duration="6.4" data-track-index="0">
+      <div class="p04-float p04-f1"></div>
+      <div class="p04-float p04-f2"></div>
+      <div class="p04-float p04-f3"></div>
+      <div class="p04-float p04-f4"></div>
+      <div class="p04-float p04-f5"></div>
+      <div class="p04-grain"></div>
+    </div>
+
+    <div class="p04-stage clip" id="p04-stage" data-start="0" data-duration="6.4" data-track-index="1">
+      <div class="p04-left">
+        <div class="p04-step" id="p04-step">ขั้นตอนที่ 2</div>
+        <div class="p04-head" id="p04-head">กรอกข้อมูล<br />พื้นฐาน</div>
+        <div class="p04-accent" id="p04-accent"></div>
+        <div class="p04-note" id="p04-note">เรียนไม่เกิน ม.6 ได้ <span class="p04-hl">+1 คะแนน</span></div>
+      </div>
+
+      <div class="p04-card" id="p04-card">
+        <div class="p04-row" id="p04-row0">
+          <div class="p04-label">ชื่อ</div>
+          <div class="p04-field"><span class="p04-wrap"><span id="p04-t0"></span><span class="p04-caret" id="p04-c0"></span></span></div>
+        </div>
+        <div class="p04-row" id="p04-row1">
+          <div class="p04-label">อายุ</div>
+          <div class="p04-field"><span class="p04-wrap"><span id="p04-t1"></span><span class="p04-caret" id="p04-c1"></span></span></div>
+        </div>
+        <div class="p04-row" id="p04-row2">
+          <div class="p04-label">เพศ</div>
+          <div class="p04-field"><span class="p04-wrap"><span id="p04-t2"></span><span class="p04-caret" id="p04-c2"></span></span></div>
+        </div>
+        <div class="p04-row" id="p04-row3">
+          <div class="p04-label">วุฒิการศึกษา</div>
+          <div class="p04-field" id="p04-edu">
+            <div class="p04-sel-fill" id="p04-selfill"></div>
+            <span class="p04-wrap"><span id="p04-t3" class="p04-ph">เลือก</span></span>
+            <span class="p04-chev" id="p04-chev">▾</span>
+            <span class="p04-check" id="p04-check">✓</span>
+          </div>
+        </div>
+
+        <div class="p04-btnzone">
+          <div class="p04-burst" id="p04-burst"></div>
+          <div class="p04-btn" id="p04-btn">ถัดไป <span>→</span></div>
+        </div>
+      </div>
+
+      <div class="p04-badge" id="p04-badge" data-layout-allow-overlap><span class="p04-badge-emoji">🎓</span>+1 คะแนน</div>
+      <div class="p04-ripple" id="p04-ripple"></div>
+      <div class="p04-finger" id="p04-finger" data-layout-allow-overlap>👆</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var D = 6;
+      var tl = gsap.timeline({ paused: true });
+      var $ = function (id) { return document.getElementById(id); };
+
+      // ---------- Scene 1: surface establishes (hero visible by 0.5s) ----------
+      tl.fromTo("#p04-card", { opacity: 0, scale: 0.94, y: 24 }, { opacity: 1, scale: 1, y: 0, duration: 0.55, ease: "power3.out" }, 0);
+      tl.fromTo("#p04-step", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.1);
+      tl.fromTo("#p04-head", { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.2);
+      tl.fromTo("#p04-accent", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 0.55);
+      ["#p04-row0", "#p04-row1", "#p04-row2", "#p04-row3"].forEach(function (s, i) {
+        tl.fromTo(s, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.15 + i * 0.06);
+      });
+      tl.fromTo("#p04-btn", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.4);
+      // locked camera: slow push toward the form
+      tl.fromTo("#p04-stage", { scale: 1 }, { scale: 1.025, duration: D, ease: "none" }, 0);
+
+      // ---------- type-on (discrete-text-sequence) ----------
+      var SEQ = [
+        [ { t: 0, s: "" }, { t: 0.45, s: "ค" }, { t: 0.55, s: "คุ" }, { t: 0.66, s: "คุณ" },
+          { t: 0.95, s: "คุณส" }, { t: 1.05, s: "คุณสม" }, { t: 1.16, s: "คุณสมศ" }, { t: 1.28, s: "คุณสมศรี" } ],
+        [ { t: 0, s: "" }, { t: 1.5, s: "6" }, { t: 1.62, s: "68" } ],
+        [ { t: 0, s: "" }, { t: 1.88, s: "ห" }, { t: 2.0, s: "หญิ" }, { t: 2.12, s: "หญิง" } ]
+      ];
+      var ACTIVE = [ [0.3, 1.42], [1.42, 1.8], [1.8, 2.4] ];
+      var txt = [$("p04-t0"), $("p04-t1"), $("p04-t2")];
+      var car = [$("p04-c0"), $("p04-c1"), $("p04-c2")];
+      function at(seq, t) {
+        for (var i = seq.length - 1; i >= 0; i--) if (t >= seq[i].t) return seq[i].s;
+        return "";
+      }
+      var drv = { t: 0 };
+      tl.to(drv, {
+        t: D, duration: D, ease: "none",
+        onUpdate: function () {
+          var t = drv.t;
+          var blinkOn = Math.sin(t * Math.PI * 2 / 0.6) > -0.2;
+          for (var k = 0; k < 3; k++) {
+            txt[k].textContent = at(SEQ[k], t);
+            var a = ACTIVE[k];
+            car[k].style.opacity = (t >= a[0] && t < a[1] && blinkOn) ? "1" : "0";
+          }
+          // education row content swap on tap
+          var e = $("p04-t3");
+          if (t >= 2.72) { e.textContent = "ประถม – ม.6"; e.className = ""; }
+          else { e.textContent = "เลือก"; e.className = "p04-ph"; }
+        }
+      }, 0);
+
+      // ---------- Scene 2: fingertip taps the education row ----------
+      // finger tip (top-left area of the emoji) lands at target coords
+      var EDU = { x: 1520, y: 634 };     // education field centre (stage px)
+      var BTN = { x: 1500, y: 765 };     // button centre
+      tl.fromTo("#p04-finger", { x: 1880, y: 1000, opacity: 0 }, { x: 1700, y: 860, opacity: 1, duration: 0.5, ease: "power2.out" }, 1.7);
+      tl.to("#p04-finger", { x: EDU.x - 44, y: EDU.y - 4, duration: 0.6, ease: "power3.inOut" }, 2.1);
+      tl.to("#p04-finger", { scale: 0.86, duration: 0.1, ease: "power1.in" }, 2.66);
+      tl.to("#p04-finger", { scale: 1, duration: 0.35, ease: "back.out(1.6)" }, 2.76);
+      tl.fromTo("#p04-ripple", { x: EDU.x, y: EDU.y, scale: 0.3, opacity: 0 }, { opacity: 0.9, duration: 0.04, ease: "none" }, 2.72);
+      tl.to("#p04-ripple", { scale: 2.6, opacity: 0, duration: 0.6, ease: "power2.out" }, 2.76);
+      tl.fromTo("#p04-selfill", { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power3.out" }, 2.72);
+      tl.fromTo("#p04-chev", { opacity: 1 }, { opacity: 0, duration: 0.15, ease: "none" }, 2.72);
+      tl.fromTo("#p04-check", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.8)" }, 2.8);
+
+      // badge springs out of the row (playful overshoot exception) then parks at card top-right
+      // final slot: left 1560 / top 50 (straddles card top-right corner); starts over the education row
+      tl.fromTo("#p04-badge",
+        { x: -270, y: 570, scale: 0, opacity: 0, rotation: -8 },
+        { x: -270, y: 500, scale: 1.15, opacity: 1, rotation: 0, duration: 0.5, ease: "back.out(1.8)" }, 2.95);
+      tl.to("#p04-badge", { x: 0, y: 0, scale: 1, rotation: 6, duration: 0.6, ease: "power3.inOut" }, 3.5);
+
+      tl.fromTo("#p04-note", { opacity: 0, scale: 0.9, y: 16 }, { opacity: 1, scale: 1, y: 0, duration: 0.55, ease: "power3.out" }, 3.4);
+
+      // ---------- Scene 3: press "ถัดไป" (press-release-spring) ----------
+      tl.to("#p04-finger", { x: BTN.x - 44, y: BTN.y - 4, duration: 0.5, ease: "power3.inOut" }, 4.0);
+      var PS = 4.55, PD = 0.15, RD = 0.6;
+      tl.to("#p04-finger", { scale: 0.86, duration: PD, ease: "power1.in" }, PS);
+      tl.to("#p04-finger", { scale: 1, duration: 0.4, ease: "back.out(1.6)" }, PS + PD);
+      tl.to("#p04-btn", { scale: 0.92, boxShadow: "2px 2px 0 rgba(35,53,14,0.14)", duration: PD, ease: "power1.in" }, PS);
+      tl.to("#p04-btn", { scale: 1, boxShadow: "8px 8px 0 rgba(35,53,14,0.14)", duration: RD, ease: "back.out(1.8)" }, PS + PD);
+      tl.fromTo("#p04-burst", { scale: 1, opacity: 0 }, { scale: 1.35, opacity: 0.8, duration: 0.45, ease: "power2.out" }, PS + PD);
+      tl.to("#p04-burst", { opacity: 0.35, duration: 0.5, ease: "power2.in" }, PS + PD + 0.45);
+
+      // hold to end
+      tl.to({}, { duration: 0.01 }, D - 0.01);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["04-profile"] = tl;
+    })();
+  </script>
+</template>
