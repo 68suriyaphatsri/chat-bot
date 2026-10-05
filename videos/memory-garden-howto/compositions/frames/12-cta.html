@@ -143,6 +143,42 @@
       white-space: nowrap;
     }
 
+
+    /* QR layout: brand group on the left, QR card on the right */
+    #f12-cta-lockup, #f12-cta-btn-wrap, #f12-cta-note-wrap { right: 700px; }
+    #f12-cta-qr-card {
+      position: absolute;
+      left: 1225px;
+      top: 300px;
+      width: 530px;
+      padding: 28px 28px 22px;
+      border-radius: 36px;
+      background: #ffffff;
+      border: 3px solid rgba(53,81,21,0.35);
+      box-shadow: 0 16px 45px rgba(35,53,14,0.14);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    #f12-cta-qr-img { width: 400px; height: 400px; display: block; border-radius: 12px; }
+    #f12-cta-qr-label {
+      font-family: "Anuphan", sans-serif;
+      font-weight: 600;
+      font-size: 34px;
+      line-height: 1.3;
+      color: #23350e;
+      white-space: nowrap;
+    }
+    #f12-cta-qr-glow {
+      position: absolute;
+      left: 1190px;
+      top: 235px;
+      width: 600px;
+      height: 640px;
+      border-radius: 50%;
+      background: radial-gradient(closest-side, rgba(130,149,75,0.35), rgba(130,149,75,0));
+    }
     #f12-cta-fade {
       position: absolute;
       inset: 0;
@@ -162,8 +198,8 @@
     <div class="f12-cta-leaf" id="f12-cta-leaf-3" style="left:70px; top:560px; font-size:84px;">🌿</div>
     <div class="f12-cta-leaf" id="f12-cta-leaf-4" style="left:1730px; top:520px; font-size:104px;">🍃</div>
     <div class="f12-cta-leaf" id="f12-cta-leaf-5" style="left:430px; top:40px; font-size:64px;">🍃</div>
-    <div class="f12-cta-leaf" id="f12-cta-leaf-6" style="left:1400px; top:770px; font-size:70px;">🍃</div>
-    <div class="f12-cta-leaf" id="f12-cta-leaf-7" style="left:300px; top:760px; font-size:66px;">🌱</div>
+    <div class="f12-cta-leaf" id="f12-cta-leaf-6" style="left:1060px; top:800px; font-size:70px;">🍃</div>
+    <div class="f12-cta-leaf" id="f12-cta-leaf-7" style="left:40px; top:820px; font-size:66px;">🌱</div>
 
     <div id="f12-cta-headline">ดูแลความทรงจำของคุณ และคนที่คุณรัก</div>
 
@@ -183,6 +219,12 @@
       <div id="f12-cta-note">แบบคัดกรองเบื้องต้น ไม่ใช่การวินิจฉัยโรค</div>
     </div>
 
+    <div id="f12-cta-qr-glow"></div>
+    <div id="f12-cta-qr-card">
+      <img id="f12-cta-qr-img" src="assets/qr-memory-garden.jpg" alt="QR code">
+      <div id="f12-cta-qr-label">📲 สแกนเพื่อเริ่มทำแบบทดสอบ</div>
+    </div>
+
     <div id="f12-cta-fade"></div>
   </div>
 
@@ -191,7 +233,7 @@
     (function () {
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
-      const D = 6;
+      const D = 10;
 
       // Scene 1 — leaves drift in gently at the edges, then keep a slow drift across the whole frame
       const leaves = [
@@ -231,6 +273,12 @@
       tl.fromTo("#f12-cta-btn",
         { opacity: 0, y: 40, scale: 0.94 },
         { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power3.out" }, 3.55);
+
+      // QR card — the call to action; glow blooms behind it, then it holds long enough to scan
+      tl.fromTo("#f12-cta-qr-glow", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 1.0, ease: "power2.out" }, 3.2);
+      tl.fromTo("#f12-cta-qr-card",
+        { opacity: 0, y: 50, scale: 0.92 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "power3.out" }, 3.3);
 
       // muted disclaimer note at the bottom of the safe area
       tl.fromTo("#f12-cta-note",

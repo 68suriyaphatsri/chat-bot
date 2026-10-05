@@ -1,6 +1,6 @@
 ---
 format: 1920x1080
-duration: 83s
+duration: 87s
 message: "ทำแบบทดสอบสุขภาพสมอง Memory Garden ได้ง่าย ๆ ด้วยตัวเอง ทีละด่าน ใน 10–15 นาที"
 arc: Demo Loop — question → product intro → start → 8-stage walkthrough → result → CTA
 audience: ผู้สูงอายุ 60+ ครอบครัว/ผู้ดูแล อสม. และบุคลากรสาธารณสุขชุมชน
@@ -322,7 +322,7 @@ Scene 3 (5.4–9.0s): on "ห้าด้าน", 5 domain bars fill (`stat-bars
 - sfx: chime-warm
 - scene: Leaves drift; "ดูแลความทรงจำของคุณและคนที่คุณรัก" then the Memory Garden lockup with a "เริ่มทำแบบทดสอบได้ฟรี" pill; small note: แบบคัดกรองเบื้องต้น ไม่ใช่การวินิจฉัยโรค
 - voiceover: "มาดูแลความทรงจำของคุณและคนที่คุณรัก ไปด้วยกันที่ Memory Garden ครับ"
-- duration: 6s
+- duration: 10s
 - transition_in: crossfade
 - status: animated
 - src: compositions/frames/12-cta.html
