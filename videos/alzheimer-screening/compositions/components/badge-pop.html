@@ -1,0 +1,158 @@
+<!doctype html>
+<!--
+  Badge Pop (registry: hyperframes:component badge-pop), wrapped as a templated
+  sub-composition so it can be mounted with data-composition-src and configured
+  per instance through data-variable-values (count / accent / surface).
+  Markup, CSS, variable handling and the timeline recipe are the registry's.
+-->
+<html
+  data-composition-variables='[
+    { "id": "count", "type": "string", "label": "Count", "default": "3", "maxLength": 4 },
+    { "id": "accent", "type": "enum", "label": "Accent", "default": "red", "options": [{ "value": "red", "label": "Red" }, { "value": "blue", "label": "Blue" }, { "value": "green", "label": "Green" }, { "value": "violet", "label": "Violet" }] },
+    { "id": "surface", "type": "enum", "label": "Surface", "default": "light", "options": [{ "value": "light", "label": "Light" }, { "value": "dark", "label": "Dark" }] }
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #badge-pop-root {
+          position: absolute;
+          inset: 0;
+          display: grid;
+          place-items: center;
+        }
+        #badge-pop-scale {
+          display: grid;
+          place-items: center;
+          transform: scale(1.9);
+        }
+        .hf-transition-badge-pop {
+          --hf-badge-pop-accent: #ef4444;
+          --hf-badge-pop-surface: #ffffff;
+          --hf-badge-pop-border: #e4e4e7;
+          --hf-badge-pop-ink: #18181b;
+          position: relative;
+          display: inline-grid;
+          place-items: center;
+          font-family: "Plex Thai", sans-serif;
+        }
+        .hf-transition-badge-button {
+          display: grid;
+          place-items: center;
+          width: 76px;
+          height: 76px;
+          border: 1px solid var(--hf-badge-pop-border);
+          border-radius: 22px;
+          background: var(--hf-badge-pop-surface);
+          color: var(--hf-badge-pop-ink);
+          box-shadow: 0 20px 58px rgba(0, 0, 0, 0.12);
+        }
+        .hf-transition-badge-button svg {
+          width: 30px;
+          height: 30px;
+          fill: none;
+          stroke: currentColor;
+          stroke-width: 2.2;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        .hf-transition-badge-count {
+          position: absolute;
+          right: -8px;
+          top: -8px;
+          display: grid;
+          place-items: center;
+          min-width: 30px;
+          height: 30px;
+          padding: 0 8px;
+          border: 3px solid var(--hf-badge-pop-surface);
+          border-radius: 999px;
+          background: var(--hf-badge-pop-accent);
+          color: #ffffff;
+          font-size: 13px;
+          font-weight: 700;
+          transform-origin: center;
+        }
+      </style>
+
+      <div
+        id="badge-pop-root"
+        data-composition-id="badge-pop"
+        data-width="220"
+        data-height="220"
+      >
+        <div id="badge-pop-scale">
+          <div class="hf-transition-badge-pop">
+            <div class="hf-transition-badge-button" aria-label="Notifications">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7" />
+                <path d="M10 20a2 2 0 004 0" />
+              </svg>
+            </div>
+            <span class="hf-transition-badge-count">3</span>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var vars =
+            window.__hyperframes && window.__hyperframes.getVariables
+              ? window.__hyperframes.getVariables()
+              : {};
+          function pick(table, value, fallback) {
+            return Object.prototype.hasOwnProperty.call(table, value) ? value : fallback;
+          }
+          var accents = {
+            red: "#ef4444",
+            blue: "var(--accent, #18181b)",
+            green: "var(--brand, #18181b)",
+            violet: "var(--accent-2, #18181b)",
+          };
+          var surfaces = {
+            light: { surface: "#ffffff", border: "#e4e4e7", ink: "#18181b" },
+            dark: { surface: "#101014", border: "#2a2a32", ink: "#fafafa" },
+          };
+          var accent = accents[pick(accents, vars.accent, "red")];
+          var surface = surfaces[pick(surfaces, vars.surface, "light")];
+          var count =
+            typeof vars.count === "string" && vars.count.trim()
+              ? vars.count.trim().slice(0, 4)
+              : "3";
+          var root = document.querySelector("#badge-pop-root .hf-transition-badge-pop");
+          if (root) {
+            root.style.setProperty("--hf-badge-pop-accent", accent);
+            root.style.setProperty("--hf-badge-pop-surface", surface.surface);
+            root.style.setProperty("--hf-badge-pop-border", surface.border);
+            root.style.setProperty("--hf-badge-pop-ink", surface.ink);
+            var label = root.querySelector(".hf-transition-badge-count");
+            if (label) label.textContent = count;
+          }
+
+          var tl = gsap.timeline({ paused: true });
+          tl.fromTo(
+            "#badge-pop-root .hf-transition-badge-button",
+            { y: 18, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.34, ease: "power2.out" },
+            0.35
+          );
+          tl.fromTo(
+            "#badge-pop-root .hf-transition-badge-count",
+            { scale: 0, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.42, ease: "back.out(2.4)" },
+            0.7
+          );
+          tl.to(
+            "#badge-pop-root .hf-transition-badge-count",
+            { scale: 1.18, duration: 0.12, yoyo: true, repeat: 1, ease: "power1.inOut" },
+            1.15
+          );
+          window.__timelines["badge-pop"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

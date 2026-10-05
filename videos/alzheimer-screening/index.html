@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Alzheimer's Screening Interviews</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+@font-face{font-family:"Plex Thai";font-weight:400;font-display:block;src:url("assets/fonts/ibm-plex-sans-thai-thai-400-normal.woff2") format("woff2");unicode-range:U+0E01-0E5B,U+200C-200D,U+25CC;}
+@font-face{font-family:"Plex Thai";font-weight:400;font-display:block;src:url("assets/fonts/ibm-plex-sans-thai-latin-400-normal.woff2") format("woff2");unicode-range:U+0000-00FF,U+2013-2014,U+2018-201D,U+2026,U+2192,U+2713,U+2715;}
+@font-face{font-family:"Plex Thai";font-weight:600;font-display:block;src:url("assets/fonts/ibm-plex-sans-thai-thai-600-normal.woff2") format("woff2");unicode-range:U+0E01-0E5B,U+200C-200D,U+25CC;}
+@font-face{font-family:"Plex Thai";font-weight:600;font-display:block;src:url("assets/fonts/ibm-plex-sans-thai-latin-600-normal.woff2") format("woff2");unicode-range:U+0000-00FF,U+2013-2014,U+2018-201D,U+2026,U+2192,U+2713,U+2715;}
+@font-face{font-family:"Plex Thai";font-weight:700;font-display:block;src:url("assets/fonts/ibm-plex-sans-thai-thai-700-normal.woff2") format("woff2");unicode-range:U+0E01-0E5B,U+200C-200D,U+25CC;}
+@font-face{font-family:"Plex Thai";font-weight:700;font-display:block;src:url("assets/fonts/ibm-plex-sans-thai-latin-700-normal.woff2") format("woff2");unicode-range:U+0000-00FF,U+2013-2014,U+2018-201D,U+2026,U+2192,U+2713,U+2715;}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#0b1220}
+#root{position:relative;width:100%;height:100%;overflow:hidden;font-family:"Plex Thai",sans-serif;color:#0f172a;
+  --ink:#0f172a;--muted:#475569;--red:#ef4444;--red-ink:#b91c1c;--teal:#0e7490;--paper:rgba(255,255,255,.95)}
+#video-zoom,#video-drift{position:absolute;inset:0;transform-origin:50% 40%}
+.vclip{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#vignette{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(15,23,42,.35) 0%,rgba(15,23,42,0) 22%,rgba(15,23,42,0) 58%,rgba(15,23,42,.55) 100%)}
+.layer{position:absolute;inset:0}
+.tag{position:absolute;left:56px;top:44px;display:flex;align-items:center;gap:12px;padding:10px 20px;border-radius:999px;
+  background:rgba(15,23,42,.72);color:#f8fafc;font-size:22px;font-weight:600;letter-spacing:.01em}
+.tag .dot{width:12px;height:12px;border-radius:50%;background:var(--red);box-shadow:0 0 0 5px rgba(239,68,68,.3)}
+#progress{position:absolute;left:0;right:0;bottom:0;height:8px;background:rgba(255,255,255,.25)}
+#progress-fill{position:absolute;inset:0;background:var(--red);transform-origin:0 50%}
+.section{position:absolute;left:56px;top:112px;display:flex;align-items:center;gap:16px;padding:12px 26px 12px 12px;
+  border-radius:16px;background:var(--paper);box-shadow:0 18px 48px rgba(2,6,23,.25)}
+.section .num{width:64px;height:64px;border-radius:12px;background:var(--red);color:#fff;display:grid;place-items:center;
+  font-size:30px;font-weight:700}
+.sname{font-size:32px;font-weight:700;line-height:1.15}
+.ssub{font-size:20px;color:var(--muted);font-weight:600}
+.card{position:absolute;background:var(--paper);border-radius:22px;box-shadow:0 28px 70px rgba(2,6,23,.35);padding:30px 38px}
+.bl{left:56px;bottom:72px}
+.br{right:56px;bottom:72px}
+.bc{left:50%;bottom:72px;margin-left:-760px;width:1520px}
+.kicker{font-size:22px;font-weight:700;color:var(--teal);letter-spacing:.02em;margin-bottom:10px}
+.kicker.red{color:var(--red-ink)}
+.title-card{width:1100px;border-left:12px solid var(--red)}
+.title-xl{margin-top:18px;font-size:84px;font-weight:700;line-height:1.35;display:flex;flex-wrap:wrap;gap:0 24px}
+.title-xl .w{display:inline-block}
+.accent{color:var(--red-ink)}
+.lower{position:absolute;left:56px;bottom:72px;display:flex;align-items:stretch;gap:18px;padding:18px 34px 18px 18px;
+  background:var(--paper);border-radius:16px;box-shadow:0 18px 48px rgba(2,6,23,.3)}
+.lbar{width:10px;border-radius:6px;background:var(--red);transform-origin:50% 100%}
+.lname{font-size:40px;font-weight:700;line-height:1.15}
+.lrole{font-size:24px;color:var(--muted);font-weight:600}
+.question{position:absolute;right:56px;top:44px;display:flex;align-items:center;gap:18px;max-width:900px;padding:16px 28px 16px 16px;
+  background:rgba(15,23,42,.82);color:#f8fafc;border-radius:18px}
+.qmark{flex:none;width:56px;height:56px;border-radius:50%;background:var(--red);display:grid;place-items:center;font-size:30px;font-weight:700}
+.qtext{font-size:30px;font-weight:600;line-height:1.35}
+.panel{width:820px}
+.tests-row{display:flex;align-items:center;gap:26px}
+.badge-slot{flex:none;width:220px;height:220px}
+#badge-host{position:absolute;right:654px;bottom:122px;width:220px;height:220px}
+.chips{display:flex;flex-direction:column;gap:14px;flex:1}
+.chip{display:flex;align-items:baseline;gap:16px;padding:12px 20px;border-radius:14px;background:#f1f5f9;border-left:8px solid var(--red)}
+.chip b{font-size:40px;font-weight:700;letter-spacing:.02em}
+.chip span{font-size:22px;color:var(--muted);font-weight:600}
+.stat-row{display:flex;align-items:flex-end;gap:22px}
+.big{margin-top:24px;font-size:170px;font-weight:700;line-height:1.15;color:var(--red-ink);display:flex}
+.plus{display:inline-block}
+.unit{font-size:40px;font-weight:700;line-height:1.25;padding-bottom:18px}
+.note{font-size:24px;color:var(--muted);font-weight:600;margin-top:22px}
+.note2{margin-top:16px;padding:14px 18px;border-radius:12px;background:#fef2f2;color:var(--red-ink);font-size:28px;font-weight:700}
+.list ul{list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:8px}
+.ltitle{font-size:40px;font-weight:700;line-height:1.25;margin-bottom:8px}
+.list li{display:flex;align-items:center;gap:16px;font-size:32px;font-weight:600}
+.tick{flex:none;width:44px;height:44px;border-radius:50%;background:var(--teal);color:#fff;display:grid;place-items:center;font-size:26px;font-weight:700}
+.quote{width:1000px;border-left:12px solid var(--red)}
+.quote .qq{position:absolute;right:30px;top:-20px;font-size:140px;line-height:1;color:var(--red);font-weight:700}
+.qbody{font-size:46px;font-weight:700;line-height:1.4}
+.hl{background-image:linear-gradient(transparent 58%,rgba(239,68,68,.35) 58%);background-repeat:no-repeat;background-size:0% 100%}
+.qsrc{display:block;margin-top:12px;font-size:24px;color:var(--muted);font-weight:600}
+.quote.big{display:block;width:1300px;margin-left:-650px;text-align:center;border-left:none;border-bottom:12px solid var(--red)}
+.quote.big .qbody{font-size:76px}
+.flowcard .frow{display:flex;align-items:center;gap:22px}
+.fstep{flex:1;display:flex;align-items:center;gap:16px;padding:20px 22px;border-radius:16px;background:#f1f5f9;font-size:30px;font-weight:700;line-height:1.3}
+.fnum{flex:none;width:52px;height:52px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;font-size:28px}
+.farrow{font-size:48px;color:var(--red);font-weight:700}
+.versus{width:1100px;display:flex;align-items:stretch;gap:28px}
+.versus .col{flex:1;padding:20px 24px;border-radius:16px}
+.versus .bad{background:#fef2f2}
+.versus .good{background:#ecfeff}
+.ch{font-size:32px;font-weight:700;margin-bottom:10px}
+.it{display:flex;align-items:center;gap:14px;font-size:30px;font-weight:600;margin-top:8px}
+.x{color:var(--red-ink);font-weight:700}
+.ok{color:var(--teal);font-weight:700}
+.vs{align-self:center;width:84px;height:84px;flex:none;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:30px;font-weight:700}
+#outro-bg{position:absolute;inset:0;background:#f8fafc;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px}
+.o-title{font-size:110px;font-weight:700}
+.o-sub{font-size:34px;color:var(--muted);font-weight:600}
+
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="165.3" data-width="1920" data-height="1080">
+      <div id="video-zoom"><div id="video-drift">
+        <video id="v1" class="vclip" src="assets/interview.mp4" playsinline data-has-audio="true" data-start="0.0" data-duration="32.1" data-media-start="17.1" data-track-index="0" data-automation='{"version": 1, "lanes": [{"target": "volume", "points": [{"t": 0, "v": 0}, {"t": 0.12, "v": 1}, {"t": 31.98, "v": 1}, {"t": 32.1, "v": 0}]}]}'></video>
+        <video id="v2" class="vclip" src="assets/interview.mp4" playsinline data-has-audio="true" data-start="32.1" data-duration="32.6" data-media-start="92.6" data-track-index="1" data-automation='{"version": 1, "lanes": [{"target": "volume", "points": [{"t": 0, "v": 0}, {"t": 0.12, "v": 1}, {"t": 32.48, "v": 1}, {"t": 32.6, "v": 0}]}]}'></video>
+        <video id="v3" class="vclip" src="assets/interview.mp4" playsinline data-has-audio="true" data-start="64.7" data-duration="16.1" data-media-start="144.4" data-track-index="0" data-automation='{"version": 1, "lanes": [{"target": "volume", "points": [{"t": 0, "v": 0}, {"t": 0.12, "v": 1}, {"t": 15.98, "v": 1}, {"t": 16.1, "v": 0}]}]}'></video>
+        <video id="v4" class="vclip" src="assets/interview.mp4" playsinline data-has-audio="true" data-start="80.8" data-duration="27.6" data-media-start="190.4" data-track-index="1" data-automation='{"version": 1, "lanes": [{"target": "volume", "points": [{"t": 0, "v": 0}, {"t": 0.12, "v": 1}, {"t": 27.48, "v": 1}, {"t": 27.6, "v": 0}]}]}'></video>
+        <video id="v5" class="vclip" src="assets/interview.mp4" playsinline data-has-audio="true" data-start="108.4" data-duration="14.9" data-media-start="219.9" data-track-index="0" data-automation='{"version": 1, "lanes": [{"target": "volume", "points": [{"t": 0, "v": 0}, {"t": 0.12, "v": 1}, {"t": 14.78, "v": 1}, {"t": 14.9, "v": 0}]}]}'></video>
+        <video id="v6" class="vclip" src="assets/interview.mp4" playsinline data-has-audio="true" data-start="123.3" data-duration="22.0" data-media-start="320.4" data-track-index="1" data-automation='{"version": 1, "lanes": [{"target": "volume", "points": [{"t": 0, "v": 0}, {"t": 0.12, "v": 1}, {"t": 21.88, "v": 1}, {"t": 22.0, "v": 0}]}]}'></video>
+        <video id="v7" class="vclip" src="assets/interview.mp4" playsinline data-has-audio="true" data-start="145.3" data-duration="11.4" data-media-start="361.5" data-track-index="0" data-automation='{"version": 1, "lanes": [{"target": "volume", "points": [{"t": 0, "v": 0}, {"t": 0.12, "v": 1}, {"t": 11.28, "v": 1}, {"t": 11.4, "v": 0}]}]}'></video>
+        <video id="v8" class="vclip" src="assets/interview.mp4" playsinline data-has-audio="true" data-start="156.7" data-duration="7.1" data-media-start="449.5" data-track-index="1" data-automation='{"version": 1, "lanes": [{"target": "volume", "points": [{"t": 0, "v": 0}, {"t": 0.12, "v": 1}, {"t": 6.98, "v": 1}, {"t": 7.1, "v": 0}]}]}'></video>
+      </div></div>
+      <div id="vignette"></div>
+      <div id="chrome" class="clip layer" data-start="0" data-duration="163.8" data-track-index="20"><div id="chrome-tag" class="tag"><span class="dot"></span>เสียงจากโรงพยาบาล · การคัดกรองโรคอัลไซเมอร์</div><div id="progress"><div id="progress-fill"></div></div></div>
+      <div id="title" class="clip layer" data-start="0" data-duration="4.8" data-track-index="21"><div class="card title-card bl"><div class="kicker red">สัมภาษณ์บุคลากรการแพทย์ &amp; ผู้รับบริการ</div><div class="title-xl"><span class="w">อัลไซเมอร์</span> <span class="w">คัดกรองเร็ว</span> <span class="w accent">รู้ตัวเร็ว</span></div></div></div>
+      <div id="sec-doctor" class="clip layer" data-start="0.0" data-duration="80.8" data-track-index="22"><div class="section"><div class="num">01</div><div><div class="sname">แพทย์</div><div class="ssub">มุมมองการตรวจคัดกรอง</div></div></div></div>
+      <div id="sec-nurse" class="clip layer" data-start="80.8" data-duration="42.5" data-track-index="22"><div class="section"><div class="num">02</div><div><div class="sname">พยาบาล</div><div class="ssub">มุมมองการดูแลผู้ป่วยและญาติ</div></div></div></div>
+      <div id="sec-staff" class="clip layer" data-start="123.3" data-duration="33.4" data-track-index="22"><div class="section"><div class="num">03</div><div><div class="sname">เจ้าหน้าที่</div><div class="ssub">กระดาษ vs แอปพลิเคชัน</div></div></div></div>
+      <div id="sec-patient" class="clip layer" data-start="156.7" data-duration="7.1" data-track-index="22"><div class="section"><div class="num">04</div><div><div class="sname">ผู้รับบริการ</div><div class="ssub">เสียงจากผู้ที่เคยทำแบบทดสอบ</div></div></div></div>
+      <div id="lt-doc" class="clip layer" data-start="5.0" data-duration="5.0" data-track-index="23"><div class="lower"><div class="lbar"></div><div><div class="lname">คุณหมอ</div><div class="lrole">แพทย์ผู้ตรวจคัดกรองภาวะสมองเสื่อม</div></div></div></div>
+      <div id="lt-n1" class="clip layer" data-start="81.6" data-duration="5.0" data-track-index="23"><div class="lower"><div class="lbar"></div><div><div class="lname">พยาบาล</div><div class="lrole">มุมมองการดูแลผู้ป่วย</div></div></div></div>
+      <div id="lt-n2" class="clip layer" data-start="108.8" data-duration="4.6" data-track-index="23"><div class="lower"><div class="lbar"></div><div><div class="lname">พยาบาล</div><div class="lrole">มุมมองญาติผู้ดูแล</div></div></div></div>
+      <div id="lt-staff" class="clip layer" data-start="123.9" data-duration="4.6" data-track-index="23"><div class="lower"><div class="lbar"></div><div><div class="lname">เจ้าหน้าที่ / พยาบาล</div><div class="lrole">ผู้ใช้แบบประเมินในงานประจำวัน</div></div></div></div>
+      <div id="lt-pt" class="clip layer" data-start="157.0" data-duration="2.2" data-track-index="23"><div class="lower"><div class="lbar"></div><div><div class="lname">ผู้รับบริการ</div><div class="lrole">ผู้ที่เคยลองทำแบบทดสอบ</div></div></div></div>
+      <div id="q1" class="clip layer" data-start="0.4" data-duration="9.0" data-track-index="24"><div class="question"><div class="qmark">Q</div><div class="qtext">การคัดกรองโรคอัลไซเมอร์ ปัจจุบันมีวิธีไหนบ้าง?</div></div></div>
+      <div id="q2" class="clip layer" data-start="32.4" data-duration="8.0" data-track-index="24"><div class="question"><div class="qmark">Q</div><div class="qtext">ในฐานะบุคลากร มีความกังวลเรื่องอัลไซเมอร์อย่างไร?</div></div></div>
+      <div id="q3" class="clip layer" data-start="64.9" data-duration="6.5" data-track-index="24"><div class="question"><div class="qmark">Q</div><div class="qtext">ถ้ามีเทคโนโลยีให้คัดกรองได้ด้วยตัวเอง จะช่วยไหม?</div></div></div>
+      <div id="q4" class="clip layer" data-start="81.1" data-duration="6.0" data-track-index="24"><div class="question"><div class="qmark">Q</div><div class="qtext">มีความกังวลเกี่ยวกับโรคอัลไซเมอร์อย่างไร?</div></div></div>
+      <div id="q5" class="clip layer" data-start="123.6" data-duration="7.0" data-track-index="24"><div class="question"><div class="qmark">Q</div><div class="qtext">ถ้ามีแอปพลิเคชันมาช่วย จะช่วยบุคลากรได้มากขึ้นไหม?</div></div></div>
+      <div id="q6" class="clip layer" data-start="145.5" data-duration="5.0" data-track-index="24"><div class="question"><div class="qmark">Q</div><div class="qtext">แบบทดสอบกระดาษ มีข้อดี–ข้อเสียอย่างไร?</div></div></div>
+      <div id="q7" class="clip layer" data-start="156.9" data-duration="6.6" data-track-index="24"><div class="question"><div class="qmark">Q</div><div class="qtext">ถ้ามีแอปช่วยให้รู้ก่อนจะเป็นหนัก ดีไหม?</div></div></div>
+      <div id="tests" class="clip layer" data-start="15.0" data-duration="16.9" data-track-index="25"><div class="card panel br" id="tests-panel"><div class="kicker">แบบทดสอบคัดกรองที่ได้รับการรับรองคุณภาพ</div><div class="tests-row"><div class="badge-slot"></div><div class="chips"><div class="chip"><b>TMSE</b><span>แบบทดสอบของไทย</span></div><div class="chip"><b>MoCA</b><span>มาตรฐานสากล</span></div><div class="chip"><b>MMSE</b><span>มาตรฐานสากล</span></div></div></div></div></div>
+      <div id="stat" class="clip layer" data-start="46.6" data-duration="17.9" data-track-index="26"><div class="card panel br stat"><div class="kicker red">ข้อกังวลด้านการทำงาน</div><div class="stat-row"><div class="big"><span id="stat-num" data-layout-allow-overlap>0</span><span class="plus" data-layout-allow-overlap>+</span></div><div class="unit">นาที<br/>ต่อผู้ป่วย 1 คน</div></div><div class="note">หากตรวจคัดกรองอย่างครบถ้วน</div><div class="note2" id="stat-note2"><span class="arrow">→</span> คนไข้ต่อวันเยอะ อาจกระทบการตรวจในแต่ละวัน</div></div></div>
+      <div id="benefit" class="clip layer" data-start="70.7" data-duration="9.9" data-track-index="27"><div class="card panel br list"><div class="kicker">ถ้าคัดกรองได้ด้วยตัวเอง</div><div class="ltitle">ประโยชน์ที่คุณหมอมองเห็น</div><ul><li><span class="tick">✓</span><span>บอกความเสี่ยงคร่าว ๆ ได้ตั้งแต่แรก</span></li><li><span class="tick">✓</span><span>ช่วยการตัดสินใจในการตรวจ</span></li><li><span class="tick">✓</span><span>ลดเวลาในการตรวจได้</span></li></ul></div></div>
+      <div id="care" class="clip layer" data-start="87.3" data-duration="20.9" data-track-index="28"><div class="card panel br list"><div class="kicker red">ความกังวลของพยาบาล</div><div class="ltitle">ผู้ป่วยต้องมีผู้ดูแลอย่างใกล้ชิด</div><ul><li><span class="tick">✓</span><span>การจัดยา — กินยาครบหรือไม่</span></li><li><span class="tick">✓</span><span>พลัดหลง สูญหายไปนอกบ้าน</span></li><li><span class="tick">✓</span><span>ล็อกประตู · ป้ายข้อมือพร้อมเบอร์โทร</span></li></ul></div></div>
+      <div id="stress" class="clip layer" data-start="113.60000000000001" data-duration="9.5" data-track-index="29"><div class="card quote br"><div class="qq">“</div><div class="qbody">ญาติอาจไม่เข้าใจตัวโรคและการดำเนินของโรค ทำให้ผู้ดูแล<span class="hl">เครียดง่าย</span></div><div class="qsrc">— พยาบาล, มุมมองญาติผู้ดูแล</div></div></div>
+      <div id="flow" class="clip layer" data-start="130.9" data-duration="14.2" data-track-index="30"><div class="card bc flowcard"><div class="kicker">ถ้ามีแอปพลิเคชันช่วยคัดกรอง</div><div class="frow"><div class="fstep"><div class="fnum">1</div><div>ทำเป็นแอป เข้าถึงง่าย</div></div><span class="farrow">→</span><div class="fstep"><div class="fnum">2</div><div>คนมาประเมินได้มากขึ้น</div></div><span class="farrow">→</span><div class="fstep"><div class="fnum">3</div><div>ตระหนัก → พบแพทย์วินิจฉัย</div></div></div></div></div>
+      <div id="versus" class="clip layer" data-start="149.3" data-duration="7.2" data-track-index="31"><div class="card panel br versus"><div class="col bad"><div class="ch">แบบประเมินกระดาษ</div><div class="it"><span class="x">✕</span>อาจสูญหายได้</div><div class="it"><span class="x">✕</span>เขียนไม่ชัดเจน</div></div><div class="vs">VS</div><div class="col good"><div class="ch">แอปพลิเคชัน</div><div class="it"><span class="ok">✓</span>เข้าถึงได้ง่าย</div><div class="it"><span class="ok">✓</span>คัดกรองได้มากขึ้น</div></div></div></div>
+      <div id="pquote" class="clip layer" data-start="159.29999999999998" data-duration="4.5" data-track-index="32"><div class="card quote bc big"><div class="qbody">“ก็ดีนะ <span class="hl">เราจะได้รู้ตัว</span>ไง”</div><div class="qsrc">— ผู้รับบริการ</div></div></div>
+      <div id="outro" class="clip layer" data-start="163.8" data-duration="1.5" data-track-index="33"><div id="outro-bg"><div class="o-title">คัดกรองเร็ว · <span class="accent">รู้ตัวเร็ว</span></div><div class="o-sub">ขอขอบคุณบุคลากรทางการแพทย์และผู้รับบริการทุกท่าน</div></div></div>
+      <div id="badge-host" data-composition-id="badge-pop" data-composition-src="compositions/components/badge-pop.html" data-variable-values='{"count": "3", "accent": "red", "surface": "light"}' data-start="15.3" data-duration="16.2" data-track-index="35" data-width="220" data-height="220"></div>
+      <audio id="sfx-01" src=".media/audio/sfx/sfx_002.mp3" data-start="0.1" data-duration="0.6" data-track-index="40" data-volume="0.45"></audio>
+      <audio id="sfx-02" src=".media/audio/sfx/sfx_003.mp3" data-start="0.35" data-duration="0.6" data-track-index="41" data-volume="0.35"></audio>
+      <audio id="sfx-03" src=".media/audio/sfx/sfx_004.mp3" data-start="0.7" data-duration="0.4" data-track-index="42" data-volume="0.4"></audio>
+      <audio id="sfx-04" src=".media/audio/sfx/sfx_004.mp3" data-start="0.88" data-duration="0.4" data-track-index="43" data-volume="0.4"></audio>
+      <audio id="sfx-05" src=".media/audio/sfx/sfx_001.mp3" data-start="1.05" data-duration="0.7" data-track-index="40" data-volume="0.5"></audio>
+      <audio id="sfx-06" src=".media/audio/sfx/sfx_004.mp3" data-start="5.02" data-duration="0.4" data-track-index="41" data-volume="0.4"></audio>
+      <audio id="sfx-07" src=".media/audio/sfx/sfx_002.mp3" data-start="14.95" data-duration="0.6" data-track-index="42" data-volume="0.35"></audio>
+      <audio id="sfx-08" src=".media/audio/sfx/sfx_001.mp3" data-start="16.0" data-duration="0.7" data-track-index="43" data-volume="0.6"></audio>
+      <audio id="sfx-09" src=".media/audio/sfx/sfx_007.mp3" data-start="16.45" data-duration="1.3" data-track-index="40" data-volume="0.35"></audio>
+      <audio id="sfx-10" src=".media/audio/sfx/sfx_004.mp3" data-start="18.2" data-duration="0.4" data-track-index="41" data-volume="0.45"></audio>
+      <audio id="sfx-11" src=".media/audio/sfx/sfx_004.mp3" data-start="23.5" data-duration="0.4" data-track-index="42" data-volume="0.45"></audio>
+      <audio id="sfx-12" src=".media/audio/sfx/sfx_004.mp3" data-start="24.6" data-duration="0.4" data-track-index="43" data-volume="0.45"></audio>
+      <audio id="sfx-13" src=".media/audio/sfx/sfx_003.mp3" data-start="32.02" data-duration="0.6" data-track-index="40" data-volume="0.25"></audio>
+      <audio id="sfx-14" src=".media/audio/sfx/sfx_003.mp3" data-start="32.35" data-duration="0.6" data-track-index="41" data-volume="0.35"></audio>
+      <audio id="sfx-15" src=".media/audio/sfx/sfx_006.mp3" data-start="45.5" data-duration="1.5" data-media-start="8.5" data-track-index="42" data-volume="0.3"></audio>
+      <audio id="sfx-16" src=".media/audio/sfx/sfx_007.mp3" data-start="48.3" data-duration="1.3" data-track-index="43" data-volume="0.45"></audio>
+      <audio id="sfx-17" src=".media/audio/sfx/sfx_004.mp3" data-start="53.6" data-duration="0.4" data-track-index="40" data-volume="0.4"></audio>
+      <audio id="sfx-18" src=".media/audio/sfx/sfx_003.mp3" data-start="64.62" data-duration="0.6" data-track-index="41" data-volume="0.25"></audio>
+      <audio id="sfx-19" src=".media/audio/sfx/sfx_003.mp3" data-start="64.85" data-duration="0.6" data-track-index="42" data-volume="0.35"></audio>
+      <audio id="sfx-20" src=".media/audio/sfx/sfx_002.mp3" data-start="70.65" data-duration="0.6" data-track-index="43" data-volume="0.3"></audio>
+      <audio id="sfx-21" src=".media/audio/sfx/sfx_004.mp3" data-start="71.5" data-duration="0.4" data-track-index="40" data-volume="0.4"></audio>
+      <audio id="sfx-22" src=".media/audio/sfx/sfx_004.mp3" data-start="74.2" data-duration="0.4" data-track-index="41" data-volume="0.4"></audio>
+      <audio id="sfx-23" src=".media/audio/sfx/sfx_004.mp3" data-start="77.2" data-duration="0.4" data-track-index="42" data-volume="0.4"></audio>
+      <audio id="sfx-24" src=".media/audio/sfx/sfx_002.mp3" data-start="80.8" data-duration="0.6" data-track-index="43" data-volume="0.45"></audio>
+      <audio id="sfx-25" src=".media/audio/sfx/sfx_003.mp3" data-start="81.05" data-duration="0.6" data-track-index="40" data-volume="0.35"></audio>
+      <audio id="sfx-26" src=".media/audio/sfx/sfx_004.mp3" data-start="81.62" data-duration="0.4" data-track-index="41" data-volume="0.4"></audio>
+      <audio id="sfx-27" src=".media/audio/sfx/sfx_002.mp3" data-start="87.25" data-duration="0.6" data-track-index="42" data-volume="0.3"></audio>
+      <audio id="sfx-28" src=".media/audio/sfx/sfx_004.mp3" data-start="88.8" data-duration="0.4" data-track-index="43" data-volume="0.4"></audio>
+      <audio id="sfx-29" src=".media/audio/sfx/sfx_004.mp3" data-start="93.8" data-duration="0.4" data-track-index="40" data-volume="0.4"></audio>
+      <audio id="sfx-30" src=".media/audio/sfx/sfx_004.mp3" data-start="100.3" data-duration="0.4" data-track-index="41" data-volume="0.4"></audio>
+      <audio id="sfx-31" src=".media/audio/sfx/sfx_003.mp3" data-start="108.32" data-duration="0.6" data-track-index="42" data-volume="0.25"></audio>
+      <audio id="sfx-32" src=".media/audio/sfx/sfx_004.mp3" data-start="108.82" data-duration="0.4" data-track-index="43" data-volume="0.4"></audio>
+      <audio id="sfx-33" src=".media/audio/sfx/sfx_002.mp3" data-start="113.55" data-duration="0.6" data-track-index="40" data-volume="0.3"></audio>
+      <audio id="sfx-34" src=".media/audio/sfx/sfx_008.mp3" data-start="114.8" data-duration="1.8" data-track-index="41" data-volume="0.3"></audio>
+      <audio id="sfx-35" src=".media/audio/sfx/sfx_002.mp3" data-start="123.3" data-duration="0.6" data-track-index="42" data-volume="0.45"></audio>
+      <audio id="sfx-36" src=".media/audio/sfx/sfx_003.mp3" data-start="123.55" data-duration="0.6" data-track-index="43" data-volume="0.35"></audio>
+      <audio id="sfx-37" src=".media/audio/sfx/sfx_004.mp3" data-start="123.92" data-duration="0.4" data-track-index="40" data-volume="0.4"></audio>
+      <audio id="sfx-38" src=".media/audio/sfx/sfx_002.mp3" data-start="130.85" data-duration="0.6" data-track-index="41" data-volume="0.3"></audio>
+      <audio id="sfx-39" src=".media/audio/sfx/sfx_004.mp3" data-start="131.4" data-duration="0.4" data-track-index="42" data-volume="0.4"></audio>
+      <audio id="sfx-40" src=".media/audio/sfx/sfx_004.mp3" data-start="134.4" data-duration="0.4" data-track-index="43" data-volume="0.4"></audio>
+      <audio id="sfx-41" src=".media/audio/sfx/sfx_001.mp3" data-start="138.4" data-duration="0.7" data-track-index="40" data-volume="0.4"></audio>
+      <audio id="sfx-42" src=".media/audio/sfx/sfx_003.mp3" data-start="145.22" data-duration="0.6" data-track-index="41" data-volume="0.25"></audio>
+      <audio id="sfx-43" src=".media/audio/sfx/sfx_003.mp3" data-start="145.45" data-duration="0.6" data-track-index="42" data-volume="0.35"></audio>
+      <audio id="sfx-44" src=".media/audio/sfx/sfx_002.mp3" data-start="149.25" data-duration="0.6" data-track-index="43" data-volume="0.3"></audio>
+      <audio id="sfx-45" src=".media/audio/sfx/sfx_004.mp3" data-start="149.9" data-duration="0.4" data-track-index="40" data-volume="0.4"></audio>
+      <audio id="sfx-46" src=".media/audio/sfx/sfx_004.mp3" data-start="151.1" data-duration="0.4" data-track-index="41" data-volume="0.4"></audio>
+      <audio id="sfx-47" src=".media/audio/sfx/sfx_001.mp3" data-start="152.5" data-duration="0.7" data-track-index="42" data-volume="0.5"></audio>
+      <audio id="sfx-48" src=".media/audio/sfx/sfx_004.mp3" data-start="152.9" data-duration="0.4" data-track-index="43" data-volume="0.4"></audio>
+      <audio id="sfx-49" src=".media/audio/sfx/sfx_004.mp3" data-start="153.4" data-duration="0.4" data-track-index="40" data-volume="0.4"></audio>
+      <audio id="sfx-50" src=".media/audio/sfx/sfx_002.mp3" data-start="156.7" data-duration="0.6" data-track-index="41" data-volume="0.45"></audio>
+      <audio id="sfx-51" src=".media/audio/sfx/sfx_003.mp3" data-start="156.85" data-duration="0.6" data-track-index="42" data-volume="0.35"></audio>
+      <audio id="sfx-52" src=".media/audio/sfx/sfx_004.mp3" data-start="157.02" data-duration="0.4" data-track-index="43" data-volume="0.4"></audio>
+      <audio id="sfx-53" src=".media/audio/sfx/sfx_008.mp3" data-start="159.3" data-duration="1.8" data-track-index="40" data-volume="0.35"></audio>
+      <audio id="sfx-54" src=".media/audio/sfx/sfx_005.mp3" data-start="163.85" data-duration="1.45" data-track-index="41" data-volume="0.4"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#chrome-tag",{opacity:0,y:-16},{opacity:1,y:0,duration:0.5,ease:"power3.out"},0.2);
+      tl.fromTo("#progress-fill",{scaleX:0},{scaleX:1,duration:163.8,ease:"none"},0);
+      tl.fromTo("#title .card",{opacity:0,x:-60},{opacity:1,x:0,duration:0.6,ease:"expo.out"},0.15);
+      tl.fromTo("#title .w",{opacity:0,y:40},{opacity:1,y:0,duration:0.5,stagger:0.18,ease:"back.out(1.6)"},0.35);
+      tl.to("#title .card",{opacity:0,x:-40,duration:0.35,ease:"power2.in"},4.4);
+      tl.fromTo("#sec-doctor .section",{opacity:0,x:-80},{opacity:1,x:0,duration:0.55,ease:"expo.out"},0.15);
+      tl.fromTo("#sec-doctor .num",{scale:0.4},{scale:1,duration:0.5,ease:"back.out(2.2)"},0.25);
+      tl.fromTo("#sec-nurse .section",{opacity:0,x:-80},{opacity:1,x:0,duration:0.55,ease:"expo.out"},80.95);
+      tl.fromTo("#sec-nurse .num",{scale:0.4},{scale:1,duration:0.5,ease:"back.out(2.2)"},81.05);
+      tl.fromTo("#sec-staff .section",{opacity:0,x:-80},{opacity:1,x:0,duration:0.55,ease:"expo.out"},123.45);
+      tl.fromTo("#sec-staff .num",{scale:0.4},{scale:1,duration:0.5,ease:"back.out(2.2)"},123.55);
+      tl.fromTo("#sec-patient .section",{opacity:0,x:-80},{opacity:1,x:0,duration:0.55,ease:"expo.out"},156.85);
+      tl.fromTo("#sec-patient .num",{scale:0.4},{scale:1,duration:0.5,ease:"back.out(2.2)"},156.95);
+      tl.fromTo("#lt-doc .lower",{opacity:0,x:-50},{opacity:1,x:0,duration:0.5,ease:"expo.out"},5.0);
+      tl.fromTo("#lt-doc .lbar",{scaleY:0},{scaleY:1,duration:0.45,ease:"power3.out"},5.05);
+      tl.to("#lt-doc .lower",{opacity:0,x:-30,duration:0.3,ease:"power2.in"},9.65);
+      tl.fromTo("#lt-n1 .lower",{opacity:0,x:-50},{opacity:1,x:0,duration:0.5,ease:"expo.out"},81.6);
+      tl.fromTo("#lt-n1 .lbar",{scaleY:0},{scaleY:1,duration:0.45,ease:"power3.out"},81.64999999999999);
+      tl.to("#lt-n1 .lower",{opacity:0,x:-30,duration:0.3,ease:"power2.in"},86.25);
+      tl.fromTo("#lt-n2 .lower",{opacity:0,x:-50},{opacity:1,x:0,duration:0.5,ease:"expo.out"},108.80000000000001);
+      tl.fromTo("#lt-n2 .lbar",{scaleY:0},{scaleY:1,duration:0.45,ease:"power3.out"},108.85000000000001);
+      tl.to("#lt-n2 .lower",{opacity:0,x:-30,duration:0.3,ease:"power2.in"},113.05000000000001);
+      tl.fromTo("#lt-staff .lower",{opacity:0,x:-50},{opacity:1,x:0,duration:0.5,ease:"expo.out"},123.89999999999999);
+      tl.fromTo("#lt-staff .lbar",{scaleY:0},{scaleY:1,duration:0.45,ease:"power3.out"},123.94999999999999);
+      tl.to("#lt-staff .lower",{opacity:0,x:-30,duration:0.3,ease:"power2.in"},128.15);
+      tl.fromTo("#lt-pt .lower",{opacity:0,x:-50},{opacity:1,x:0,duration:0.5,ease:"expo.out"},157.0);
+      tl.fromTo("#lt-pt .lbar",{scaleY:0},{scaleY:1,duration:0.45,ease:"power3.out"},157.05);
+      tl.to("#lt-pt .lower",{opacity:0,x:-30,duration:0.3,ease:"power2.in"},158.85);
+      tl.fromTo("#q1 .question",{opacity:0,y:-30},{opacity:1,y:0,duration:0.5,ease:"expo.out"},0.4);
+      tl.fromTo("#q1 .qmark",{rotation:-90,scale:0},{rotation:0,scale:1,duration:0.5,ease:"back.out(2)"},0.5);
+      tl.to("#q1 .question",{opacity:0,y:-20,duration:0.3,ease:"power2.in"},9.05);
+      tl.fromTo("#q2 .question",{opacity:0,y:-30},{opacity:1,y:0,duration:0.5,ease:"expo.out"},32.4);
+      tl.fromTo("#q2 .qmark",{rotation:-90,scale:0},{rotation:0,scale:1,duration:0.5,ease:"back.out(2)"},32.5);
+      tl.to("#q2 .question",{opacity:0,y:-20,duration:0.3,ease:"power2.in"},40.05);
+      tl.fromTo("#q3 .question",{opacity:0,y:-30},{opacity:1,y:0,duration:0.5,ease:"expo.out"},64.9);
+      tl.fromTo("#q3 .qmark",{rotation:-90,scale:0},{rotation:0,scale:1,duration:0.5,ease:"back.out(2)"},65.0);
+      tl.to("#q3 .question",{opacity:0,y:-20,duration:0.3,ease:"power2.in"},71.05000000000001);
+      tl.fromTo("#q4 .question",{opacity:0,y:-30},{opacity:1,y:0,duration:0.5,ease:"expo.out"},81.1);
+      tl.fromTo("#q4 .qmark",{rotation:-90,scale:0},{rotation:0,scale:1,duration:0.5,ease:"back.out(2)"},81.19999999999999);
+      tl.to("#q4 .question",{opacity:0,y:-20,duration:0.3,ease:"power2.in"},86.75);
+      tl.fromTo("#q5 .question",{opacity:0,y:-30},{opacity:1,y:0,duration:0.5,ease:"expo.out"},123.6);
+      tl.fromTo("#q5 .qmark",{rotation:-90,scale:0},{rotation:0,scale:1,duration:0.5,ease:"back.out(2)"},123.69999999999999);
+      tl.to("#q5 .question",{opacity:0,y:-20,duration:0.3,ease:"power2.in"},130.25);
+      tl.fromTo("#q6 .question",{opacity:0,y:-30},{opacity:1,y:0,duration:0.5,ease:"expo.out"},145.5);
+      tl.fromTo("#q6 .qmark",{rotation:-90,scale:0},{rotation:0,scale:1,duration:0.5,ease:"back.out(2)"},145.6);
+      tl.to("#q6 .question",{opacity:0,y:-20,duration:0.3,ease:"power2.in"},150.15);
+      tl.fromTo("#q7 .question",{opacity:0,y:-30},{opacity:1,y:0,duration:0.5,ease:"expo.out"},156.89999999999998);
+      tl.fromTo("#q7 .qmark",{rotation:-90,scale:0},{rotation:0,scale:1,duration:0.5,ease:"back.out(2)"},156.99999999999997);
+      tl.to("#q7 .question",{opacity:0,y:-20,duration:0.3,ease:"power2.in"},163.14999999999998);
+      tl.fromTo("#tests-panel",{opacity:0,y:60},{opacity:1,y:0,duration:0.6,ease:"expo.out"},15.0);
+      tl.fromTo("#tests .chip:nth-child(1)",{opacity:0,x:40,scale:0.9},{opacity:1,x:0,scale:1,duration:0.45,ease:"back.out(1.8)"},18.2);
+      tl.fromTo("#tests .chip:nth-child(2)",{opacity:0,x:40,scale:0.9},{opacity:1,x:0,scale:1,duration:0.45,ease:"back.out(1.8)"},23.5);
+      tl.fromTo("#tests .chip:nth-child(3)",{opacity:0,x:40,scale:0.9},{opacity:1,x:0,scale:1,duration:0.45,ease:"back.out(1.8)"},24.6);
+      tl.to("#tests-panel",{opacity:0,y:40,duration:0.35,ease:"power2.in"},31.500000000000004);
+      tl.fromTo("#stat .card",{opacity:0,y:60},{opacity:1,y:0,duration:0.6,ease:"expo.out"},46.6);
+      (function(){var o={v:0};tl.to(o,{v:10,duration:1.4,ease:"power2.out",onUpdate:function(){document.getElementById("stat-num").textContent=Math.round(o.v);}},46.9);})();
+      tl.fromTo("#stat .plus",{scale:0,opacity:0},{scale:1,opacity:1,duration:0.4,ease:"back.out(3)"},48.300000000000004);
+      tl.fromTo("#stat-note2",{opacity:0,x:30},{opacity:1,x:0,duration:0.5,ease:"expo.out"},53.6);
+      tl.to("#stat .card",{opacity:0,y:40,duration:0.35,ease:"power2.in"},64.1);
+      tl.fromTo("#benefit .card",{opacity:0,y:60},{opacity:1,y:0,duration:0.6,ease:"expo.out"},70.7);
+      tl.fromTo("#benefit li:nth-child(1)",{opacity:0,x:40},{opacity:1,x:0,duration:0.45,ease:"expo.out"},71.5);
+      tl.fromTo("#benefit li:nth-child(1) .tick",{scale:0},{scale:1,duration:0.4,ease:"back.out(3)"},71.6);
+      tl.fromTo("#benefit li:nth-child(2)",{opacity:0,x:40},{opacity:1,x:0,duration:0.45,ease:"expo.out"},74.2);
+      tl.fromTo("#benefit li:nth-child(2) .tick",{scale:0},{scale:1,duration:0.4,ease:"back.out(3)"},74.3);
+      tl.fromTo("#benefit li:nth-child(3)",{opacity:0,x:40},{opacity:1,x:0,duration:0.45,ease:"expo.out"},77.2);
+      tl.fromTo("#benefit li:nth-child(3) .tick",{scale:0},{scale:1,duration:0.4,ease:"back.out(3)"},77.3);
+      tl.to("#benefit .card",{opacity:0,y:40,duration:0.35,ease:"power2.in"},80.19999999999999);
+      tl.fromTo("#care .card",{opacity:0,y:60},{opacity:1,y:0,duration:0.6,ease:"expo.out"},87.3);
+      tl.fromTo("#care li:nth-child(1)",{opacity:0,x:40},{opacity:1,x:0,duration:0.45,ease:"expo.out"},88.8);
+      tl.fromTo("#care li:nth-child(1) .tick",{scale:0},{scale:1,duration:0.4,ease:"back.out(3)"},88.89999999999999);
+      tl.fromTo("#care li:nth-child(2)",{opacity:0,x:40},{opacity:1,x:0,duration:0.45,ease:"expo.out"},93.8);
+      tl.fromTo("#care li:nth-child(2) .tick",{scale:0},{scale:1,duration:0.4,ease:"back.out(3)"},93.89999999999999);
+      tl.fromTo("#care li:nth-child(3)",{opacity:0,x:40},{opacity:1,x:0,duration:0.45,ease:"expo.out"},100.3);
+      tl.fromTo("#care li:nth-child(3) .tick",{scale:0},{scale:1,duration:0.4,ease:"back.out(3)"},100.39999999999999);
+      tl.to("#care .card",{opacity:0,y:40,duration:0.35,ease:"power2.in"},107.8);
+      tl.fromTo("#stress .card",{opacity:0,y:60},{opacity:1,y:0,duration:0.6,ease:"expo.out"},113.60000000000001);
+      tl.fromTo("#stress .qq",{scale:0,rotation:-30},{scale:1,rotation:0,duration:0.5,ease:"back.out(2.4)"},113.75000000000001);
+      tl.fromTo("#stress .hl",{backgroundSize:"0% 100%"},{backgroundSize:"100% 100%",duration:0.6,ease:"power2.out"},114.80000000000001);
+      tl.to("#stress .card",{opacity:0,y:40,duration:0.35,ease:"power2.in"},122.69999999999999);
+      tl.fromTo("#flow .card",{opacity:0,y:60},{opacity:1,y:0,duration:0.6,ease:"expo.out"},130.9);
+      tl.fromTo("#flow .fstep:nth-of-type(1)",{opacity:0,y:30,scale:0.9},{opacity:1,y:0,scale:1,duration:0.5,ease:"back.out(1.8)"},131.4);
+      tl.fromTo("#flow .fstep:nth-of-type(2)",{opacity:0,y:30,scale:0.9},{opacity:1,y:0,scale:1,duration:0.5,ease:"back.out(1.8)"},134.4);
+      tl.fromTo("#flow .farrow:nth-of-type(1)",{opacity:0,x:-20},{opacity:1,x:0,duration:0.35,ease:"power2.out"},134.15);
+      tl.fromTo("#flow .fstep:nth-of-type(3)",{opacity:0,y:30,scale:0.9},{opacity:1,y:0,scale:1,duration:0.5,ease:"back.out(1.8)"},138.4);
+      tl.fromTo("#flow .farrow:nth-of-type(2)",{opacity:0,x:-20},{opacity:1,x:0,duration:0.35,ease:"power2.out"},138.15);
+      tl.to("#flow .card",{opacity:0,y:40,duration:0.35,ease:"power2.in"},144.70000000000002);
+      tl.fromTo("#versus .card",{opacity:0,y:60},{opacity:1,y:0,duration:0.6,ease:"expo.out"},149.3);
+      tl.fromTo("#versus .bad .it",{opacity:0,x:-30},{opacity:1,x:0,duration:0.4,stagger:1.2,ease:"expo.out"},149.9);
+      tl.fromTo("#versus .vs",{scale:0},{scale:1,duration:0.45,ease:"back.out(3)"},152.5);
+      tl.fromTo("#versus .good .it",{opacity:0,x:30},{opacity:1,x:0,duration:0.4,stagger:0.5,ease:"expo.out"},152.9);
+      tl.to("#versus .card",{opacity:0,y:40,duration:0.35,ease:"power2.in"},156.1);
+      tl.fromTo("#pquote .card",{opacity:0,scale:0.85},{opacity:1,scale:1,duration:0.6,ease:"back.out(1.6)"},159.29999999999998);
+      tl.fromTo("#pquote .hl",{backgroundSize:"0% 100%"},{backgroundSize:"100% 100%",duration:0.6,ease:"power2.out"},160.89999999999998);
+      tl.fromTo("#outro-bg",{opacity:0},{opacity:1,duration:0.3,ease:"power2.out"},163.8);
+      tl.fromTo("#outro .o-title",{opacity:0,y:30},{opacity:1,y:0,duration:0.5,ease:"expo.out"},163.9);
+      tl.fromTo("#outro .o-sub",{opacity:0},{opacity:1,duration:0.4},164.25);
+      tl.set("#video-zoom",{scale:1.0},0.0);
+      tl.fromTo("#video-drift",{scale:1},{scale:1.035,duration:32.1,ease:"none"},0.0);
+      tl.set("#video-zoom",{scale:1.07},32.1);
+      tl.fromTo("#video-drift",{scale:1},{scale:1.035,duration:32.6,ease:"none"},32.1);
+      tl.set("#video-zoom",{scale:1.0},64.7);
+      tl.fromTo("#video-drift",{scale:1},{scale:1.035,duration:16.1,ease:"none"},64.7);
+      tl.set("#video-zoom",{scale:1.07},80.8);
+      tl.fromTo("#video-drift",{scale:1},{scale:1.035,duration:27.6,ease:"none"},80.8);
+      tl.set("#video-zoom",{scale:1.0},108.4);
+      tl.fromTo("#video-drift",{scale:1},{scale:1.035,duration:14.9,ease:"none"},108.4);
+      tl.set("#video-zoom",{scale:1.07},123.3);
+      tl.fromTo("#video-drift",{scale:1},{scale:1.035,duration:22.0,ease:"none"},123.3);
+      tl.set("#video-zoom",{scale:1.0},145.3);
+      tl.fromTo("#video-drift",{scale:1},{scale:1.035,duration:11.4,ease:"none"},145.3);
+      tl.set("#video-zoom",{scale:1.07},156.7);
+      tl.fromTo("#video-drift",{scale:1},{scale:1.035,duration:7.1,ease:"none"},156.7);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
