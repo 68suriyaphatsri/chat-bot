@@ -3,7 +3,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { SOURCES, SECTIONS, EMPATHY, DEFINE, IDEATE } from './edl.mjs';
+import { SOURCES, SECTIONS, EMPATHY, DEFINE, IDEATE, SURVEY, WHY, STATS } from './edl.mjs';
+const FACES = JSON.parse(fs.readFileSync(new URL('./faces.json', import.meta.url), 'utf8'));
+const TARGET = 300;
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const W = 1920, H = 1080, FPS = 30;
@@ -348,6 +350,9 @@ ICON.users = '<svg viewBox="0 0 48 48"><circle cx="17" cy="16" r="7" fill="none"
 ICON.star = '<svg viewBox="0 0 48 48"><path d="M24 4l6 13 14 1-11 9 4 14-13-8-13 8 4-14L4 18l14-1z" fill="currentColor"/></svg>';
 ICON.loop = '<svg viewBox="0 0 48 48"><path d="M38 18a15 15 0 0 0-27-4M10 30a15 15 0 0 0 27 4" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M8 6v9h9M40 42v-9h-9" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
+function countUp(sel, to, at) {
+  tw.push(`(function(){var el=document.querySelector('${sel}');var o={v:0};tl.to(o,{v:${to},duration:0.9,ease:'power2.out',onUpdate:function(){el.textContent=Math.round(o.v);}},${r3(at)});})();`);
+}
 let cardOpen = false; // presenter card already on screen from the previous talk section
 function header(step, label) {
   return `<div class="dt-head"><span class="dt-step">${esc(step)}</span><span class="dt-title">${esc(label)}</span></div>`;
@@ -373,6 +378,7 @@ function slideHtml(sl, sid) {
         <div class="em-card em-c0"><span class="em-ico">${ICON.hosp}</span><div class="em-main">บุคลากรในโรงพยาบาล</div><div class="em-sub">แพทย์ · พยาบาลวิชาชีพ</div></div>
         <div class="em-card em-c1"><span class="em-ico">${ICON.users}</span><div class="em-main">ญาติผู้ป่วย / ผู้สูงอายุ</div><div class="em-sub">ผู้ที่มาตรวจที่โรงพยาบาล</div></div>
       </div>
+      <div class="em-stat"><span class="em-num">${STATS.interviewed}</span><span class="em-unit">คน</span><span class="em-lbl">สัมภาษณ์ทั้งหมด</span></div>
       <div class="em-next"><span class="em-play">${ICON.play}</span>ตัวอย่างคลิปสัมภาษณ์</div>`;
     case 'maphead': return `${head('01 · EMPATHIZE', 'Empathy Map')}
       <div class="mh-grid">${[['eye', 'See', 'เห็นสิ่งไหน'], ['say', 'Say', 'คำที่พูดออกมา'], ['heart', 'Feel', 'ความรู้สึก'], ['gear', 'Do', 'สิ่งที่ปฏิบัติ/ทำ']].map(([ic, en, th], i) => `<div class="mh-q mh-${i}"><span class="mh-ico">${ICON[ic]}</span><div><div class="mh-en">What they ${en}</div><div class="mh-th">${th}</div></div></div>`).join('')}</div>`;
@@ -398,6 +404,7 @@ function slideHtml(sl, sid) {
       <div class="ts-top">
         <div class="ts-card ts-c0"><span class="ts-ico">${ICON.pin}</span><div><div class="ts-k">สถานที่</div><div class="ts-v">โรงพยาบาลพระจอมเกล้า จ.เพชรบุรี</div></div></div>
         <div class="ts-card ts-c1"><span class="ts-ico">${ICON.users}</span><div><div class="ts-k">กลุ่มผู้ใช้</div><div class="ts-v"><span class="ts-big">45+</span> ปีขึ้นไป</div></div></div>
+        <div class="ts-card ts-c2"><span class="ts-ico">${ICON.paper}</span><div><div class="ts-k">เก็บข้อมูล</div><div class="ts-v"><span class="ts-big ts-num">${STATS.collected}</span> คน</div></div></div>
       </div>
       <div class="ts-flow">${[['phone', 'ทดลองใช้งานระบบ'], ['heart', 'เก็บความพึงพอใจ'], ['say', 'ความคิดเห็น & ข้อเสนอแนะ'], ['loop', 'ปรับปรุง & พัฒนาระบบ']].map(([ic, t], i) => `<div class="ts-step ts-s${i}"><span class="ts-sico">${ICON[ic]}</span><div class="ts-st">${t}</div></div>`).join('<div class="ts-arr"></div>')}</div>`;
   }
@@ -420,8 +427,9 @@ function animateSlide(sl, S, t, dur, map) {
       sl.cues.forEach((c, i) => { pop(`.cy-${i}`, at(c)); if (i) tw.push(`tl.fromTo('${S} .cy-arrow:nth-of-type(${i * 2})',{scaleX:0},{scaleX:1,duration:0.3,ease:'power2.out'},${r3(at(c) - 0.15)});`); });
       break;
     case 'empathize':
-      pop('.em-c0', at(sl.cues[0])); pop('.em-c1', at(sl.cues[1])); pop('.em-next', at(sl.cues[2]), 'whooshShort');
-      tw.push(`tl.to('${S} .em-play',{x:12,duration:0.4,ease:'sine.inOut',yoyo:true,repeat:3},${r3(at(sl.cues[2]) + 0.4)});`);
+      pop('.em-c0', at(sl.cues[0])); pop('.em-c1', at(sl.cues[1])); pop('.em-stat', at(sl.cues[2]), 'ping'); pop('.em-next', at(sl.cues[3]), 'whooshShort');
+      countUp(`${S} .em-num`, STATS.interviewed, at(sl.cues[2]) + 0.1);
+      tw.push(`tl.to('${S} .em-play',{x:12,duration:0.4,ease:'sine.inOut',yoyo:true,repeat:3},${r3(at(sl.cues[3]) + 0.4)});`);
       break;
     case 'maphead':
       sl.cues.forEach((c, i) => pop(`.mh-${i}`, at(c)));
@@ -446,7 +454,8 @@ function animateSlide(sl, S, t, dur, map) {
       addSfx(t + 0.1, 'whoosh', 0.35); addSfx(t + 1.0, 'pop', 0.3);
       break;
     case 'test':
-      pop('.ts-c0', at(sl.cues[0])); pop('.ts-c1', at(sl.cues[1]));
+      pop('.ts-c0', at(sl.cues[0])); pop('.ts-c1', at(sl.cues[1])); pop('.ts-c2', at(sl.cues[6]), 'ping');
+      countUp(`${S} .ts-num`, STATS.collected, at(sl.cues[6]) + 0.1);
       [2, 3, 4, 5].forEach((k, i) => { pop(`.ts-s${i}`, at(sl.cues[k]), 'click'); if (i) tw.push(`tl.fromTo('${S} .ts-arr:nth-of-type(${i * 2})',{scaleX:0},{scaleX:1,duration:0.3},${r3(at(sl.cues[k]) - 0.15)});`); });
       break;
   }
@@ -499,6 +508,20 @@ function fullScene(t, s) {
     body = `${header('03 · IDEATE', 'ระดมไอเดีย')}
       <div class="id-table">${C.map(([k, en, pct], i) => `<div class="id-col id-${i}"><div class="id-h">${en}</div>${IDEATE[k].map((x) => `<div class="id-cell">${esc(x)}</div>`).join('')}<div class="id-pct"><span class="id-num" data-to="${pct}">${pct}</span>%</div></div>`).join('')}</div>
       <div class="id-chosen"><span class="id-cs">${ICON.star}</span>ไอเดียที่เลือก: ${esc(IDEATE.chosen)}</div>`;
+  } else if (s.type === 'why') {
+    body = `${header('03 · IDEATE', 'ทำไมต้องเป็นแอป?')}
+      <div class="wy-cards">${WHY.cards.map(([a, b], i) => `<div class="wy-card wy-${i}"><span class="wy-ico">${ICON[i ? 'phone' : 'say']}</span><div class="wy-main">${esc(a)}</div><div class="wy-sub">${esc(b)}</div></div>`).join('')}</div>
+      <div class="wy-quote">${esc(WHY.quote)}</div>`;
+  } else if (s.type === 'results') {
+    body = `${header('05 · TEST', 'ผลการประเมินความพึงพอใจ')}
+      <div class="rs-wrap">
+        <div class="rs-left">
+          <div class="rs-head"><span class="rs-num">${SURVEY.people}</span><span class="rs-unit">คน</span><div class="rs-k">ร่วมทดลองใช้และประเมิน</div></div>
+          <div class="rs-over">คะแนนเฉลี่ยรวม <b>${SURVEY.overall.toFixed(2)}</b> / 5</div>
+          <div class="rs-bars">${SURVEY.aspects.map(([k, v], i) => `<div class="rs-row"><div class="rs-lbl">${esc(k)}</div><div class="rs-track"><div class="rs-bar rs-b${i}" style="width:${(v / 5 * 100).toFixed(1)}%"></div></div><div class="rs-val">${v.toFixed(2)}</div></div>`).join('')}</div>
+        </div>
+        <div class="rs-right"><div class="rs-qk">ข้อเสนอแนะจากผู้ใช้ → นำไปปรับปรุง</div>${SURVEY.quotes.map((q) => `<div class="rs-q">${esc(q)}</div>`).join('')}</div>
+      </div>`;
   } else if (s.type === 'finale') {
     body = `<div class="fn-wrap">
       <div class="fn-left">
@@ -542,6 +565,16 @@ function fullScene(t, s) {
     tw.push(`tl.fromTo('${S} .id-2',{boxShadow:'0 0 0 0 rgba(242,162,75,0)'},{boxShadow:'0 0 0 10px rgba(242,162,75,0.9)',duration:0.5},${r3(t + 8.3)});`);
     tw.push(`tl.fromTo('${S} .id-chosen',{opacity:0,y:40,scale:0.9},{opacity:1,y:0,scale:1,duration:0.5,ease:'back.out(2)'},${r3(t + 8.6)});`);
     addSfx(t + 8.6, 'chime', 0.4); addSfx(t + 8.8, 'sparkle', 0.35);
+  } else if (s.type === 'why') {
+    WHY.cards.forEach((_, i) => { tw.push(`tl.fromTo('${S} .wy-${i}',{opacity:0,y:50,scale:0.85},{opacity:1,y:0,scale:1,duration:0.5,ease:'back.out(1.8)'},${r3(t + 0.7 + i * 1.1)});`); addSfx(t + 0.7 + i * 1.1, 'pop', 0.45); });
+    tw.push(`tl.fromTo('${S} .wy-quote',{opacity:0,y:30},{opacity:1,y:0,duration:0.45,ease:'power3.out'},${r3(t + 3.0)});`);
+  } else if (s.type === 'results') {
+    tw.push(`tl.fromTo('${S} .rs-head',{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.5,ease:'back.out(2)'},${r3(t + 0.5)});`);
+    countUp(`${S} .rs-num`, SURVEY.people, t + 0.55); addSfx(t + 0.5, 'ping', 0.35);
+    tw.push(`tl.fromTo('${S} .rs-over',{opacity:0,y:20},{opacity:1,y:0,duration:0.4},${r3(t + 1.3)});`);
+    SURVEY.aspects.forEach((_, i) => { tw.push(`tl.fromTo('${S} .rs-row:nth-child(${i + 1})',{opacity:0,x:-30},{opacity:1,x:0,duration:0.35,ease:'power3.out'},${r3(t + 1.8 + i * 0.45)});`); tw.push(`tl.fromTo('${S} .rs-b${i}',{scaleX:0},{scaleX:1,duration:0.7,ease:'power2.out'},${r3(t + 1.9 + i * 0.45)});`); addSfx(t + 1.9 + i * 0.45, 'click', 0.35); });
+    tw.push(`tl.fromTo('${S} .rs-qk',{opacity:0},{opacity:1,duration:0.4},${r3(t + 3.9)});`);
+    SURVEY.quotes.forEach((_, i) => { tw.push(`tl.fromTo('${S} .rs-q:nth-of-type(${i + 2})',{opacity:0,x:40},{opacity:1,x:0,duration:0.4,ease:'back.out(1.6)'},${r3(t + 4.3 + i * 0.9)});`); addSfx(t + 4.3 + i * 0.9, 'pop', 0.3); });
   } else if (s.type === 'finale') {
     tw.push(`tl.fromTo('${S} .fn-logo',{scale:0,rotation:-20},{scale:1,rotation:0,duration:0.6,ease:'back.out(2)'},${r3(t + 0.3)});`);
     tw.push(`tl.fromTo('${S} .fn-app',{opacity:0,y:40},{opacity:1,y:0,duration:0.5,ease:'power3.out'},${r3(t + 0.8)});`);
@@ -561,9 +594,43 @@ function fullScene(t, s) {
   return s.dur;
 }
 
+const STICKERS = [
+  { bg: '#ffd23f', eyes: '<circle cx="36" cy="44" r="6" fill="#1b1f3b"/><circle cx="64" cy="44" r="6" fill="#1b1f3b"/>', mouth: '<path d="M30 60 Q50 80 70 60" fill="none" stroke="#1b1f3b" stroke-width="6" stroke-linecap="round"/>' },
+  { bg: '#7fe0b5', eyes: '<path d="M28 46 Q36 36 44 46M56 46 Q64 36 72 46" fill="none" stroke="#1b1f3b" stroke-width="6" stroke-linecap="round"/>', mouth: '<path d="M34 60 Q50 76 66 60Z" fill="#d93a52" stroke="#1b1f3b" stroke-width="5" stroke-linejoin="round"/>' },
+  { bg: '#fbe8a6', eyes: '<path d="M36 34l3.5 7 7.5 1-5.5 5 1.5 7.5-7-3.8-7 3.8 1.5-7.5-5.5-5 7.5-1zM64 34l3.5 7 7.5 1-5.5 5 1.5 7.5-7-3.8-7 3.8 1.5-7.5-5.5-5 7.5-1z" fill="#e2a614" stroke="#1b1f3b" stroke-width="2.5"/>', mouth: '<path d="M32 64 Q50 80 68 64" fill="none" stroke="#1b1f3b" stroke-width="6" stroke-linecap="round"/>' },
+  { bg: '#ffc2cf', eyes: '<circle cx="36" cy="44" r="6" fill="#1b1f3b"/><circle cx="64" cy="44" r="6" fill="#1b1f3b"/><ellipse cx="26" cy="60" rx="7" ry="4.5" fill="#ff7e96"/><ellipse cx="74" cy="60" rx="7" ry="4.5" fill="#ff7e96"/>', mouth: '<path d="M38 62 Q50 74 62 62" fill="none" stroke="#1b1f3b" stroke-width="6" stroke-linecap="round"/>' },
+];
+const stickerSvg = (k) => { const v = STICKERS[k % STICKERS.length]; return `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="${v.bg}" stroke="#1b1f3b" stroke-width="6"/>${v.eyes}${v.mouth}</svg>`; };
+const STK = 200; // sticker element base size (px)
+
+function faceStickers(t0, s, d) {
+  // rebuild the clip map exactly as footage() lays clips out
+  let t = t0; const map = [];
+  for (let [a, b] of s.clips) { a = snap(a); b = snap(b); const dd = Math.round((b - a) * FPS) / FPS; t = Math.round(t * FPS) / FPS; map.push({ a, b, t }); t += dd; }
+  const srcKey = SOURCES[s.src].file.split('/').pop().replace('.mp4', '');
+  for (const p of FACES.filter((f) => f.src === srcKey)) {
+    const fid = id('face');
+    html.push(`<div id="${fid}" class="clip face-layer" data-start="${r3(t0)}" data-duration="${r3(d)}" data-track-index="14"><div class="face-stk">${stickerSvg(p.sticker)}</div></div>`);
+    const sel = `#${fid} .face-stk`;
+    let first = true;
+    for (const m of map) {
+      const samples = p.tracks.flatMap((tr) => tr.samples).filter(([ts]) => ts >= m.a - 0.05 && ts <= m.b + 0.05);
+      samples.forEach(([ts, x, y, sz], i) => {
+        const tt = r3(m.t + Math.max(0, ts - m.a));
+        const props = `x:${Math.round(x * 2 - STK / 2)},y:${Math.round(y * 2 - STK / 2)},scale:${(sz * 2 * 1.9 / STK).toFixed(3)}`;
+        if (i === 0) tw.push(`tl.set('${sel}',{${props}},${first ? r3(m.t) : tt});`);
+        else tw.push(`tl.to('${sel}',{${props},duration:0.1,ease:'none'},${r3(tt - 0.1)});`);
+        first = false;
+      });
+    }
+    tw.push(`tl.fromTo('${sel} svg',{rotation:-6},{rotation:6,duration:0.8,ease:'sine.inOut',yoyo:true,repeat:${Math.max(0, Math.floor(d / 0.8) - 1)}},${r3(t0)});`);
+  }
+}
+
 function interview(t0, s) {
   cardOpen = false;
   const d = footage(t0, s);
+  faceStickers(t0, s, d);
   const lid = id('ivlab');
   html.push(`<div id="${lid}" class="clip iv-layer" data-start="${r3(t0)}" data-duration="${r3(d)}" data-track-index="16"><div class="iv-frame"></div><div class="iv-chip">${ICON.play}ตัวอย่างการสัมภาษณ์</div></div>`);
   tw.push(`tl.fromTo('#${lid} .iv-chip',{y:40,opacity:0},{y:0,opacity:1,duration:0.4,ease:'back.out(2)'},${r3(t0 + 0.1)});`);
@@ -573,6 +640,7 @@ function interview(t0, s) {
 const marks = [];
 for (const s of SECTIONS) {
   marks.push(`${(s.slide && s.slide.type) || s.type}@${r3(T)}`);
+  if (s.dur === 'fill') s.dur = r3(TARGET - T);
   if (s.type === 'talk') T += talk(T, s);
   else if (s.type === 'footage') T += interview(T, s);
   else T += fullScene(T, s);

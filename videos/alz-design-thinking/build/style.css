@@ -301,3 +301,47 @@
       .fn-sp1 { width: 70px; height: 70px; right: 560px; top: 150px; }
       .fn-sp2 { width: 50px; height: 50px; right: 40px; top: 120px; }
       .fn-sp3 { width: 44px; height: 44px; right: 590px; bottom: 170px; }
+
+      /* face stickers (interviewee privacy) */
+      .face-layer { position: absolute; inset: 0; z-index: 3; }
+      .face-stk { position: absolute; left: 0; top: 0; width: 200px; height: 200px; transform-origin: 50% 50%; }
+      .face-stk svg { width: 100%; height: 100%; display: block; }
+      .namecard-layer, .qchip-layer, .panel-layer, .sticker-layer, .burst-layer { z-index: 6; }
+      .iv-layer { z-index: 4; }
+
+      /* 8-people stat */
+      .em-stat { margin-top: 34px; display: inline-flex; align-items: baseline; gap: 12px; padding: 10px 32px 14px; border-radius: 26px; background: var(--cream2); border: 5px solid var(--g); margin-right: 24px; }
+      .em-num { font-weight: 900; font-size: 84px; color: var(--g); line-height: 1.2; }
+      .em-unit { font-weight: 800; font-size: 40px; color: var(--gink); }
+      .em-lbl { font-weight: 700; font-size: 32px; color: var(--g2); margin-left: 8px; }
+      .ts-top { gap: 22px !important; }
+      .ts-card { padding: 22px 22px !important; gap: 16px !important; }
+      .ts-v { font-size: 34px !important; }
+
+      /* why an app */
+      .wy-cards { margin-top: 50px; display: flex; gap: 40px; }
+      .wy-card { flex: 1; padding: 44px 44px 40px; border-radius: 36px; background: #ffffff; border: 7px solid var(--g); box-shadow: 14px 14px 0 var(--mint2); }
+      .wy-ico { width: 110px; height: 110px; display: block; padding: 18px; border-radius: 28px; background: var(--mint2); color: var(--g); }
+      .wy-ico svg { width: 100%; height: 100%; display: block; }
+      .wy-main { margin-top: 26px; font-weight: 900; font-size: 64px; color: var(--g); line-height: 1.3; }
+      .wy-sub { margin-top: 6px; font-weight: 600; font-size: 36px; color: var(--gink); line-height: 1.4; }
+      .wy-quote { margin-top: 44px; font-weight: 700; font-size: 36px; color: var(--gink); line-height: 1.45; padding: 18px 30px; border-left: 0; background: var(--cream2); border-radius: 22px; }
+
+      /* survey results */
+      .rs-wrap { margin-top: 30px; display: flex; gap: 50px; }
+      .rs-left { flex: 1.25; }
+      .rs-right { flex: 1; }
+      .rs-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+      .rs-num { font-weight: 900; font-size: 140px; color: var(--g); line-height: 1.1; }
+      .rs-unit { font-weight: 800; font-size: 54px; color: var(--gink); }
+      .rs-k { width: 100%; font-weight: 700; font-size: 34px; color: var(--g2); line-height: 1.4; }
+      .rs-over { margin-top: 14px; font-weight: 700; font-size: 38px; color: var(--gink); line-height: 1.4; }
+      .rs-over b { font-weight: 900; font-size: 54px; color: var(--g); }
+      .rs-bars { margin-top: 24px; display: flex; flex-direction: column; gap: 20px; }
+      .rs-row { display: flex; align-items: center; gap: 16px; }
+      .rs-lbl { width: 400px; font-weight: 700; font-size: 30px; color: var(--gink); line-height: 1.35; }
+      .rs-track { flex: 1; height: 34px; border-radius: 17px; background: #dfeae4; overflow: hidden; }
+      .rs-bar { height: 100%; border-radius: 17px; background: var(--g2); transform-origin: left center; display: block; }
+      .rs-val { width: 90px; font-weight: 900; font-size: 36px; color: var(--g); text-align: right; }
+      .rs-qk { font-weight: 800; font-size: 32px; color: #ffffff; background: var(--g); padding: 8px 22px; border-radius: 16px; line-height: 1.4; display: inline-block; }
+      .rs-q { margin-top: 18px; padding: 16px 24px; background: #ffffff; border-radius: 20px; border: 4px solid var(--mint2); font-weight: 600; font-size: 31px; color: var(--gink); line-height: 1.45; }
