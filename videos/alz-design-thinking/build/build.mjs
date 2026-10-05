@@ -413,7 +413,7 @@ function slideHtml(sl, sid) {
 function animateSlide(sl, S, t, dur, map) {
   const at = (src) => r3(map(src));
   const pop = (sel, time, k = 'pop') => { tw.push(`tl.fromTo('${S} ${sel}',{opacity:0,y:30,scale:0.85},{opacity:1,y:0,scale:1,duration:0.4,ease:'back.out(1.8)'},${r3(time)});`); if (k) addSfx(time, k, 0.35); };
-  if (sl.type !== 'title') tw.push(`tl.fromTo('${S} .dt-head',{x:-60,opacity:0},{x:0,opacity:1,duration:0.45,ease:'power3.out'},${r3(t + 0.15)});`);
+  if (sl.type !== 'title' && !(sl.type === 'phone' && !sl.first)) tw.push(`tl.fromTo('${S} .dt-head',{x:-60,opacity:0},{x:0,opacity:1,duration:0.45,ease:'power3.out'},${r3(t + 0.15)});`);
   switch (sl.type) {
     case 'title':
       tw.push(`tl.fromTo('${S} .ti-top',{y:-30,opacity:0},{y:0,opacity:1,duration:0.5,ease:'power3.out'},${r3(t + 0.2)});`);
@@ -444,8 +444,8 @@ function animateSlide(sl, S, t, dur, map) {
       addSfx(at(sl.cues.goal), 'chime', 0.4); addSfx(at(sl.cues.goal) + 0.2, 'sparkle', 0.35);
       break;
     case 'phone':
-      tw.push(`tl.fromTo('${S} .ph-dev',{y:80,opacity:0,rotation:-4},{y:0,opacity:1,rotation:0,duration:0.55,ease:'back.out(1.6)'},${r3(t + 0.1)});`);
-      tw.push(`tl.fromTo('${S} .ph-img',{y:0},{y:${sl.n === 4 ? -260 : -60},duration:${r3(dur - 1)},ease:'sine.inOut'},${r3(t + 0.6)});`);
+      if (sl.first) tw.push(`tl.fromTo('${S} .ph-dev',{opacity:0},{opacity:1,duration:0.4},${r3(t + 0.1)});`);
+      else tw.push(`tl.fromTo('${S} .ph-screen',{opacity:0.15},{opacity:1,duration:0.3,ease:'none'},${r3(t)});`);
       if (sl.img2) tw.push(`tl.fromTo('${S} .ph-img2',{opacity:0},{opacity:1,duration:0.4},${r3(t + dur / 2)});`);
       if (sl.recall) tw.push(`tl.fromTo('${S} .ph-recall',{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.4,ease:'back.out(2)'},${r3(t + 1.0)});`);
       tw.push(`tl.fromTo('${S} .ph-count, ${S} .ph-title, ${S} .ph-desc',{x:50,opacity:0},{x:0,opacity:1,duration:0.4,stagger:0.12,ease:'power3.out'},${r3(t + 0.25)});`);
@@ -459,7 +459,7 @@ function animateSlide(sl, S, t, dur, map) {
       [2, 3, 4, 5].forEach((k, i) => { pop(`.ts-s${i}`, at(sl.cues[k]), 'click'); if (i) tw.push(`tl.fromTo('${S} .ts-arr:nth-of-type(${i * 2})',{scaleX:0},{scaleX:1,duration:0.3},${r3(at(sl.cues[k]) - 0.15)});`); });
       break;
   }
-  tw.push(`tl.to('${S} .slide-in',{opacity:0,y:-20,duration:0.3,ease:'power2.in'},${r3(t + dur - 0.32)});`);
+  if (!(sl.type === 'phone' && !sl.last)) tw.push(`tl.to('${S} .slide-in',{opacity:0,y:-20,duration:0.3,ease:'power2.in'},${r3(t + dur - 0.32)});`);
 }
 
 function talk(t0, s) {
@@ -483,7 +483,7 @@ function talk(t0, s) {
   }
   const sid = id('slide');
   html.push(`<div id="${sid}" class="clip slide-layer" data-start="${r3(t0)}" data-duration="${dur}" data-track-index="10"><div class="slide-in sl-${s.slide.type}">${slideHtml(s.slide, sid)}</div></div>`);
-  tw.push(`tl.fromTo('#${sid} .slide-in',{opacity:0,y:30},{opacity:1,y:0,duration:0.4,ease:'power3.out'},${r3(t0)});`);
+  if (!(s.slide.type === 'phone' && !s.slide.first)) tw.push(`tl.fromTo('#${sid} .slide-in',{opacity:0,y:30},{opacity:1,y:0,duration:0.4,ease:'power3.out'},${r3(t0)});`);
   animateSlide(s.slide, `#${sid}`, t0, dur, toT);
   const caps = s.captions.map(([a, b, text, role = 't', hl]) => ({ a, b, text, role, hl, st: toT(a), en: toT(b) }));
   caps.forEach((c, i) => {
@@ -511,6 +511,7 @@ function fullScene(t, s) {
   } else if (s.type === 'why') {
     body = `${header('03 · IDEATE', 'ทำไมต้องเป็นแอป?')}
       <div class="wy-cards">${WHY.cards.map(([a, b], i) => `<div class="wy-card wy-${i}"><span class="wy-ico">${ICON[i ? 'phone' : 'say']}</span><div class="wy-main">${esc(a)}</div><div class="wy-sub">${esc(b)}</div></div>`).join('')}</div>
+      <div class="df-goal wy-goal"><span class="df-star">${ICON.star}</span><div><div class="df-gk">${esc(WHY.goalK)}</div><div class="df-gt">${esc(WHY.goal)}</div></div></div>
       <div class="wy-quote">${esc(WHY.quote)}</div>`;
   } else if (s.type === 'results') {
     body = `${header('05 · TEST', 'ผลการประเมินความพึงพอใจ')}
@@ -567,7 +568,10 @@ function fullScene(t, s) {
     addSfx(t + 8.6, 'chime', 0.4); addSfx(t + 8.8, 'sparkle', 0.35);
   } else if (s.type === 'why') {
     WHY.cards.forEach((_, i) => { tw.push(`tl.fromTo('${S} .wy-${i}',{opacity:0,y:50,scale:0.85},{opacity:1,y:0,scale:1,duration:0.5,ease:'back.out(1.8)'},${r3(t + 0.7 + i * 1.1)});`); addSfx(t + 0.7 + i * 1.1, 'pop', 0.45); });
-    tw.push(`tl.fromTo('${S} .wy-quote',{opacity:0,y:30},{opacity:1,y:0,duration:0.45,ease:'power3.out'},${r3(t + 3.0)});`);
+    tw.push(`tl.fromTo('${S} .wy-goal',{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.55,ease:'back.out(2)'},${r3(t + 2.6)});`);
+    tw.push(`tl.fromTo('${S} .wy-goal .df-star',{rotation:-180,scale:0},{rotation:0,scale:1,duration:0.6,ease:'back.out(2.5)'},${r3(t + 2.8)});`);
+    addSfx(t + 2.6, 'chime', 0.4);
+    tw.push(`tl.fromTo('${S} .wy-quote',{opacity:0,y:30},{opacity:1,y:0,duration:0.45,ease:'power3.out'},${r3(t + 4.2)});`);
   } else if (s.type === 'results') {
     tw.push(`tl.fromTo('${S} .rs-head',{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.5,ease:'back.out(2)'},${r3(t + 0.5)});`);
     countUp(`${S} .rs-num`, SURVEY.people, t + 0.55); addSfx(t + 0.5, 'ping', 0.35);
@@ -637,6 +641,12 @@ function interview(t0, s) {
   return d;
 }
 
+SECTIONS.forEach((x, i) => {
+  if (x.slide && x.slide.type === 'phone') {
+    x.slide.first = !(SECTIONS[i - 1] && SECTIONS[i - 1].slide && SECTIONS[i - 1].slide.type === 'phone');
+    x.slide.last = !(SECTIONS[i + 1] && SECTIONS[i + 1].slide && SECTIONS[i + 1].slide.type === 'phone');
+  }
+});
 const marks = [];
 for (const s of SECTIONS) {
   marks.push(`${(s.slide && s.slide.type) || s.type}@${r3(T)}`);

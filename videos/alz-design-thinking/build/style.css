@@ -345,3 +345,10 @@
       .rs-val { width: 90px; font-weight: 900; font-size: 36px; color: var(--g); text-align: right; }
       .rs-qk { font-weight: 800; font-size: 32px; color: #ffffff; background: var(--g); padding: 8px 22px; border-radius: 16px; line-height: 1.4; display: inline-block; }
       .rs-q { margin-top: 18px; padding: 16px 24px; background: #ffffff; border-radius: 20px; border: 4px solid var(--mint2); font-weight: 600; font-size: 31px; color: var(--gink); line-height: 1.45; }
+      .wy-cards { margin-top: 34px !important; }
+      .wy-card { padding: 30px 40px 30px !important; }
+      .wy-ico { width: 90px !important; height: 90px !important; padding: 14px !important; }
+      .wy-main { margin-top: 16px !important; font-size: 58px !important; }
+      .wy-goal { margin-top: 30px; }
+      .wy-quote { margin-top: 24px !important; font-size: 32px !important; }
+      .ph-screen { opacity: 1; }
