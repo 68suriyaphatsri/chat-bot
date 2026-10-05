@@ -1,0 +1,252 @@
+<template>
+  <style>
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-Bold.ttf") format("truetype"); font-weight: 700; font-style: normal; }
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-ExtraBold.ttf") format("truetype"); font-weight: 800; font-style: normal; }
+    @font-face { font-family: "Anuphan"; src: url("assets/fonts/Anuphan.ttf") format("truetype"); font-weight: 100 700; font-style: normal; }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      color: #23350e;
+      font-family: "Anuphan", sans-serif;
+    }
+    #root * { box-sizing: border-box; }
+
+    #f12-cta-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 900px 640px at 18% 22%, rgba(130,149,75,0.13), rgba(130,149,75,0) 70%),
+        radial-gradient(ellipse 820px 600px at 84% 70%, rgba(253,243,208,0.85), rgba(253,243,208,0) 70%),
+        radial-gradient(ellipse 760px 520px at 50% 48%, rgba(74,107,34,0.08), rgba(74,107,34,0) 72%),
+        #f7f9f4;
+    }
+    #f12-cta-grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+
+    .f12-cta-leaf {
+      position: absolute;
+      line-height: 1;
+      opacity: 0;
+    }
+
+    #f12-cta-headline {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 392px;
+      text-align: center;
+      font-family: "Prompt", sans-serif;
+      font-weight: 700;
+      font-size: 96px;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: #23350e;
+      white-space: nowrap;
+    }
+
+    #f12-cta-lockup {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 372px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+    }
+    #f12-cta-badge {
+      width: 176px;
+      height: 176px;
+      border-radius: 50%;
+      background: #4a6b22;
+      border: 4px solid #355115;
+      box-shadow: 8px 8px 0 rgba(35,53,14,0.10);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 96px;
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+    #f12-cta-words { display: flex; flex-direction: column; align-items: flex-start; }
+    #f12-cta-wordmark {
+      font-family: "Prompt", sans-serif;
+      font-weight: 800;
+      font-size: 108px;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: #23350e;
+      white-space: nowrap;
+    }
+    #f12-cta-wordmark-th {
+      font-family: "Anuphan", sans-serif;
+      font-weight: 600;
+      font-size: 48px;
+      line-height: 1.3;
+      color: #4a6b22;
+      margin-top: 6px;
+      white-space: nowrap;
+    }
+
+    #f12-cta-btn-wrap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 612px;
+      display: flex;
+      justify-content: center;
+    }
+    #f12-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 18px;
+      padding: 22px 64px;
+      border-radius: 9999px;
+      background: #4a6b22;
+      border: 4px solid #355115;
+      box-shadow: 6px 6px 0 rgba(35,53,14,0.14);
+      color: #ffffff;
+      font-family: "Anuphan", sans-serif;
+      font-weight: 600;
+      font-size: 50px;
+      line-height: 1.25;
+      white-space: nowrap;
+    }
+
+    #f12-cta-note-wrap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 778px;
+      display: flex;
+      justify-content: center;
+    }
+    #f12-cta-note {
+      padding: 10px 36px;
+      border-radius: 9999px;
+      background: #ffffff;
+      border: 3px solid rgba(53,81,21,0.55);
+      color: rgba(35,53,14,0.72);
+      font-family: "Anuphan", sans-serif;
+      font-weight: 500;
+      font-size: 36px;
+      line-height: 1.35;
+      white-space: nowrap;
+    }
+
+    #f12-cta-fade {
+      position: absolute;
+      inset: 0;
+      background: #f7f9f4;
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+
+  <div id="root" data-composition-id="12-cta" data-width="1920" data-height="1080">
+    <div id="f12-cta-bg" class="clip" data-start="0" data-duration="6" data-track-index="0">
+      <div id="f12-cta-grain"></div>
+    </div>
+
+    <div class="f12-cta-leaf" id="f12-cta-leaf-1" style="left:120px; top:110px; font-size:110px;">🍃</div>
+    <div class="f12-cta-leaf" id="f12-cta-leaf-2" style="left:1660px; top:150px; font-size:96px;">🌿</div>
+    <div class="f12-cta-leaf" id="f12-cta-leaf-3" style="left:70px; top:560px; font-size:84px;">🌿</div>
+    <div class="f12-cta-leaf" id="f12-cta-leaf-4" style="left:1730px; top:520px; font-size:104px;">🍃</div>
+    <div class="f12-cta-leaf" id="f12-cta-leaf-5" style="left:430px; top:40px; font-size:64px;">🍃</div>
+    <div class="f12-cta-leaf" id="f12-cta-leaf-6" style="left:1400px; top:770px; font-size:70px;">🍃</div>
+    <div class="f12-cta-leaf" id="f12-cta-leaf-7" style="left:300px; top:760px; font-size:66px;">🌱</div>
+
+    <div id="f12-cta-headline">ดูแลความทรงจำของคุณ และคนที่คุณรัก</div>
+
+    <div id="f12-cta-lockup">
+      <div id="f12-cta-badge">🌿</div>
+      <div id="f12-cta-words">
+        <div id="f12-cta-wordmark">Memory Garden</div>
+        <div id="f12-cta-wordmark-th">สวนความทรงจำ</div>
+      </div>
+    </div>
+
+    <div id="f12-cta-btn-wrap">
+      <div id="f12-cta-btn"><span>🌿</span><span>เริ่มทำแบบทดสอบได้ฟรี</span></div>
+    </div>
+
+    <div id="f12-cta-note-wrap">
+      <div id="f12-cta-note">แบบคัดกรองเบื้องต้น ไม่ใช่การวินิจฉัยโรค</div>
+    </div>
+
+    <div id="f12-cta-fade"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const D = 6;
+
+      // Scene 1 — leaves drift in gently at the edges, then keep a slow drift across the whole frame
+      const leaves = [
+        { id: "#f12-cta-leaf-1", fx: -80, fy: -40, dx: 40, dy: 50, r0: -30, r1: 8, at: 0.0, op: 0.95 },
+        { id: "#f12-cta-leaf-2", fx: 80, fy: -50, dx: -36, dy: 46, r0: 25, r1: -6, at: 0.15, op: 0.95 },
+        { id: "#f12-cta-leaf-3", fx: -70, fy: 30, dx: 30, dy: -34, r0: -20, r1: 12, at: 0.3, op: 0.9 },
+        { id: "#f12-cta-leaf-4", fx: 90, fy: 20, dx: -40, dy: 36, r0: 30, r1: 2, at: 0.2, op: 0.95 },
+        { id: "#f12-cta-leaf-5", fx: -30, fy: -60, dx: 28, dy: 40, r0: -40, r1: -10, at: 0.45, op: 0.75 },
+        { id: "#f12-cta-leaf-6", fx: 60, fy: 40, dx: -30, dy: -28, r0: 20, r1: -14, at: 0.55, op: 0.8 },
+        { id: "#f12-cta-leaf-7", fx: -50, fy: 40, dx: 24, dy: -24, r0: -15, r1: 6, at: 0.6, op: 0.8 }
+      ];
+      leaves.forEach(function (l) {
+        tl.fromTo(l.id, { opacity: 0 }, { opacity: l.op, duration: 1.2, ease: "power1.out" }, l.at);
+        tl.fromTo(l.id,
+          { x: l.fx, y: l.fy, rotation: l.r0 },
+          { x: l.fx + (0 - l.fx) + l.dx, y: l.fy + (0 - l.fy) + l.dy, rotation: l.r1, duration: D - l.at, ease: "sine.out" },
+          l.at);
+      });
+
+      // Scene 1 — the headline slides up with a crossfade (the one restrained move)
+      tl.fromTo("#f12-cta-headline",
+        { opacity: 0, y: 70, scale: 0.97 },
+        { opacity: 1, y: 0, scale: 1, duration: 1.0, ease: "power3.out" }, 0.3);
+
+      // Scene 2 (2.6s) — the line moves up a step
+      tl.to("#f12-cta-headline", { y: -232, scale: 0.8, duration: 0.8, ease: "power3.inOut" }, 2.6);
+
+      // lockup reveals beneath: badge settles, then wordmark
+      tl.fromTo("#f12-cta-badge",
+        { opacity: 0, scale: 0.7, rotation: -12 },
+        { opacity: 1, scale: 1, rotation: 0, duration: 0.7, ease: "back.out(1.5)" }, 2.95);
+      tl.fromTo("#f12-cta-words",
+        { opacity: 0, x: -30 },
+        { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 3.1);
+
+      // coral pill button
+      tl.fromTo("#f12-cta-btn",
+        { opacity: 0, y: 40, scale: 0.94 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power3.out" }, 3.55);
+
+      // muted disclaimer note at the bottom of the safe area
+      tl.fromTo("#f12-cta-note",
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 4.0);
+
+      // hold — one subtle breathing pulse on the button (explicit, no repeat/yoyo)
+      tl.to("#f12-cta-btn", { scale: 1.035, duration: 0.6, ease: "sine.inOut" }, 4.45);
+      tl.to("#f12-cta-btn", { scale: 1.0, duration: 0.6, ease: "sine.inOut" }, 5.05);
+
+      // final frame owns the exit: fade to cream in the last 0.4s
+      tl.fromTo("#f12-cta-fade", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.inOut" }, D - 0.4);
+
+      // pin timeline length to the frame duration
+      tl.set({}, {}, D);
+
+      window.__timelines["12-cta"] = tl;
+    })();
+  </script>
+</template>

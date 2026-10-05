@@ -1,0 +1,300 @@
+<template>
+  <style>
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-Regular.ttf") format("truetype"); font-weight: 400; font-display: block; }
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-Medium.ttf") format("truetype"); font-weight: 500; font-display: block; }
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-SemiBold.ttf") format("truetype"); font-weight: 600; font-display: block; }
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-Bold.ttf") format("truetype"); font-weight: 700; font-display: block; }
+    @font-face { font-family: "Prompt"; src: url("assets/fonts/Prompt-ExtraBold.ttf") format("truetype"); font-weight: 800; font-display: block; }
+    @font-face { font-family: "Anuphan"; src: url("assets/fonts/Anuphan.ttf") format("truetype"); font-weight: 100 700; font-display: block; }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      font-family: "Prompt", "Noto Color Emoji", sans-serif;
+      color: #23350e;
+    }
+
+    /* ---------- ground (full-bleed clip) ---------- */
+    .hook01-ground {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 55% at 50% 38%, rgba(240, 247, 230, 1) 0%, rgba(240, 247, 230, 0) 70%),
+        radial-gradient(circle at 12% 18%, rgba(130, 149, 75, 0.12) 0%, rgba(130, 149, 75, 0) 38%),
+        radial-gradient(circle at 88% 78%, rgba(253, 243, 208, 0.9) 0%, rgba(253, 243, 208, 0) 40%),
+        #f7f9f4;
+    }
+    .hook01-lav {
+      position: absolute;
+      left: 50%;
+      top: 40%;
+      width: 1500px;
+      height: 1100px;
+      margin-left: -750px;
+      margin-top: -550px;
+      border-radius: 50%;
+      background: radial-gradient(closest-side, rgba(224, 235, 210, 0.95), rgba(224, 235, 210, 0));
+    }
+    .hook01-grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.05;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='7' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.14 0 0 0 0 0.2 0 0 0 0 0.05 0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+
+    /* floating-pill wallpaper — flat, outlined, no shadow */
+    .hook01-fpill {
+      position: absolute;
+      border: 0.2cqw solid #355115;
+      border-radius: 9999px;
+    }
+    .hook01-fp1 { left: 1560px; top: 110px; width: 230px; height: 70px; background: #fdf3d0; transform: rotate(-18deg); }
+    .hook01-fp2 { left: 1700px; top: 420px; width: 90px; height: 90px; border-radius: 50%; background: #e8f5e9; }
+    .hook01-fp3 { left: 1500px; top: 690px; width: 260px; height: 72px; background: #e0ebd2; transform: rotate(14deg); }
+    .hook01-fp4 { left: 300px; top: 760px; width: 200px; height: 64px; background: #fff9e6; transform: rotate(-10deg); }
+    .hook01-fp5 { left: 110px; top: 470px; width: 70px; height: 70px; border-radius: 50%; background: #82954b; }
+    .hook01-fp6 { left: 1180px; top: 70px; width: 120px; height: 46px; background: #e8ede0; transform: rotate(22deg); }
+
+    /* drifting leaves */
+    .hook01-leaf {
+      position: absolute;
+      left: 0;
+      font-family: "Noto Color Emoji", sans-serif;
+      line-height: 1;
+    }
+    .hook01-leaf1 { top: 150px; font-size: 110px; }
+    .hook01-leaf2 { top: 560px; font-size: 84px; }
+    .hook01-leaf3 { top: 340px; font-size: 64px; }
+
+    /* ---------- content layer ---------- */
+    .hook01-stage {
+      position: absolute;
+      inset: 0;
+      transform-origin: 50% 42%;
+    }
+
+    .hook01-question {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 330px;
+      text-align: center;
+      font-family: "Prompt", sans-serif;
+      font-weight: 700;
+      font-size: 96px; /* headline 5cqw */
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      transform-origin: 50% 50%;
+    }
+    .hook01-word {
+      display: inline-block;
+      margin: 0 0.06em;
+    }
+
+    .hook01-glow {
+      position: absolute;
+      left: 50%;
+      top: 488px;
+      width: 1500px;
+      height: 520px;
+      margin-left: -750px;
+      margin-top: -260px;
+      border-radius: 50%;
+      background: radial-gradient(closest-side, rgba(130, 149, 75, 0.34), rgba(130, 149, 75, 0.12) 55%, rgba(130, 149, 75, 0));
+    }
+
+    .hook01-cardwrap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 400px;
+      display: flex;
+      justify-content: center;
+    }
+    .hook01-card {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      padding: 38px 64px 38px 40px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 0.2cqw solid #355115;
+      border-radius: 2rem;
+      box-shadow: 0.4cqw 0.4cqw 0 rgba(35, 53, 14, 0.1);
+      transform-origin: 50% 70%;
+    }
+    .hook01-icon {
+      flex: none;
+      width: 116px;
+      height: 116px;
+      border-radius: 50%;
+      border: 0.2cqw solid #355115;
+      background: #e8f5e9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Noto Color Emoji", sans-serif;
+      font-size: 66px;
+      line-height: 1;
+    }
+    .hook01-payoff {
+      font-family: "Prompt", sans-serif;
+      font-weight: 700;
+      font-size: 74px; /* section-headline ≈ 4cqw, fit-to-measure */
+      line-height: 1.3;
+      letter-spacing: -0.005em;
+      white-space: nowrap;
+      color: #23350e;
+    }
+
+    .hook01-chipwrap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 650px;
+      display: flex;
+      justify-content: center;
+    }
+    .hook01-chip {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 44px 16px;
+      background: #4a6b22;
+      color: #ffffff;
+      border: 0.2cqw solid #355115;
+      border-radius: 9999px;
+      box-shadow: 0.3cqw 0.3cqw 0 rgba(35, 53, 14, 0.1);
+      font-family: "Anuphan", sans-serif;
+      font-weight: 600;
+      font-size: 46px;
+      line-height: 1.35;
+      white-space: nowrap;
+      transform-origin: 50% 50%;
+    }
+    .hook01-chip-leaf {
+      font-family: "Noto Color Emoji", sans-serif;
+      font-size: 40px;
+      line-height: 1;
+    }
+  </style>
+
+  <div id="root" data-composition-id="01-hook" data-start="0" data-duration="6" data-width="1920" data-height="1080">
+    <!-- full-bleed ground on its own clip -->
+    <div id="hook01-bg" class="clip" data-start="0" data-duration="6" data-track-index="0" style="position:absolute;inset:0;">
+      <div class="hook01-ground"></div>
+      <div class="hook01-lav" id="hook01-lav"></div>
+      <div class="hook01-fpill hook01-fp1"></div>
+      <div class="hook01-fpill hook01-fp2"></div>
+      <div class="hook01-fpill hook01-fp3"></div>
+      <div class="hook01-fpill hook01-fp4"></div>
+      <div class="hook01-fpill hook01-fp5"></div>
+      <div class="hook01-fpill hook01-fp6"></div>
+      <div class="hook01-leaf hook01-leaf1" id="hook01-leaf1">🌿</div>
+      <div class="hook01-leaf hook01-leaf2" id="hook01-leaf2">🌿</div>
+      <div class="hook01-leaf hook01-leaf3" id="hook01-leaf3">🌿</div>
+      <div class="hook01-grain"></div>
+    </div>
+
+    <!-- content -->
+    <div id="hook01-content" class="clip" data-start="0" data-duration="6" data-track-index="1" style="position:absolute;inset:0;">
+      <div class="hook01-stage" id="hook01-stage">
+        <div class="hook01-glow" id="hook01-glow"></div>
+
+        <div class="hook01-question" id="hook01-question"><span class="hook01-word">ช่วงนี้</span><span class="hook01-word">ขี้ลืม</span><span class="hook01-word">บ่อย</span><span class="hook01-word">ไหมครับ?</span></div>
+
+        <div class="hook01-cardwrap">
+          <div class="hook01-card" id="hook01-card">
+            <div class="hook01-icon" id="hook01-icon">🧠</div>
+            <div class="hook01-payoff">เช็กสุขภาพสมองได้เองที่บ้าน</div>
+          </div>
+        </div>
+
+        <div class="hook01-chipwrap">
+          <div class="hook01-chip" id="hook01-chip"><span class="hook01-chip-leaf">🌿</span><span>ง่าย ๆ ทีละขั้นตอน</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      var FID = "01-hook";
+      var root = document.querySelector('[data-composition-id="' + FID + '"]');
+      var q = function (sel) { return root.querySelector(sel); };
+      var qa = function (sel) { return Array.prototype.slice.call(root.querySelectorAll(sel)); };
+
+      var tl = gsap.timeline({ paused: true });
+      var DUR = 6;
+
+      // ---- Scene 1 (0.0–2.4s): ground breathes, leaves drift in, question builds word by word ----
+      tl.fromTo("#hook01-lav", { scale: 0.92, opacity: 0.7 }, { scale: 1.06, opacity: 1, duration: DUR, ease: "none" }, 0);
+
+      // floating pills: quick flat pop as wallpaper, then a slow finite drift
+      qa(".hook01-fpill").forEach(function (el, i) {
+        tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.05 + i * 0.05);
+        tl.fromTo(el, { y: 0 }, { y: (i % 2 ? -14 : 14), duration: DUR, ease: "sine.inOut" }, 0);
+      });
+
+      // three leaves drift in from the left edge on a slow finite tween
+      var LEAVES = [
+        { sel: "#hook01-leaf1", x: 150, rot: -18, at: 0.0, dur: 2.4 },
+        { sel: "#hook01-leaf2", x: 250, rot: 22, at: 0.25, dur: 2.6 },
+        { sel: "#hook01-leaf3", x: 330, rot: -6, at: 0.5, dur: 2.5 }
+      ];
+      LEAVES.forEach(function (l, i) {
+        tl.fromTo(l.sel,
+          { x: -220, y: -30, rotation: l.rot - 40, opacity: 0 },
+          { x: l.x, y: 0, rotation: l.rot, opacity: 1, duration: l.dur, ease: "power2.out" }, l.at);
+        // continued gentle drift for the rest of the shot (finite, linear)
+        tl.to(l.sel, { x: l.x + 40, y: (i % 2 ? 12 : -12), rotation: l.rot + 6, duration: DUR - (l.at + l.dur), ease: "none" }, l.at + l.dur);
+      });
+
+      // per-word staggered reveal — start times computed from content length (dynamic-content-sequencing)
+      var BASE = 0.16, SEC_PER_CHAR = 0.045, START = 0.2;
+      var cum = START;
+      var WORDS = qa(".hook01-word").map(function (el) {
+        var start = cum;
+        cum += BASE + el.textContent.length * SEC_PER_CHAR;
+        return { el: el, start: start };
+      });
+      WORDS.forEach(function (w) {
+        tl.fromTo(w.el,
+          { opacity: 0, y: 40, filter: "blur(10px)" },
+          { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.55, ease: "power3.out" }, w.start);
+      });
+
+      // ---- Scene 2 (2.4–4.6s): question lifts + shrinks to muted subtitle; glass card rises beneath ----
+      tl.fromTo("#hook01-question",
+        { y: 0, scale: 1, opacity: 1 },
+        { y: -150, scale: 0.6, opacity: 0.62, duration: 0.8, ease: "power3.inOut" }, 2.4);
+
+      tl.fromTo("#hook01-card",
+        { scale: 0, opacity: 0, y: 28 },
+        { scale: 1, opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 2.65);
+      tl.fromTo("#hook01-icon",
+        { scale: 0, rotation: -25 },
+        { scale: 1, rotation: 0, duration: 0.55, ease: "power3.out" }, 2.95);
+
+      // ---- Scene 3 (4.6–6.0s): chip pops under the card; soft green glow fades in; hold ----
+      tl.fromTo("#hook01-chip",
+        { scale: 0, opacity: 0, y: 20 },
+        { scale: 1, opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 4.6);
+      tl.fromTo("#hook01-glow",
+        { opacity: 0, scale: 0.85 },
+        { opacity: 1, scale: 1, duration: 1.0, ease: "power2.out" }, 4.7);
+
+      // gentle push-in under the whole sequence (element scale, camera-locked feel)
+      tl.fromTo("#hook01-stage", { scale: 1 }, { scale: 1.025, duration: DUR, ease: "none" }, 0);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines[FID] = tl;
+    })();
+  </script>
+</template>
