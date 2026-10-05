@@ -534,7 +534,12 @@ function fullScene(t, s) {
       <div class="iz-counter"><span class="iz-total">${L.notes.length}</span> แนวคิด</div>
       <div class="iz-cap">นำแนวคิดมารวมกลุ่ม → 3 แนวทาง</div>
       ${cols}${notes}
-      <div class="id-chosen iz-chosen"><span class="id-cs">${ICON.star}</span>ไอเดียที่เลือก: ${esc(IDEATE.chosen)}</div>`;
+      <div class="iz-merge">
+        <div class="iz-mk"><span class="iz-mstar">${ICON.star}</span>รวม 3 แนวทาง ได้ไอเดีย</div>
+        <div class="iz-mt">Memory Garden</div>
+        <div class="iz-ms">${esc(IDEATE.chosen.split('—')[1] ? IDEATE.chosen.split('—')[1].trim() : '')}</div>
+        <div class="iz-chips">${IDEATE.merge.map(([en, th], k) => `<div class="iz-chip iz-ch${k}"><b>${esc(en)}</b>${esc(th)}</div>`).join('<span class="iz-plus">+</span>')}</div>
+      </div>`;
   } else if (s.type === 'why') {
     body = `${header('03 · IDEATE', 'ทำไมต้องเป็นแอป?')}
       <div class="wy-cards">${WHY.cards.map(([a, b], i) => `<div class="wy-card wy-${i}"><span class="wy-ico">${ICON[i ? 'phone' : 'say']}</span><div class="wy-main">${esc(a)}</div><div class="wy-sub">${esc(b)}</div></div>`).join('')}</div>
@@ -610,9 +615,19 @@ function fullScene(t, s) {
     tw.push(`tl.to('${S} .iz-cap',{opacity:0,duration:0.3},${r3(c3 - 0.3)});`);
     tw.push(`tl.fromTo('${S} .iz-sum',{opacity:0,y:-30},{opacity:1,y:0,duration:0.5,stagger:0.4,ease:'back.out(1.6)'},${r3(c3)});`);
     [0, 1, 2].forEach((k) => addSfx(c3 + k * 0.4, 'pop', 0.4));
-    tw.push(`tl.fromTo('${S} .iz-c2',{boxShadow:'0 0 0 0 rgba(242,162,75,0)'},{boxShadow:'0 0 0 10px rgba(242,162,75,0.9)',duration:0.5},${r3(c3 + 2.2)});`);
-    tw.push(`tl.fromTo('${S} .iz-chosen',{opacity:0,y:40,scale:0.9},{opacity:1,y:0,scale:1,duration:0.5,ease:'back.out(2)'},${r3(c3 + 2.6)});`);
-    addSfx(c3 + 2.6, 'chime', 0.4); addSfx(c3 + 2.8, 'sparkle', 0.35);
+    // highlight all three groups together, then merge them into one idea
+    const glow = ['196,58,76', '59,120,184', '19,128,94'];
+    glow.forEach((c, k) => tw.push(`tl.fromTo('${S} .iz-c${k}',{boxShadow:'0 0 0 0 rgba(${c},0)'},{boxShadow:'0 0 0 12px rgba(${c},0.85)',duration:0.45,ease:'power2.out'},${r3(c3 + 1.6 + k * 0.12)});`));
+    addSfx(c3 + 1.6, 'sparkle', 0.4);
+    const h = c3 + 2.7;
+    tw.push(`tl.to('${S} .iz-note',{opacity:0,duration:0.3},${r3(h)});`);
+    const L2 = ideateLayout();
+    L2.cols.forEach((c, k) => tw.push(`tl.to('${S} .iz-c${k}',{x:${Math.round(840 - (c.x + c.w / 2))},y:120,scale:0.35,opacity:0,duration:0.8,ease:'power3.in'},${r3(h + 0.1)});`));
+    addSfx(h + 0.1, 'whoosh', 0.5);
+    tw.push(`tl.fromTo('${S} .iz-merge',{opacity:0,scale:0.4},{opacity:1,scale:1,duration:0.6,ease:'back.out(1.8)'},${r3(h + 0.8)});`);
+    tw.push(`tl.fromTo('${S} .iz-mstar',{rotation:-180,scale:0},{rotation:0,scale:1,duration:0.6,ease:'back.out(2.5)'},${r3(h + 1.0)});`);
+    tw.push(`tl.fromTo('${S} .iz-chip, ${S} .iz-plus',{opacity:0,y:30},{opacity:1,y:0,duration:0.35,stagger:0.18,ease:'back.out(2)'},${r3(h + 1.4)});`);
+    addSfx(h + 0.8, 'chime', 0.45); addSfx(h + 1.0, 'sparkle', 0.35);
   } else if (s.type === 'why') {
     WHY.cards.forEach((_, i) => { tw.push(`tl.fromTo('${S} .wy-${i}',{opacity:0,y:50,scale:0.85},{opacity:1,y:0,scale:1,duration:0.5,ease:'back.out(1.8)'},${r3(t + 0.7 + i * 1.1)});`); addSfx(t + 0.7 + i * 1.1, 'pop', 0.45); });
     tw.push(`tl.fromTo('${S} .wy-goal',{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.55,ease:'back.out(2)'},${r3(t + 2.6)});`);

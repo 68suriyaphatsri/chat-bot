@@ -379,3 +379,17 @@
       .iz-chosen { position: absolute; left: 0; top: 860px; margin-top: 0 !important; }
       .iz-h { flex-wrap: nowrap !important; padding-top: 22px !important; }
       .iz-pct { position: absolute; right: 18px; top: -30px; margin-left: 0 !important; box-shadow: 0 4px 0 rgba(11, 61, 46, 0.25); }
+      .iz-col { transform-origin: 50% 50%; }
+      .iz-merge { position: absolute; left: 60px; right: 60px; top: 170px; padding: 40px 50px 46px; border-radius: 44px; background: #ffffff; border: 8px solid var(--g); box-shadow: 18px 18px 0 var(--mint2); text-align: center; }
+      .iz-mk { display: inline-flex; align-items: center; gap: 14px; font-weight: 800; font-size: 38px; color: var(--g2); line-height: 1.4; }
+      .iz-mstar { width: 56px; height: 56px; display: block; color: #e2a614; }
+      .iz-mstar svg { width: 100%; height: 100%; display: block; }
+      .iz-mt { margin-top: 6px; font-weight: 900; font-size: 128px; color: var(--g); line-height: 1.45; }
+      .iz-ms { font-weight: 700; font-size: 40px; color: var(--gink); line-height: 1.4; }
+      .iz-chips { margin-top: 34px; display: flex; align-items: stretch; justify-content: center; gap: 14px; }
+      .iz-chip { flex: 1; padding: 16px 20px; border-radius: 22px; font-weight: 700; font-size: 29px; color: var(--gink); line-height: 1.4; display: block; }
+      .iz-chip b { display: block; font-weight: 900; font-size: 32px; }
+      .iz-ch0 { background: #fbdde2; border: 4px solid #c43a4c; }
+      .iz-ch1 { background: #dbe9f8; border: 4px solid #3b78b8; }
+      .iz-ch2 { background: #d8f1e2; border: 4px solid #13805e; }
+      .iz-plus { align-self: center; font-weight: 900; font-size: 56px; color: var(--g); display: block; }
