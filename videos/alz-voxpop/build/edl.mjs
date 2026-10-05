@@ -214,8 +214,8 @@ export const SECTIONS = [
     cells: [
       { src: 'doctor', in: 153.5, fx: 0.33, fy: 0.4, label: 'แพทย์' },
       { src: 'elder', in: 72.0, fx: 0.64, fy: 0.47, label: 'ผู้เข้าร่วมทดสอบ' },
-      { src: 'nurses', in: 217.5, fx: 0.51, fy: 0.3, label: 'พยาบาลวิชาชีพ' },
-      { src: 'nurses', in: 217.5, fx: 0.75, fy: 0.32, label: 'พยาบาลวิชาชีพ' },
+      { src: 'nurses', in: 216.0, fx: 0.51, fy: 0.3, label: 'พยาบาลวิชาชีพ' },
+      { src: 'nurses', in: 216.0, fx: 0.75, fy: 0.32, label: 'พยาบาลวิชาชีพ' },
     ],
   },
 ];
