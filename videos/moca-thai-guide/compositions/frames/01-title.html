@@ -1,0 +1,184 @@
+<template>
+  <div id="root" data-composition-id="01-title" data-width="1920" data-height="1080" data-duration="7">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      #root {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        font-family: "IBM Plex Sans Thai", "Noto Sans Thai", sans-serif;
+        color: #111111;
+        container-type: size;
+      }
+      .t01-bg {
+        position: absolute;
+        inset: 0;
+        background-color: #fdfae7;
+        background-image:
+          linear-gradient(rgba(30, 43, 250, 0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(30, 43, 250, 0.06) 1px, transparent 1px);
+        background-size: 96px 96px;
+        background-position: 0 0;
+      }
+      .t01-stage {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .t01-accent {
+        width: 60px;
+        height: 4px;
+        border-radius: 2px;
+        background: #1e2bfa;
+        margin-bottom: 28px;
+        transform-origin: 50% 50%;
+      }
+      .t01-eyebrow {
+        font-size: 36px;
+        font-weight: 600;
+        line-height: 1.5;
+        color: #1e2bfa;
+        margin: 0 0 18px 0;
+        word-break: normal;
+        line-break: auto;
+      }
+      .t01-h1 {
+        width: 1600px;
+        font-size: 104px;
+        font-weight: 700;
+        line-height: 1.4;
+        color: #111111;
+        margin: 0;
+        word-break: normal;
+        line-break: auto;
+      }
+      .t01-h1-word {
+        display: inline-block;
+        margin: 0 0.14em;
+      }
+      .t01-h1-latin {
+        letter-spacing: -0.02em;
+      }
+      .t01-sub {
+        width: 1400px;
+        font-size: 44px;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #6b6b6b;
+        margin: 22px 0 0 0;
+        word-break: normal;
+        line-break: auto;
+      }
+      .t01-rail {
+        display: flex;
+        gap: 16px;
+        margin-top: 64px;
+      }
+      .t01-seg {
+        position: relative;
+        width: 136px;
+        height: 104px;
+        border-radius: 14px;
+        background: rgba(30, 43, 250, 0.04);
+        border: 1.5px solid rgba(30, 43, 250, 0.2);
+        overflow: hidden;
+        transform-origin: 0% 50%;
+      }
+      .t01-seg-fill {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 6px;
+        background: rgba(30, 43, 250, 0.15);
+        transform-origin: 0% 50%;
+      }
+      .t01-seg-glow {
+        position: absolute;
+        inset: 0;
+        border-radius: 12px;
+        background: rgba(30, 43, 250, 0.16);
+        opacity: 0;
+      }
+      .t01-seg-num {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 18px;
+        font-size: 48px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #1e2bfa;
+      }
+    </style>
+
+    <div id="t01-bg" class="clip t01-bg" data-start="0" data-duration="7" data-track-index="0"></div>
+
+    <div id="t01-stage" class="clip t01-stage" data-start="0" data-duration="7" data-track-index="1">
+      <div id="t01-accent" class="t01-accent"></div>
+      <p id="t01-eyebrow" class="t01-eyebrow">คู่มือผู้ทดสอบ</p>
+      <h1 id="t01-h1" class="t01-h1"><span class="t01-h1-word">แบบทดสอบ</span><span class="t01-h1-word t01-h1-latin">MoCA</span><span class="t01-h1-word">ฉบับภาษาไทย</span></h1>
+      <p id="t01-sub" class="t01-sub">พูดอย่างไร ทีละขั้นตอน ครบ 8 ส่วน</p>
+      <div id="t01-rail" class="t01-rail">
+        <div class="t01-seg"><div class="t01-seg-glow" id="t01-glow"></div><div class="t01-seg-fill"></div><div class="t01-seg-num">1</div></div>
+        <div class="t01-seg"><div class="t01-seg-fill"></div><div class="t01-seg-num">2</div></div>
+        <div class="t01-seg"><div class="t01-seg-fill"></div><div class="t01-seg-num">3</div></div>
+        <div class="t01-seg"><div class="t01-seg-fill"></div><div class="t01-seg-num">4</div></div>
+        <div class="t01-seg"><div class="t01-seg-fill"></div><div class="t01-seg-num">5</div></div>
+        <div class="t01-seg"><div class="t01-seg-fill"></div><div class="t01-seg-num">6</div></div>
+        <div class="t01-seg"><div class="t01-seg-fill"></div><div class="t01-seg-num">7</div></div>
+        <div class="t01-seg"><div class="t01-seg-fill"></div><div class="t01-seg-num">8</div></div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        window.__timelines = window.__timelines || {};
+        var root = document.querySelector('[data-composition-id="01-title"]');
+        var q = function (sel) { return root.querySelectorAll(sel); };
+        var tl = gsap.timeline({ paused: true });
+
+        // Background grid: present from frame 0, faint settle-in
+        tl.fromTo("#t01-bg", { opacity: 0.6 }, { opacity: 1, duration: 0.8, ease: "power2.out" }, 0);
+
+        // Scene 1 (0.0–1.8s): accent line + eyebrow rise, then h1 word-group by word-group
+        tl.fromTo("#t01-accent", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power3.out" }, 0.05);
+        tl.fromTo("#t01-eyebrow", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.1);
+        tl.fromTo(q(".t01-h1-word"),
+          { opacity: 0, y: 56, filter: "blur(8px)" },
+          { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8, ease: "power3.out", stagger: 0.32 },
+          0.35);
+
+        // Scene 2 (1.8–3.6s): sub-line fades up under the h1
+        tl.fromTo("#t01-sub", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" }, 1.85);
+
+        // Scene 3 (3.6–5.2s): 8 segments draw in left→right, each with its number
+        var segs = q(".t01-seg");
+        var fills = q(".t01-seg-fill");
+        var nums = q(".t01-seg-num");
+        tl.fromTo(segs, { opacity: 0, scaleX: 0.2 }, { opacity: 1, scaleX: 1, duration: 0.55, ease: "power3.out", stagger: 0.13 }, 3.6);
+        tl.fromTo(fills, { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.out", stagger: 0.13 }, 3.75);
+        tl.fromTo(nums, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out", stagger: 0.13 }, 3.8);
+
+        // Scene 4 (5.2–7.0s): hold still; first segment glows cobalt softly once
+        tl.fromTo("#t01-glow", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, 5.4);
+        tl.to("#t01-glow", { opacity: 0.45, duration: 0.9, ease: "power2.inOut" }, 6.0);
+
+        // Pad to exact frame length
+        tl.set({}, {}, 7);
+
+        window.__timelines["01-title"] = tl;
+      })();
+    </script>
+  </div>
+</template>
