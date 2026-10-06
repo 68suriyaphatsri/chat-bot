@@ -153,7 +153,7 @@
         line-height: 68px;
         color: #1e2bfa;
       }
-      .\31 1-abstraction-op-plus { left: 400px; }
+      .\31 1-abstraction-op-plus { left: 600px; }
       .\31 1-abstraction-op-eq { left: 1100px; }
       .\31 1-abstraction-ans-wrap {
         position: absolute;
@@ -234,8 +234,8 @@
           <div class="11-abstraction-item 11-abstraction-item-l" id="11-abstraction-l0">ส้ม</div>
           <div class="11-abstraction-item 11-abstraction-item-r" id="11-abstraction-r0">กล้วย</div>
         </div>
-        <div class="11-abstraction-op 11-abstraction-op-plus" id="11-abstraction-p0" style="margin-left: 200px">+</div>
-        <div class="11-abstraction-op 11-abstraction-op-eq" id="11-abstraction-e0" style="margin-left: 0">=</div>
+        <div class="11-abstraction-op 11-abstraction-op-plus" id="11-abstraction-p0">+</div>
+        <div class="11-abstraction-op 11-abstraction-op-eq" id="11-abstraction-e0">=</div>
         <div class="11-abstraction-ans-wrap">
           <div class="11-abstraction-pill 11-abstraction-pill-muted" id="11-abstraction-a0">ผลไม้</div>
         </div>
@@ -248,7 +248,7 @@
           <div class="11-abstraction-item 11-abstraction-item-l" id="11-abstraction-l1">รถไฟ</div>
           <div class="11-abstraction-item 11-abstraction-item-r" id="11-abstraction-r1">รถยนต์ / รถบรรทุก</div>
         </div>
-        <div class="11-abstraction-op 11-abstraction-op-plus" id="11-abstraction-p1" style="margin-left: 200px">+</div>
+        <div class="11-abstraction-op 11-abstraction-op-plus" id="11-abstraction-p1">+</div>
         <div class="11-abstraction-op 11-abstraction-op-eq" id="11-abstraction-e1">=</div>
         <div class="11-abstraction-ans-wrap">
           <div class="11-abstraction-pill 11-abstraction-pill-q" id="11-abstraction-q1">?</div>
@@ -263,7 +263,7 @@
           <div class="11-abstraction-item 11-abstraction-item-l" id="11-abstraction-l2">นาฬิกา</div>
           <div class="11-abstraction-item 11-abstraction-item-r" id="11-abstraction-r2">ไม้บรรทัด</div>
         </div>
-        <div class="11-abstraction-op 11-abstraction-op-plus" id="11-abstraction-p2" style="margin-left: 200px">+</div>
+        <div class="11-abstraction-op 11-abstraction-op-plus" id="11-abstraction-p2">+</div>
         <div class="11-abstraction-op 11-abstraction-op-eq" id="11-abstraction-e2">=</div>
         <div class="11-abstraction-ans-wrap">
           <div class="11-abstraction-pill 11-abstraction-pill-q" id="11-abstraction-q2">?</div>
@@ -287,7 +287,7 @@
     <script>
       (function () {
         var R = document.querySelector('[data-composition-id="11-abstraction"]');
-        var $ = function (id) { return R.querySelector("#11-abstraction-" .replace("#", "#") === "" ? id : '[id="11-abstraction-' + id + '"]'); };
+        var $ = function (id) { return R.querySelector('[id="11-abstraction-' + id + '"]'); };
         var tl = gsap.timeline({ paused: true });
         var TILT = 12, OVER = 8;
 

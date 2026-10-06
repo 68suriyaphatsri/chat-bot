@@ -240,7 +240,7 @@
     <script>
       (function () {
         window.__timelines = window.__timelines || {};
-        var root = document.querySelector('[data-composition-id="12-recall"]');
+        var root = document.querySelector('[data-composition-id="12-recall"]') || document;
         var q = function (sel) { return root.querySelectorAll(sel); };
         var tl = gsap.timeline({ paused: true });
 
