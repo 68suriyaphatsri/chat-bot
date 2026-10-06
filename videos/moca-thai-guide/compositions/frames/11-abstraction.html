@@ -1,0 +1,344 @@
+<template>
+  <div id="root" data-composition-id="11-abstraction" data-start="0" data-duration="14" data-width="1920" data-height="1080" lang="th">
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap");
+
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        font-family: "IBM Plex Sans Thai", "Noto Sans Thai", sans-serif;
+        color: #111111;
+        word-break: normal;
+        line-break: auto;
+      }
+      .\31 1-abstraction-bg {
+        position: absolute;
+        inset: 0;
+        background: #fdfae7;
+      }
+      .\31 1-abstraction-layer {
+        position: absolute;
+        inset: 0;
+      }
+
+      /* Section badge */
+      #\31 1-abstraction-badge {
+        position: absolute;
+        left: 96px;
+        top: 44px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        height: 64px;
+        padding: 0 32px 0 12px;
+        border-radius: 100px;
+        background: #1e2bfa;
+        color: #fdfae7;
+        white-space: nowrap;
+      }
+      .\31 1-abstraction-badge-num {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(253, 250, 231, 0.18);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 26px;
+        line-height: 1;
+      }
+      .\31 1-abstraction-badge-th {
+        font-weight: 600;
+        font-size: 30px;
+        line-height: 1.45;
+      }
+      .\31 1-abstraction-badge-en {
+        font-weight: 500;
+        font-size: 18px;
+        letter-spacing: 0.08em;
+        opacity: 0.75;
+        line-height: 1;
+      }
+
+      /* Speech card */
+      #\31 1-abstraction-speech {
+        position: absolute;
+        left: 96px;
+        top: 136px;
+        width: 1728px;
+        box-sizing: border-box;
+        padding: 20px 44px 24px 48px;
+        border-radius: 14px;
+        background: #ffffff;
+        border: 1.5px solid rgba(30, 43, 250, 0.2);
+        border-left: 6px solid #1e2bfa;
+      }
+      .\31 1-abstraction-speech-label {
+        font-size: 24px;
+        font-weight: 600;
+        color: #1e2bfa;
+        line-height: 1.45;
+        margin-bottom: 4px;
+      }
+      .\31 1-abstraction-speech-text {
+        font-size: 44px;
+        font-weight: 500;
+        line-height: 1.5;
+        color: #111111;
+      }
+
+      /* Pair rows */
+      .\31 1-abstraction-row {
+        position: absolute;
+        left: 96px;
+        width: 1728px;
+        height: 128px;
+        perspective: 1600px;
+      }
+      .\31 1-abstraction-tag {
+        position: absolute;
+        left: 0;
+        top: 38px;
+        width: 168px;
+        height: 54px;
+        border-radius: 100px;
+        background: rgba(30, 43, 250, 0.08);
+        color: #1e2bfa;
+        font-size: 30px;
+        font-weight: 600;
+        line-height: 54px;
+        text-align: center;
+      }
+      .\31 1-abstraction-stage {
+        position: absolute;
+        left: 200px;
+        top: 0;
+        width: 900px;
+        height: 128px;
+        transform-style: preserve-3d;
+      }
+      .\31 1-abstraction-item {
+        position: absolute;
+        top: 6px;
+        width: 400px;
+        height: 116px;
+        box-sizing: border-box;
+        border-radius: 14px;
+        background: rgba(30, 43, 250, 0.04);
+        border: 1.5px solid rgba(30, 43, 250, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 44px;
+        font-weight: 600;
+        line-height: 1.45;
+        color: #111111;
+        transform-style: preserve-3d;
+        white-space: nowrap;
+      }
+      .\31 1-abstraction-item-l { left: 0; }
+      .\31 1-abstraction-item-r { left: 500px; }
+      .\31 1-abstraction-op {
+        position: absolute;
+        top: 30px;
+        width: 100px;
+        height: 68px;
+        text-align: center;
+        font-size: 56px;
+        font-weight: 600;
+        line-height: 68px;
+        color: #1e2bfa;
+      }
+      .\31 1-abstraction-op-plus { left: 400px; }
+      .\31 1-abstraction-op-eq { left: 1100px; }
+      .\31 1-abstraction-ans-wrap {
+        position: absolute;
+        left: 1208px;
+        top: 14px;
+        width: 520px;
+        height: 100px;
+        perspective: 900px;
+      }
+      .\31 1-abstraction-pill {
+        position: absolute;
+        inset: 0;
+        border-radius: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 42px;
+        font-weight: 700;
+        line-height: 1.45;
+        white-space: nowrap;
+        backface-visibility: hidden;
+      }
+      .\31 1-abstraction-pill-muted {
+        background: rgba(30, 43, 250, 0.08);
+        border: 1.5px solid rgba(30, 43, 250, 0.2);
+        color: #1e2bfa;
+        box-sizing: border-box;
+      }
+      .\31 1-abstraction-pill-q {
+        background: transparent;
+        border: 2px dashed rgba(30, 43, 250, 0.35);
+        color: #1e2bfa;
+        box-sizing: border-box;
+        font-size: 56px;
+      }
+      .\31 1-abstraction-pill-solid {
+        background: #1e2bfa;
+        color: #fdfae7;
+      }
+
+      /* Progress rail */
+      #\31 1-abstraction-rail {
+        position: absolute;
+        right: 96px;
+        top: 866px;
+        display: flex;
+        gap: 10px;
+      }
+      .\31 1-abstraction-seg {
+        width: 44px;
+        height: 8px;
+        border-radius: 6px;
+        background: rgba(30, 43, 250, 0.12);
+      }
+      .\31 1-abstraction-seg-done { background: rgba(30, 43, 250, 0.4); }
+      .\31 1-abstraction-seg-active { background: #1e2bfa; width: 72px; }
+    </style>
+
+    <div class="clip 11-abstraction-bg" data-start="0" data-duration="14" data-track-index="0"></div>
+
+    <div class="clip 11-abstraction-layer" data-start="0" data-duration="14" data-track-index="1">
+      <div id="11-abstraction-badge">
+        <div class="11-abstraction-badge-num">6</div>
+        <div class="11-abstraction-badge-th">ความคิดเชิงนามธรรม</div>
+        <div class="11-abstraction-badge-en">ABSTRACTION</div>
+      </div>
+
+      <div id="11-abstraction-speech">
+        <div class="11-abstraction-speech-label">ผู้ทดสอบพูดว่า</div>
+        <div class="11-abstraction-speech-text">“ช่วยบอกหน่อยครับ/ค่ะว่า สิ่งสองสิ่งนี้มีความเหมือนกันหรือเป็นพวกเดียวกันอย่างไร”</div>
+      </div>
+
+      <!-- Row 0 — example -->
+      <div class="11-abstraction-row" id="11-abstraction-row0" style="top: 372px">
+        <div class="11-abstraction-tag" id="11-abstraction-tag0">ตัวอย่าง</div>
+        <div class="11-abstraction-stage">
+          <div class="11-abstraction-item 11-abstraction-item-l" id="11-abstraction-l0">ส้ม</div>
+          <div class="11-abstraction-item 11-abstraction-item-r" id="11-abstraction-r0">กล้วย</div>
+        </div>
+        <div class="11-abstraction-op 11-abstraction-op-plus" id="11-abstraction-p0" style="margin-left: 200px">+</div>
+        <div class="11-abstraction-op 11-abstraction-op-eq" id="11-abstraction-e0" style="margin-left: 0">=</div>
+        <div class="11-abstraction-ans-wrap">
+          <div class="11-abstraction-pill 11-abstraction-pill-muted" id="11-abstraction-a0">ผลไม้</div>
+        </div>
+      </div>
+
+      <!-- Row 1 -->
+      <div class="11-abstraction-row" id="11-abstraction-row1" style="top: 520px">
+        <div class="11-abstraction-tag" id="11-abstraction-tag1">ข้อ 1</div>
+        <div class="11-abstraction-stage">
+          <div class="11-abstraction-item 11-abstraction-item-l" id="11-abstraction-l1">รถไฟ</div>
+          <div class="11-abstraction-item 11-abstraction-item-r" id="11-abstraction-r1">รถยนต์ / รถบรรทุก</div>
+        </div>
+        <div class="11-abstraction-op 11-abstraction-op-plus" id="11-abstraction-p1" style="margin-left: 200px">+</div>
+        <div class="11-abstraction-op 11-abstraction-op-eq" id="11-abstraction-e1">=</div>
+        <div class="11-abstraction-ans-wrap">
+          <div class="11-abstraction-pill 11-abstraction-pill-q" id="11-abstraction-q1">?</div>
+          <div class="11-abstraction-pill 11-abstraction-pill-solid" id="11-abstraction-a1">พาหนะ / การเดินทาง</div>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="11-abstraction-row" id="11-abstraction-row2" style="top: 668px">
+        <div class="11-abstraction-tag" id="11-abstraction-tag2">ข้อ 2</div>
+        <div class="11-abstraction-stage">
+          <div class="11-abstraction-item 11-abstraction-item-l" id="11-abstraction-l2">นาฬิกา</div>
+          <div class="11-abstraction-item 11-abstraction-item-r" id="11-abstraction-r2">ไม้บรรทัด</div>
+        </div>
+        <div class="11-abstraction-op 11-abstraction-op-plus" id="11-abstraction-p2" style="margin-left: 200px">+</div>
+        <div class="11-abstraction-op 11-abstraction-op-eq" id="11-abstraction-e2">=</div>
+        <div class="11-abstraction-ans-wrap">
+          <div class="11-abstraction-pill 11-abstraction-pill-q" id="11-abstraction-q2">?</div>
+          <div class="11-abstraction-pill 11-abstraction-pill-solid" id="11-abstraction-a2">เครื่องมือวัด</div>
+        </div>
+      </div>
+
+      <div id="11-abstraction-rail">
+        <div class="11-abstraction-seg 11-abstraction-seg-done"></div>
+        <div class="11-abstraction-seg 11-abstraction-seg-done"></div>
+        <div class="11-abstraction-seg 11-abstraction-seg-done"></div>
+        <div class="11-abstraction-seg 11-abstraction-seg-done"></div>
+        <div class="11-abstraction-seg 11-abstraction-seg-done"></div>
+        <div class="11-abstraction-seg 11-abstraction-seg-active"></div>
+        <div class="11-abstraction-seg"></div>
+        <div class="11-abstraction-seg"></div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        var R = document.querySelector('[data-composition-id="11-abstraction"]');
+        var $ = function (id) { return R.querySelector("#11-abstraction-" .replace("#", "#") === "" ? id : '[id="11-abstraction-' + id + '"]'); };
+        var tl = gsap.timeline({ paused: true });
+        var TILT = 12, OVER = 8;
+
+        // Scene 1 (0.0–2.5s): badge + speech card
+        tl.fromTo($("badge"), { x: -40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 0);
+        tl.fromTo($("speech"), { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 0.35);
+        tl.fromTo($("rail"), { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, 0.5);
+
+        // A pair row: tag, opposite-wing tilted items, "+", "="
+        function pair(i, at) {
+          tl.fromTo($("tag" + i), { x: -24, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, at);
+          tl.fromTo($("l" + i), { x: -320, rotateY: TILT + OVER, opacity: 0, scale: 0.85 },
+            { x: 0, rotateY: TILT, opacity: 1, scale: 1, duration: 0.9, ease: "power3.out" }, at + 0.1);
+          tl.fromTo($("r" + i), { x: 320, rotateY: -TILT - OVER, opacity: 0, scale: 0.85 },
+            { x: 0, rotateY: -TILT, opacity: 1, scale: 1, duration: 0.9, ease: "power3.out" }, at + 0.3);
+          tl.fromTo($("p" + i), { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "power3.out" }, at + 0.55);
+          tl.fromTo($("e" + i), { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "power3.out" }, at + 0.95);
+        }
+        // Inner-edge pill spring (the lone overshoot)
+        function springIn(el, at) {
+          tl.fromTo(el, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.7, ease: "back.out(1.6)" }, at);
+        }
+        // "?" flips over to the answer
+        function flip(i, at) {
+          tl.fromTo($("q" + i), { rotateX: 0, opacity: 1 }, { rotateX: 90, opacity: 0, duration: 0.3, ease: "power2.in", immediateRender: false }, at);
+          tl.fromTo($("a" + i), { rotateX: -90, opacity: 0 }, { rotateX: 0, opacity: 1, duration: 0.55, ease: "back.out(1.4)", immediateRender: false }, at + 0.3);
+        }
+
+        // Hide future answers at t=0 (seek-safe)
+        tl.set([$("a1"), $("a2")], { opacity: 0, rotateX: -90 }, 0);
+
+        // Scene 2 (2.5–5.0s): example row
+        pair(0, 2.5);
+        springIn($("a0"), 3.75);
+
+        // Scene 3 (5.0–8.0s): row 1, "?" holds, then flips
+        pair(1, 5.0);
+        springIn($("q1"), 6.2);
+        flip(1, 7.2);
+
+        // Scene 4 (8.0–11.0s): row 2
+        pair(2, 8.0);
+        springIn($("q2"), 9.2);
+        flip(2, 10.2);
+
+        // Scene 5 (11.0–14.0s): hold
+        tl.to({}, { duration: 0.01 }, 13.99);
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines["11-abstraction"] = tl;
+      })();
+    </script>
+  </div>
+</template>

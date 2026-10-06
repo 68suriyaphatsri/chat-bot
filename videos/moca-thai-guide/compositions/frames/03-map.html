@@ -1,0 +1,278 @@
+<template id="03-map-template">
+  <div
+    id="root"
+    data-composition-id="03-map"
+    data-start="0"
+    data-duration="10"
+    data-width="1920"
+    data-height="1080"
+  >
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap");
+
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        font-family: "IBM Plex Sans Thai", "Noto Sans Thai", sans-serif;
+        color: #111111;
+      }
+
+      #root * {
+        box-sizing: border-box;
+      }
+
+      /* full-bleed ground: cream + faint cobalt hairline grid (background role, dimmed) */
+      .map03-bg {
+        position: absolute;
+        inset: 0;
+        background-color: #fdfae7;
+        background-image:
+          linear-gradient(rgba(30, 43, 250, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(30, 43, 250, 0.05) 1px, transparent 1px);
+        background-size: 96px 96px;
+        background-position: 0 0;
+      }
+
+      .map03-stage {
+        position: absolute;
+        inset: 0;
+        transform-origin: 50% 46%;
+      }
+
+      /* ---- title (Scene 1) ---- */
+      .map03-head {
+        position: absolute;
+        left: 96px;
+        right: 96px;
+        top: 64px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .map03-accent {
+        width: 60px;
+        height: 4px;
+        border-radius: 2px;
+        background: #1e2bfa;
+        margin-bottom: 18px;
+        transform-origin: 50% 50%;
+      }
+
+      .map03-title {
+        margin: 0;
+        font-size: 72px;
+        font-weight: 700;
+        line-height: 1.45;
+        color: #111111;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      /* ---- grid (Scene 2) ---- */
+      .map03-grid {
+        position: absolute;
+        left: 96px;
+        right: 96px;
+        top: 250px;
+        height: 636px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 28px;
+      }
+
+      .map03-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        padding: 26px 30px 26px 30px;
+        background: rgba(30, 43, 250, 0.04);
+        border: 1.5px solid rgba(30, 43, 250, 0.2);
+        border-radius: 14px;
+        overflow: hidden;
+      }
+
+      .map03-num-row {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        height: 76px;
+      }
+
+      .map03-num {
+        font-size: 76px;
+        font-weight: 700;
+        line-height: 1;
+        color: #1e2bfa;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .map03-rule {
+        flex: 1;
+        height: 2px;
+        border-radius: 1px;
+        background: rgba(30, 43, 250, 0.2);
+        transform-origin: 0% 50%;
+      }
+
+      .map03-th {
+        margin-top: 18px;
+        font-size: 36px;
+        font-weight: 600;
+        line-height: 1.45;
+        color: #111111;
+        word-break: normal;
+        line-break: auto;
+      }
+
+      .map03-en {
+        margin-top: auto;
+        padding-top: 10px;
+        font-size: 21px;
+        font-weight: 500;
+        line-height: 1.35;
+        letter-spacing: 0.02em;
+        color: #6b6b6b;
+      }
+    </style>
+
+    <div
+      id="map03-bg"
+      class="clip map03-bg"
+      data-start="0"
+      data-duration="10"
+      data-track-index="0"
+    ></div>
+
+    <div
+      id="map03-stage"
+      class="clip map03-stage"
+      data-start="0"
+      data-duration="10"
+      data-track-index="1"
+    >
+      <div class="map03-head">
+        <div class="map03-accent" id="map03-accent"></div>
+        <h1 class="map03-title" id="map03-title">แบบทดสอบมี 8 ส่วน</h1>
+      </div>
+
+      <div class="map03-grid">
+        <div class="map03-card" id="map03-card-1">
+          <div class="map03-num-row"><span class="map03-num">1</span><span class="map03-rule"></span></div>
+          <div class="map03-th">มิติสัมพันธ์และการบริหารจัดการ</div>
+          <div class="map03-en">Visuospatial / Executive</div>
+        </div>
+        <div class="map03-card" id="map03-card-2">
+          <div class="map03-num-row"><span class="map03-num">2</span><span class="map03-rule"></span></div>
+          <div class="map03-th">การเรียกชื่อ</div>
+          <div class="map03-en">Naming</div>
+        </div>
+        <div class="map03-card" id="map03-card-3">
+          <div class="map03-num-row"><span class="map03-num">3</span><span class="map03-rule"></span></div>
+          <div class="map03-th">ความจำ</div>
+          <div class="map03-en">Memory</div>
+        </div>
+        <div class="map03-card" id="map03-card-4">
+          <div class="map03-num-row"><span class="map03-num">4</span><span class="map03-rule"></span></div>
+          <div class="map03-th">สมาธิและความตั้งใจ</div>
+          <div class="map03-en">Attention</div>
+        </div>
+        <div class="map03-card" id="map03-card-5">
+          <div class="map03-num-row"><span class="map03-num">5</span><span class="map03-rule"></span></div>
+          <div class="map03-th">ภาษา</div>
+          <div class="map03-en">Language</div>
+        </div>
+        <div class="map03-card" id="map03-card-6">
+          <div class="map03-num-row"><span class="map03-num">6</span><span class="map03-rule"></span></div>
+          <div class="map03-th">ความคิดเชิงนามธรรม</div>
+          <div class="map03-en">Abstraction</div>
+        </div>
+        <div class="map03-card" id="map03-card-7">
+          <div class="map03-num-row"><span class="map03-num">7</span><span class="map03-rule"></span></div>
+          <div class="map03-th">การระลึกความจำ</div>
+          <div class="map03-en">Delayed Recall</div>
+        </div>
+        <div class="map03-card" id="map03-card-8">
+          <div class="map03-num-row"><span class="map03-num">8</span><span class="map03-rule"></span></div>
+          <div class="map03-th">การรับรู้เวลาและสถานที่</div>
+          <div class="map03-en">Orientation</div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        window.__timelines = window.__timelines || {};
+        var root = document.querySelector('[data-composition-id="03-map"]');
+        var q = function (sel) {
+          return root.querySelector(sel);
+        };
+        var tl = gsap.timeline({ paused: true });
+
+        // Scene 1 (0.0–1.2s): title rises in, top center
+        tl.fromTo(
+          q("#map03-accent"),
+          { scaleX: 0, opacity: 0 },
+          { scaleX: 1, opacity: 1, duration: 0.6, ease: "power3.out" },
+          0.1
+        );
+        tl.fromTo(
+          q("#map03-title"),
+          { y: 36, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.9, ease: "power3.out" },
+          0.15
+        );
+
+        // Scene 2 (1.2–5.2s): 8 cards assemble into their slots, row 1 L→R then row 2, 0.45s apart
+        for (var i = 1; i <= 8; i++) {
+          var card = q("#map03-card-" + i);
+          var t = 1.2 + (i - 1) * 0.45;
+          tl.fromTo(
+            card,
+            { y: 40, scale: 0.96, opacity: 0 },
+            { y: 0, scale: 1, opacity: 1, duration: 0.65, ease: "power3.out" },
+            t
+          );
+          tl.fromTo(
+            card.querySelector(".map03-num"),
+            { scale: 0.6, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.6)" },
+            t + 0.08
+          );
+          tl.fromTo(
+            card.querySelector(".map03-rule"),
+            { scaleX: 0 },
+            { scaleX: 1, duration: 0.6, ease: "power3.out" },
+            t + 0.15
+          );
+          tl.fromTo(
+            card.querySelector(".map03-th"),
+            { y: 14, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" },
+            t + 0.14
+          );
+          tl.fromTo(
+            card.querySelector(".map03-en"),
+            { y: 10, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" },
+            t + 0.24
+          );
+        }
+
+        // Scene 3 (5.2–10.0s): held breather — near-static read with a faint slow push-in
+        tl.fromTo(
+          q("#map03-stage"),
+          { scale: 1 },
+          { scale: 1.012, duration: 4.8, ease: "sine.inOut" },
+          5.2
+        );
+
+        window.__timelines["03-map"] = tl;
+      })();
+    </script>
+  </div>
+</template>
