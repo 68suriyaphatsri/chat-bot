@@ -1,0 +1,471 @@
+<template>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap");
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      font-family: "IBM Plex Sans Thai", "Noto Sans Thai", sans-serif;
+      color: #111111;
+    }
+    #root * { box-sizing: border-box; }
+
+    .tap09-bg {
+      position: absolute;
+      inset: 0;
+      background: #fdfae7;
+    }
+    .tap09-stage {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* ---------- recurring chrome ---------- */
+    #tap09-badge {
+      position: absolute;
+      left: 100px;
+      top: 52px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 10px 30px 12px;
+      border-radius: 100px;
+      background: #1e2bfa;
+      color: #fdfae7;
+      white-space: nowrap;
+    }
+    #tap09-badge .tap09-badge-th { font-size: 30px; font-weight: 600; line-height: 1.45; }
+    #tap09-badge .tap09-badge-en { font-size: 18px; font-weight: 500; letter-spacing: 0.08em; opacity: 0.85; }
+
+    #tap09-rail {
+      position: absolute;
+      right: 100px;
+      top: 866px;
+      display: flex;
+      gap: 8px;
+    }
+    .tap09-seg { width: 46px; height: 6px; border-radius: 6px; background: rgba(30,43,250,0.12); }
+    .tap09-seg.tap09-done { background: rgba(30,43,250,0.4); }
+    .tap09-seg.tap09-active { background: #1e2bfa; }
+
+    #tap09-divider {
+      position: absolute;
+      left: 959px;
+      top: 150px;
+      width: 2px;
+      height: 690px;
+      border-radius: 2px;
+      background: rgba(30,43,250,0.2);
+      transform-origin: 50% 0%;
+    }
+
+    /* ---------- columns ---------- */
+    .tap09-col {
+      position: absolute;
+      top: 136px;
+      width: 800px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    #tap09-left { left: 100px; }
+    #tap09-right { left: 1020px; }
+
+    .tap09-title {
+      font-size: 54px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: #111111;
+      margin: 0 0 14px;
+    }
+
+    .tap09-speech {
+      position: relative;
+      background: rgba(30,43,250,0.04);
+      border: 1.5px solid rgba(30,43,250,0.2);
+      border-left: 5px solid #1e2bfa;
+      border-radius: 12px;
+      padding: 18px 30px 22px 32px;
+    }
+    .tap09-speech-label {
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1.45;
+      color: #1e2bfa;
+      margin-bottom: 4px;
+    }
+    .tap09-speech-quote {
+      font-size: 36px;
+      font-weight: 500;
+      line-height: 1.5;
+      color: #111111;
+      word-break: normal;
+      line-break: auto;
+    }
+
+    .tap09-note {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 22px;
+      font-size: 34px;
+      line-height: 1.45;
+      color: #6b6b6b;
+    }
+    .tap09-note-i {
+      flex: 0 0 auto;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid #9a9a9a;
+      color: #9a9a9a;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 32px;
+      text-align: center;
+    }
+
+    /* ---------- letter strip demo ---------- */
+    #tap09-demo {
+      position: relative;
+      margin-top: 26px;
+      height: 200px;
+    }
+    #tap09-window-wrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 540px;
+      height: 200px;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 22%, #000 78%, transparent 100%);
+      mask-image: linear-gradient(90deg, transparent 0, #000 22%, #000 78%, transparent 100%);
+    }
+    #tap09-window {
+      position: absolute;
+      left: 190px;
+      top: 22px;
+      width: 160px;
+      height: 156px;
+      border-radius: 14px;
+      border: 2px solid #1e2bfa;
+      background: rgba(30,43,250,0.06);
+    }
+    #tap09-strip {
+      position: absolute;
+      left: 0;
+      top: 22px;
+      height: 156px;
+      display: flex;
+      align-items: center;
+    }
+    .tap09-letter {
+      display: inline-block;
+      width: 120px;
+      text-align: center;
+      font-size: 92px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: #9a9a9a;
+    }
+    #tap09-tapzone {
+      position: absolute;
+      left: 560px;
+      top: 0;
+      width: 240px;
+      height: 200px;
+    }
+    #tap09-table {
+      position: absolute;
+      left: 10px;
+      top: 168px;
+      width: 220px;
+      height: 3px;
+      border-radius: 3px;
+      background: rgba(30,43,250,0.25);
+    }
+    .tap09-ripple {
+      position: absolute;
+      left: 20px;
+      top: 138px;
+      width: 200px;
+      height: 62px;
+      border-radius: 50%;
+      border: 3px solid #1e2bfa;
+      opacity: 0;
+    }
+    #tap09-hand {
+      position: absolute;
+      left: 60px;
+      top: 6px;
+      width: 120px;
+      height: 162px;
+    }
+
+    /* ---------- serial sevens ---------- */
+    #tap09-count {
+      position: relative;
+      margin-top: 22px;
+      height: 230px;
+    }
+    #tap09-glow {
+      position: absolute;
+      left: 150px;
+      top: -40px;
+      width: 500px;
+      height: 310px;
+      border-radius: 50%;
+      background: radial-gradient(closest-side, rgba(30,43,250,0.12), rgba(30,43,250,0));
+      opacity: 0;
+    }
+    #tap09-numwrap {
+      position: absolute;
+      left: 200px;
+      top: 0;
+      width: 400px;
+      height: 230px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #tap09-num {
+      display: inline-block;
+      font-size: 210px;
+      font-weight: 700;
+      line-height: 1;
+      color: #1e2bfa;
+      font-variant-numeric: tabular-nums;
+      transform-origin: 50% 60%;
+    }
+    .tap09-chip {
+      position: absolute;
+      left: 610px;
+      top: 30px;
+      padding: 4px 22px 6px;
+      border-radius: 100px;
+      background: rgba(30,43,250,0.08);
+      border: 1.5px solid rgba(30,43,250,0.2);
+      color: #1e2bfa;
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.3;
+      white-space: nowrap;
+      opacity: 0;
+    }
+    #tap09-trail {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      margin-top: 26px;
+      height: 60px;
+      font-size: 38px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: #6b6b6b;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .tap09-arrow { color: #9a9a9a; font-weight: 400; }
+    .tap09-trail-last { color: #1e2bfa; }
+  </style>
+
+  <div id="root" data-composition-id="09-tap-sevens" data-width="1920" data-height="1080" data-duration="14">
+    <div class="clip tap09-bg" data-start="0" data-duration="14" data-track-index="0"></div>
+
+    <div class="clip tap09-stage" data-start="0" data-duration="14" data-track-index="1">
+      <div id="tap09-badge">
+        <span class="tap09-badge-th">4 · สมาธิและความตั้งใจ</span>
+        <span class="tap09-badge-en">ATTENTION</span>
+      </div>
+
+      <div id="tap09-divider"></div>
+
+      <!-- LEFT: tap on ก -->
+      <div id="tap09-left" class="tap09-col">
+        <h2 class="tap09-title" id="tap09-ltitle">แตะมือเมื่อได้ยิน ก</h2>
+        <div class="tap09-speech" id="tap09-lspeech">
+          <div class="tap09-speech-label">ผู้ทดสอบพูดว่า</div>
+          <div class="tap09-speech-quote" id="tap09-lquote">ทุกครั้งที่ได้ยินตัวอักษร 'ก' ให้เคาะหรือแตะมือบนโต๊ะ 1 ครั้ง แต่ถ้าเป็นตัวอักษรอื่นไม่ต้องแตะนะครับ/ค่ะ</div>
+        </div>
+        <div class="tap09-note" id="tap09-note">
+          <span class="tap09-note-i">i</span>
+          <span>อ่าน 1 ตัวต่อวินาที</span>
+        </div>
+
+        <div id="tap09-demo">
+          <div id="tap09-window-wrap">
+            <div id="tap09-window"></div>
+            <div id="tap09-strip">
+              <span class="tap09-letter" id="tap09-l0">ข</span>
+              <span class="tap09-letter" id="tap09-l1">ก</span>
+              <span class="tap09-letter" id="tap09-l2">ง</span>
+              <span class="tap09-letter" id="tap09-l3">จ</span>
+              <span class="tap09-letter" id="tap09-l4">ก</span>
+              <span class="tap09-letter" id="tap09-l5">ก</span>
+              <span class="tap09-letter" id="tap09-l6">ค</span>
+              <span class="tap09-letter" id="tap09-l7">ก</span>
+            </div>
+          </div>
+          <div id="tap09-tapzone">
+            <div id="tap09-table"></div>
+            <div class="tap09-ripple" id="tap09-rp0"></div>
+            <div class="tap09-ripple" id="tap09-rp1"></div>
+            <div class="tap09-ripple" id="tap09-rp2"></div>
+            <div class="tap09-ripple" id="tap09-rp3"></div>
+            <svg id="tap09-hand" viewBox="0 0 120 162" fill="none" stroke="#1e2bfa" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="20" y="22" width="18" height="70" rx="9" fill="#fdfae7" />
+              <rect x="40" y="8" width="18" height="84" rx="9" fill="#fdfae7" />
+              <rect x="60" y="10" width="18" height="82" rx="9" fill="#fdfae7" />
+              <rect x="80" y="24" width="18" height="68" rx="9" fill="#fdfae7" />
+              <path d="M98 96 L110 74 Q116 64 106 60 Q99 58 94 68 L88 80" fill="#fdfae7" />
+              <path d="M18 80 L18 120 Q18 158 58 158 L66 158 Q100 158 100 122 L100 84 Z" fill="#fdfae7" />
+              <path d="M38 92 L38 112 M58 92 L58 114 M78 92 L78 112" stroke-width="3" opacity="0.5" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: serial sevens -->
+      <div id="tap09-right" class="tap09-col">
+        <h2 class="tap09-title" id="tap09-rtitle">ลบทีละ 7</h2>
+        <div class="tap09-speech" id="tap09-rspeech">
+          <div class="tap09-speech-label">ผู้ทดสอบพูดว่า</div>
+          <div class="tap09-speech-quote" id="tap09-rquote">เริ่มต้นจากเลข 100 ให้ลบออกทีละ 7 ไปเรื่อยๆ แล้วบอกผลลัพธ์ที่ได้ออกมาครับ/ค่ะ</div>
+        </div>
+
+        <div id="tap09-count">
+          <div id="tap09-glow"></div>
+          <div id="tap09-numwrap"><span id="tap09-num">100</span></div>
+          <div class="tap09-chip" id="tap09-c0">−7</div>
+          <div class="tap09-chip" id="tap09-c1">−7</div>
+          <div class="tap09-chip" id="tap09-c2">−7</div>
+          <div class="tap09-chip" id="tap09-c3">−7</div>
+          <div class="tap09-chip" id="tap09-c4">−7</div>
+        </div>
+
+        <div id="tap09-trail">
+          <span class="tap09-ti" id="tap09-t0">100</span>
+          <span class="tap09-arrow" id="tap09-a1">→</span>
+          <span class="tap09-ti" id="tap09-t1">93</span>
+          <span class="tap09-arrow" id="tap09-a2">→</span>
+          <span class="tap09-ti" id="tap09-t2">86</span>
+          <span class="tap09-arrow" id="tap09-a3">→</span>
+          <span class="tap09-ti" id="tap09-t3">79</span>
+          <span class="tap09-arrow" id="tap09-a4">→</span>
+          <span class="tap09-ti" id="tap09-t4">72</span>
+          <span class="tap09-arrow" id="tap09-a5">→</span>
+          <span class="tap09-ti tap09-trail-last" id="tap09-t5">65</span>
+        </div>
+      </div>
+
+      <div id="tap09-rail">
+        <div class="tap09-seg tap09-done"></div>
+        <div class="tap09-seg tap09-done"></div>
+        <div class="tap09-seg tap09-done"></div>
+        <div class="tap09-seg tap09-active"></div>
+        <div class="tap09-seg"></div>
+        <div class="tap09-seg"></div>
+        <div class="tap09-seg"></div>
+        <div class="tap09-seg"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+      var q = function (id) { return document.getElementById(id); };
+      var E = "power3.out";
+
+      /* ---------- Scene 1 (0.0–3.5): badge, left title + speech, stage note ---------- */
+      tl.fromTo("#tap09-badge", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.6, ease: E }, 0.15);
+      tl.fromTo("#tap09-rail", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, 0.3);
+      tl.fromTo("#tap09-divider", { scaleY: 0 }, { scaleY: 1, duration: 1.0, ease: "power3.inOut" }, 0.3);
+      tl.fromTo("#tap09-ltitle", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.7, ease: E }, 0.45);
+      tl.fromTo("#tap09-lspeech", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: E }, 0.9);
+      tl.fromTo("#tap09-lquote", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, ease: E }, 1.15);
+      tl.fromTo("#tap09-note", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, 2.7);
+
+      /* ---------- Scene 2 (3.5–6.5): letter strip steps; tap + ripple on each ก ---------- */
+      var PITCH = 120, CENTER = 270;
+      var letters = ["ข", "ก", "ง", "จ", "ก", "ก", "ค", "ก"];
+      var xAt = function (i) { return CENTER - (i * PITCH + PITCH / 2); };
+      tl.fromTo("#tap09-demo", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 3.5);
+      tl.fromTo("#tap09-strip", { x: xAt(-1) + 60 }, { x: xAt(-1), duration: 0.32, ease: E }, 3.5);
+
+      var ripple = 0;
+      for (var i = 0; i < letters.length; i++) {
+        var t = 3.85 + i * 0.35;
+        var isKo = letters[i] === "ก";
+        tl.to("#tap09-strip", { x: xAt(i), duration: 0.16, ease: "power2.out" }, t);
+        if (i > 0) {
+          tl.to("#tap09-l" + (i - 1), { color: "#9a9a9a", scale: 1, duration: 0.14, ease: "power2.out" }, t);
+        }
+        tl.to("#tap09-l" + i, { color: isKo ? "#1e2bfa" : "#111111", scale: 1.15, duration: 0.14, ease: "power2.out" }, t + 0.06);
+        if (isKo) {
+          var tp = t + 0.08;
+          tl.fromTo("#tap09-hand", { y: 0 }, { y: 16, duration: 0.08, ease: "power2.in", immediateRender: false }, tp);
+          tl.to("#tap09-hand", { y: 0, duration: 0.2, ease: "power2.out" }, tp + 0.08);
+          var rp = "#tap09-rp" + ripple;
+          tl.fromTo(rp, { opacity: 0, scale: 0.35 }, { opacity: 0.75, scale: 0.7, duration: 0.06, ease: "none" }, tp + 0.08);
+          tl.to(rp, { opacity: 0, scale: 1.9, duration: 0.6, ease: "power2.out" }, tp + 0.14);
+          ripple++;
+        }
+      }
+
+      /* ---------- Scene 3 (6.5–8.0): right title + speech ---------- */
+      tl.fromTo("#tap09-rtitle", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.7, ease: E }, 6.5);
+      tl.fromTo("#tap09-rspeech", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: E }, 6.75);
+      tl.fromTo("#tap09-rquote", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, ease: E }, 6.95);
+
+      /* ---------- Scene 4 (8.0–12.0): hero count-down 100 → 65 ---------- */
+      tl.fromTo("#tap09-numwrap", { opacity: 0, scale: 0.7, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.55, ease: E }, 8.0);
+
+      var numEl = q("tap09-num");
+      var STEP0 = 8.55, GAP = 0.65, STEPS = 5;
+      var state = { p: 0 };
+      var easeOut = function (x) { return 1 - Math.pow(1 - x, 3); };
+      var renderCount = function () {
+        var p = Math.max(0, Math.min(STEPS, state.p));
+        var step = Math.floor(p);
+        var frac = p - step;
+        if (step >= STEPS) { step = STEPS; frac = 0; }
+        var local = Math.min(frac / 0.55, 1);
+        var e = easeOut(local);
+        numEl.textContent = String(Math.round(100 - 7 * (step + e)));
+        var s = 1 - 0.14 * Math.sin(Math.PI * local);
+        numEl.style.transform = "scale(" + s.toFixed(4) + ")";
+      };
+      tl.fromTo(state, { p: 0 }, { p: STEPS, duration: STEPS * GAP, ease: "none", onUpdate: renderCount }, STEP0);
+
+      for (var k = 0; k < STEPS; k++) {
+        var ts = STEP0 + k * GAP;
+        var chip = "#tap09-c" + k;
+        tl.fromTo(chip, { opacity: 0, y: 24, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.18, ease: "back.out(2.2)" }, ts);
+        tl.to(chip, { opacity: 0, y: -60, duration: 0.36, ease: "power2.in" }, ts + 0.32);
+        // previous value drops into the trail row
+        if (k > 0) {
+          tl.fromTo("#tap09-a" + k, { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.3, ease: E }, ts + 0.05);
+        }
+        tl.fromTo("#tap09-t" + k, { opacity: 0, y: -46 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.6)" }, ts + 0.08);
+      }
+      var tEnd = STEP0 + STEPS * GAP; // 11.8
+      tl.fromTo("#tap09-a5", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.3, ease: E }, tEnd - 0.1);
+      tl.fromTo("#tap09-t5", { opacity: 0, y: -46 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.6)" }, tEnd);
+
+      /* ---------- Scene 5 (12.0–14.0): hold, soft glow settles behind the hero ---------- */
+      tl.fromTo("#tap09-glow", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, 11.7);
+
+      tl.to({}, { duration: 0.01 }, 13.99);
+
+      window.__timelines["09-tap-sevens"] = tl;
+    })();
+  </script>
+</template>
