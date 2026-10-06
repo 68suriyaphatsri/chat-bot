@@ -122,13 +122,16 @@
         background: rgba(30, 43, 250, 0.04);
         border: 1.5px solid rgba(30, 43, 250, 0.2);
       }
-      .n06-panel svg {
+      .n06-animal {
         position: absolute;
-        left: 30px;
-        top: 6px;
-        width: 420px;
-        height: 278px;
-        overflow: visible;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 380px;
+        max-height: 220px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
       }
       .n06-line {
         fill: none;
@@ -203,7 +206,7 @@
 
       <div class="n06-card" id="n06-card">
         <div class="n06-card-label" id="n06-card-label">ผู้ทดสอบพูดว่า</div>
-        <div class="n06-card-quote" id="n06-card-quote">“ช่วยบอกผม/ดิฉันหน่อยครับ/ค่ะว่า สัตว์ในรูปแต่ละตัวคือตัวอะไร”</div>
+        <div class="n06-card-quote" id="n06-card-quote">“ช่วยบอกผมหน่อยครับว่า สัตว์ในรูปแต่ละตัวคือตัวอะไร”</div>
       </div>
 
       <div class="n06-note" id="n06-note">
@@ -213,62 +216,17 @@
 
       <!-- lion -->
       <div class="n06-panel" id="n06-p1">
-        <svg viewBox="0 0 420 290">
-          <g transform="translate(10,10)">
-            <path class="n06-line n06-l1" pathLength="1" d="M188 124 C 232 102, 320 104, 348 132 C 364 150, 360 190, 338 204 L 196 204 C 182 196, 178 178, 180 162" />
-            <path class="n06-line n06-l1" pathLength="1" d="M206 204 L 206 252 L 226 252" />
-            <path class="n06-line n06-l1" pathLength="1" d="M236 204 L 236 252 L 256 252" />
-            <path class="n06-line n06-l1" pathLength="1" d="M304 204 L 304 252 L 324 252" />
-            <path class="n06-line n06-l1" pathLength="1" d="M334 200 L 334 252 L 354 252" />
-            <path class="n06-line n06-l1" pathLength="1" d="M352 140 C 380 130, 384 96, 368 78" />
-            <path class="n06-line n06-l1" pathLength="1" d="M368 78 C 352 70, 352 54, 368 54 C 384 56, 384 72, 368 78" />
-            <path class="n06-line n06-l1" pathLength="1" d="M118.0 42.0 A15 15 0 0 1 148.4 48.9 A15 15 0 0 1 172.7 68.4 A15 15 0 0 1 186.2 96.4 A15 15 0 0 1 186.2 127.6 A15 15 0 0 1 172.7 155.6 A15 15 0 0 1 148.4 175.1 A15 15 0 0 1 118.0 182.0 A15 15 0 0 1 87.6 175.1 A15 15 0 0 1 63.3 155.6 A15 15 0 0 1 49.8 127.6 A15 15 0 0 1 49.8 96.4 A15 15 0 0 1 63.3 68.4 A15 15 0 0 1 87.6 48.9 A15 15 0 0 1 118.0 42.0" />
-            <circle class="n06-line n06-l1" pathLength="1" cx="118" cy="114" r="44" />
-            <path class="n06-line n06-l1" pathLength="1" d="M106 128 L 130 128 L 118 140 Z" />
-            <path class="n06-line n06-l1" pathLength="1" d="M118 140 L 118 150 M 118 150 C 110 156, 102 154, 98 148 M 118 150 C 126 156, 134 154, 138 148" />
-            <path class="n06-line n06-l1" pathLength="1" d="M84 76 C 80 64, 92 60, 98 72" />
-            <path class="n06-line n06-l1" pathLength="1" d="M152 76 C 156 64, 144 60, 138 72" />
-            <circle class="n06-dot" cx="102" cy="106" r="4.5" />
-            <circle class="n06-dot" cx="134" cy="106" r="4.5" />
-          </g>
-        </svg>
+        <img class="n06-animal" id="n06-img-lion" src="public/animals/lion.png" alt="สิงโต" />
       </div>
 
       <!-- rhinoceros -->
       <div class="n06-panel" id="n06-p2">
-        <svg viewBox="0 0 420 290">
-          <g transform="translate(10,10)">
-            <path class="n06-line n06-l2" pathLength="1" d="M140 110 C 180 74, 300 72, 344 112 C 366 134, 364 182, 340 204 L 150 204" />
-            <path class="n06-line n06-l2" pathLength="1" d="M142 112 C 110 110, 84 124, 62 150 C 50 166, 52 186, 72 190 C 96 194, 130 192, 150 204" />
-            <path class="n06-line n06-l2" pathLength="1" d="M60 154 L 44 102 L 84 136" />
-            <path class="n06-line n06-l2" pathLength="1" d="M96 126 L 98 104 L 112 120" />
-            <path class="n06-line n06-l2" pathLength="1" d="M140 110 L 148 84 L 162 104" />
-            <path class="n06-line n06-l2" pathLength="1" d="M166 204 L 166 254 L 200 254 L 200 204" />
-            <path class="n06-line n06-l2" pathLength="1" d="M296 204 L 296 254 L 330 254 L 330 200" />
-            <path class="n06-line n06-l2" pathLength="1" d="M356 126 C 374 134, 378 150, 372 164" />
-            <path class="n06-line n06-l2" pathLength="1" d="M170 120 C 186 146, 186 176, 176 200" />
-            <circle class="n06-dot" cx="110" cy="150" r="4.5" />
-          </g>
-        </svg>
+        <img class="n06-animal" id="n06-img-rhino" src="public/animals/rhino.png" alt="แรด" />
       </div>
 
       <!-- camel -->
       <div class="n06-panel" id="n06-p3">
-        <svg viewBox="0 0 420 290">
-          <g transform="translate(10,10)">
-            <path class="n06-line n06-l3" pathLength="1" d="M160 150 C 170 112, 196 88, 222 120 C 244 84, 278 88, 290 128 C 320 132, 336 156, 324 184 L 176 184 C 162 178, 156 164, 160 150" />
-            <path class="n06-line n06-l3" pathLength="1" d="M160 156 C 128 146, 108 118, 104 92" />
-            <path class="n06-line n06-l3" pathLength="1" d="M180 140 C 150 130, 134 104, 130 84" />
-            <path class="n06-line n06-l3" pathLength="1" d="M130 84 C 128 62, 100 54, 76 62 C 56 70, 54 88, 70 94 C 86 98, 98 96, 104 92" />
-            <path class="n06-line n06-l3" pathLength="1" d="M112 60 L 116 48 L 124 62" />
-            <path class="n06-line n06-l3" pathLength="1" d="M188 184 L 192 260 L 204 260" />
-            <path class="n06-line n06-l3" pathLength="1" d="M212 184 L 208 260 L 220 260" />
-            <path class="n06-line n06-l3" pathLength="1" d="M286 184 L 292 260 L 304 260" />
-            <path class="n06-line n06-l3" pathLength="1" d="M308 182 L 316 260 L 328 260" />
-            <path class="n06-line n06-l3" pathLength="1" d="M324 150 C 338 160, 340 180, 334 198" />
-            <circle class="n06-dot" cx="96" cy="72" r="4.5" />
-          </g>
-        </svg>
+        <img class="n06-animal" id="n06-img-camel" src="public/animals/camel.png" alt="อูฐ" />
       </div>
 
       <!-- cobalt pointer -->
@@ -311,10 +269,8 @@
 
         // Scene 2 (2.5–4.0s): triptych draws on together
         tl.fromTo(q(".n06-panel"), { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.08 }, 2.5);
-        [".n06-l1", ".n06-l2", ".n06-l3"].forEach(function (sel, i) {
-          tl.fromTo(q(sel), { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.0, ease: "power2.inOut", stagger: 0.03 }, 2.6 + i * 0.06);
-        });
-        tl.fromTo(q(".n06-dot"), { opacity: 0, scale: 0, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 3.6);
+        // the form's own line drawings reveal left→right like a pen stroke
+        tl.fromTo(q(".n06-animal"), { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.1, ease: "power2.inOut", stagger: 0.12 }, 2.6);
 
         // Scene 3 (4.0–8.0s): cobalt pointer visits each animal, tag pops underneath
         var pointer = one("#n06-pointer");
