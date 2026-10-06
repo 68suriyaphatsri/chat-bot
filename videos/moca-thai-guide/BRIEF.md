@@ -22,6 +22,7 @@ Attention, Language, Abstraction, Delayed Recall, Orientation พร้อมค
 
 ## Assets
 
+- public/music/future-technology-maxkomusic.mp3 — เพลงพื้นหลัง (ผู้ใช้อัปโหลด) ระดับเสียงเบาใต้เสียงบรรยาย
 - (แบบฟอร์ม MoCA ที่ผู้ใช้แนบมาใช้เป็นข้อมูลอ้างอิงเท่านั้น — ไม่ใส่ภาพสแกนในวิดีโอ)
 
 ## Customizations
@@ -33,5 +34,5 @@ Attention, Language, Abstraction, Delayed Recall, Orientation พร้อมค
 
 ## Notes
 
-- ไม่มีเพลงประกอบ (MusicGen ไม่ได้ติดตั้ง และไม่ได้ล็อกอิน HeyGen)
+- เพลงประกอบ: "Future Technology" by MaxKoMusic (ผู้ใช้อัปโหลด, 125s, 115 BPM) — สั้นกว่าวิดีโอ (~165s) ต้องวนซ้ำ/เฟดท้าย; ใส่เครดิตผู้แต่งตามเงื่อนไขใบอนุญาต
 - ใช้ฟอนต์ไทยจาก Google Fonts (IBM Plex Sans Thai) แทนฟอนต์ละตินของพรีเซ็ต

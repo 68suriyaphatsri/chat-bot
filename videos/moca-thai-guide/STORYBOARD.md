@@ -5,7 +5,7 @@ message: "ผู้ทดสอบดำเนินแบบทดสอบ MoC
 arc: Hook → ทักทาย → แผนที่ 8 ส่วน → ส่วนที่ 1–8 ทีละขั้น → ปิดการทดสอบ
 audience: บุคลากรสุขภาพ/ผู้ทดสอบที่กำลังฝึกใช้ MoCA ฉบับภาษาไทย
 mode: autonomous
-music: none
+music: user-supplied public/music/future-technology-maxkomusic.mp3 (bed, low volume under narration)
 structure: how-to
 ---
 
