@@ -1,0 +1,330 @@
+<template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap");
+
+    #root {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      font-family: "IBM Plex Sans Thai", "Noto Sans Thai", sans-serif;
+      color: #111111;
+      word-break: normal;
+      line-break: auto;
+    }
+    #root * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    #\30 7-memory-bg {
+      position: absolute;
+      left: 0; top: 0;
+      width: 1920px; height: 1080px;
+      background: #fdfae7;
+    }
+
+    /* section badge (recurring) */
+    #\30 7-memory-badge {
+      position: absolute;
+      left: 100px; top: 44px;
+      display: flex; align-items: baseline; gap: 18px;
+      padding: 8px 30px 10px;
+      border-radius: 100px;
+      background: #1e2bfa;
+      color: #fdfae7;
+      white-space: nowrap;
+    }
+    .\30 7-memory-badge-th { font-size: 34px; font-weight: 600; line-height: 1.45; }
+    .\30 7-memory-badge-en { font-size: 20px; font-weight: 500; letter-spacing: 0.08em; opacity: 0.8; }
+
+    /* speech card (recurring) */
+    #\30 7-memory-speech {
+      position: absolute;
+      left: 100px; top: 126px;
+      width: 1720px;
+      padding: 22px 40px 24px 44px;
+      border-radius: 14px;
+      background: rgba(30, 43, 250, 0.04);
+      border: 1.5px solid rgba(30, 43, 250, 0.2);
+      border-left: 4px solid #1e2bfa;
+    }
+    .\30 7-memory-label {
+      display: block;
+      font-size: 24px; font-weight: 600; line-height: 1.5;
+      color: #1e2bfa;
+      margin-bottom: 4px;
+    }
+    .\30 7-memory-qline {
+      display: block;
+      font-size: 44px; font-weight: 500; line-height: 1.45;
+      color: #111111;
+    }
+
+    /* round tag + stage note row */
+    #\30 7-memory-round {
+      position: absolute;
+      left: 100px; top: 440px;
+      width: 214px; height: 62px;
+      border-radius: 100px;
+      background: rgba(30, 43, 250, 0.08);
+      border: 1.5px solid rgba(30, 43, 250, 0.2);
+      overflow: hidden;
+    }
+    .\30 7-memory-round-txt {
+      position: absolute;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 34px; font-weight: 600; line-height: 1.45;
+      color: #1e2bfa;
+      white-space: nowrap;
+    }
+    #\30 7-memory-note {
+      position: absolute;
+      left: 344px; top: 446px;
+      display: flex; align-items: center; gap: 14px;
+      font-size: 34px; font-weight: 400; line-height: 1.45;
+      color: #6b6b6b;
+      white-space: nowrap;
+    }
+    #\30 7-memory-note svg { width: 34px; height: 34px; flex: none; }
+
+    /* word strip — the focal */
+    #\30 7-memory-strip {
+      position: absolute;
+      left: 100px; top: 524px;
+      width: 1720px; height: 124px;
+      display: flex; gap: 24px;
+    }
+    .\30 7-memory-chip {
+      position: relative;
+      flex: 1 1 0;
+      height: 124px;
+      border-radius: 14px;
+      background: rgba(30, 43, 250, 0.04);
+      border: 1.5px solid rgba(30, 43, 250, 0.2);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .\30 7-memory-idx {
+      position: absolute;
+      left: 20px; top: 10px;
+      font-size: 22px; font-weight: 600; line-height: 1.3;
+      color: #1e2bfa;
+      opacity: 0.7;
+    }
+    .\30 7-memory-word {
+      font-size: 58px; font-weight: 600; line-height: 1.45;
+      color: #111111;
+      white-space: nowrap;
+    }
+    .\30 7-memory-dot {
+      position: absolute;
+      right: 20px; top: 18px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: #1e2bfa;
+    }
+    .\30 7-memory-ring {
+      position: absolute;
+      right: 20px; top: 18px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      border: 2px solid #1e2bfa;
+      opacity: 0;
+    }
+    .\30 7-memory-uline {
+      position: absolute;
+      left: 28px; right: 28px; bottom: 12px;
+      height: 5px;
+      border-radius: 6px;
+      background: #1e2bfa;
+      transform-origin: 0% 50%;
+    }
+
+    /* reminder card */
+    #\30 7-memory-remind {
+      position: absolute;
+      left: 100px; top: 676px;
+      width: 1720px;
+      padding: 20px 40px 22px 44px;
+      border-radius: 14px;
+      background: rgba(30, 43, 250, 0.04);
+      border: 1.5px solid rgba(30, 43, 250, 0.2);
+      border-left: 4px solid #1e2bfa;
+      display: flex; align-items: center; gap: 34px;
+    }
+    #\30 7-memory-bm {
+      flex: none;
+      width: 84px; height: 84px;
+      border-radius: 50%;
+      background: rgba(30, 43, 250, 0.08);
+      display: flex; align-items: center; justify-content: center;
+    }
+    #\30 7-memory-bm svg { width: 46px; height: 46px; }
+    .\30 7-memory-rbody { flex: 1 1 auto; min-width: 0; }
+    .\30 7-memory-rline {
+      display: block;
+      font-size: 38px; font-weight: 500; line-height: 1.45;
+      color: #111111;
+    }
+
+    /* progress rail (recurring) */
+    #\30 7-memory-rail {
+      position: absolute;
+      right: 100px; top: 884px;
+      display: flex; gap: 8px;
+    }
+    .\30 7-memory-seg { width: 40px; height: 6px; border-radius: 6px; background: rgba(30, 43, 250, 0.15); }
+    .\30 7-memory-seg-done { background: rgba(30, 43, 250, 0.4); }
+    .\30 7-memory-seg-on { background: #1e2bfa; }
+  </style>
+
+  <div id="root" data-composition-id="07-memory" data-width="1920" data-height="1080" data-start="0" data-duration="16">
+    <div id="07-memory-bg" class="clip" data-start="0" data-duration="16" data-track-index="0"></div>
+
+    <div id="07-memory-badge">
+      <span class="07-memory-badge-th">3 · ความจำ</span>
+      <span class="07-memory-badge-en">MEMORY</span>
+    </div>
+
+    <div id="07-memory-speech">
+      <span class="07-memory-label">ผู้ทดสอบพูดว่า</span>
+      <span class="07-memory-qline">ผม/ดิฉันจะอ่านคำ 5 คำ ขอให้ตั้งใจฟังและจำไว้ให้ดี</span>
+      <span class="07-memory-qline">เมื่ออ่านจบแล้ว ให้พูดคำทั้งหมดเท่าที่จำได้กลับมา</span>
+      <span class="07-memory-qline">โดยไม่จำเป็นต้องเรียงลำดับครับ/ค่ะ</span>
+    </div>
+
+    <div id="07-memory-round">
+      <span class="07-memory-round-txt" id="07-memory-r1">รอบที่ 1</span>
+      <span class="07-memory-round-txt" id="07-memory-r2">รอบที่ 2</span>
+    </div>
+    <div id="07-memory-note">
+      <svg viewBox="0 0 34 34" aria-hidden="true">
+        <circle cx="17" cy="17" r="14.5" fill="none" stroke="#6b6b6b" stroke-width="2.2" />
+        <circle cx="17" cy="10.5" r="1.9" fill="#6b6b6b" />
+        <line x1="17" y1="15" x2="17" y2="24.5" stroke="#6b6b6b" stroke-width="2.6" stroke-linecap="round" />
+      </svg>
+      <span>อ่านคำละ 1 วินาที · อ่าน 2 รอบ</span>
+    </div>
+
+    <div id="07-memory-strip">
+      <div class="07-memory-chip"><span class="07-memory-idx">1</span><span class="07-memory-word">หน้า</span><span class="07-memory-ring"></span><span class="07-memory-dot"></span><span class="07-memory-uline"></span></div>
+      <div class="07-memory-chip"><span class="07-memory-idx">2</span><span class="07-memory-word">ผ้าไหม</span><span class="07-memory-ring"></span><span class="07-memory-dot"></span><span class="07-memory-uline"></span></div>
+      <div class="07-memory-chip"><span class="07-memory-idx">3</span><span class="07-memory-word">วัด</span><span class="07-memory-ring"></span><span class="07-memory-dot"></span><span class="07-memory-uline"></span></div>
+      <div class="07-memory-chip"><span class="07-memory-idx">4</span><span class="07-memory-word">กล้วยไม้</span><span class="07-memory-ring"></span><span class="07-memory-dot"></span><span class="07-memory-uline"></span></div>
+      <div class="07-memory-chip"><span class="07-memory-idx">5</span><span class="07-memory-word">สีแดง</span><span class="07-memory-ring"></span><span class="07-memory-dot"></span><span class="07-memory-uline"></span></div>
+    </div>
+
+    <div id="07-memory-remind">
+      <div id="07-memory-bm">
+        <svg viewBox="0 0 46 46" aria-hidden="true">
+          <path id="07-memory-bm-path" d="M12 5 H34 V41 L23 32 L12 41 Z" fill="none" stroke="#1e2bfa" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="0" />
+        </svg>
+      </div>
+      <div class="07-memory-rbody">
+        <span class="07-memory-label">ผู้ทดสอบพูดว่า</span>
+        <span class="07-memory-rline">ขอให้จำคำเหล่านี้ไว้นะครับ/ค่ะ เพราะเดี๋ยวตอนท้ายของการทดสอบ</span>
+        <span class="07-memory-rline">ผม/ดิฉันจะถามคำเหล่านี้อีกครั้ง</span>
+      </div>
+    </div>
+
+    <div id="07-memory-rail">
+      <span class="07-memory-seg 07-memory-seg-done"></span>
+      <span class="07-memory-seg 07-memory-seg-done"></span>
+      <span class="07-memory-seg 07-memory-seg-on"></span>
+      <span class="07-memory-seg"></span>
+      <span class="07-memory-seg"></span>
+      <span class="07-memory-seg"></span>
+      <span class="07-memory-seg"></span>
+      <span class="07-memory-seg"></span>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var FID = "07-memory";
+      var root = document.querySelector('[data-composition-id="' + FID + '"]');
+      function byId(n) { return document.getElementById(FID + "-" + n); }
+      function all(n) { return Array.prototype.slice.call(root.querySelectorAll("." + CSS.escape(FID + "-" + n))); }
+
+      var badge = byId("badge");
+      var speech = byId("speech");
+      var label = speech.querySelector("." + CSS.escape(FID + "-label"));
+      var qlines = all("qline");
+      var round = byId("round");
+      var r1 = byId("r1");
+      var r2 = byId("r2");
+      var note = byId("note");
+      var chips = all("chip");
+      var words = all("word");
+      var dots = all("dot");
+      var rings = all("ring");
+      var ulines = all("uline");
+      var remind = byId("remind");
+      var bmPath = byId("bm-path");
+      var rbody = remind.querySelector("." + CSS.escape(FID + "-rbody"));
+      var rlabel = rbody.querySelector("." + CSS.escape(FID + "-label"));
+      var rlines = all("rline");
+      var rail = byId("rail");
+
+      var INK = "#111111";
+      var COBALT = "#1e2bfa";
+
+      var tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+
+      /* Scene 1 (0.0–4.0): badge, speech card slides up, quote reveals by line */
+      tl.fromTo(rail, { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0);
+      tl.fromTo(badge, { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.6 }, 0.1);
+      tl.fromTo(speech, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.8 }, 0.3);
+      tl.fromTo(label, { opacity: 0 }, { opacity: 1, duration: 0.5 }, 0.55);
+      tl.fromTo(qlines[0], { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7 }, 0.8);
+      tl.fromTo(qlines[1], { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7 }, 1.75);
+      tl.fromTo(qlines[2], { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7 }, 2.7);
+
+      /* Scene 2 (4.0–9.5): round 1 tag + stage note, five words land ~1s apart */
+      tl.to(speech, { opacity: 0.6, duration: 0.8, ease: "power2.inOut" }, 4.0);
+      tl.fromTo(round, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, 4.0);
+      tl.fromTo(r2, { yPercent: 100, opacity: 0 }, { yPercent: 100, opacity: 0, duration: 0.01 }, 0);
+      tl.fromTo(note, { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.6 }, 4.25);
+
+      var LAND = [4.8, 5.8, 6.8, 7.8, 8.8];
+      chips.forEach(function (chip, i) {
+        var t = LAND[i];
+        tl.fromTo(chip, { opacity: 0, y: 36, scale: 0.88 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.8)" }, t);
+        tl.fromTo(dots[i], { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(3)" }, t + 0.1);
+        tl.fromTo(rings[i], { scale: 1, opacity: 0.7 },
+          { scale: 3.2, opacity: 0, duration: 0.7, ease: "power2.out", immediateRender: false }, t + 0.15);
+        tl.fromTo(ulines[i], { scaleX: 0 }, { scaleX: 0, duration: 0.01 }, 0);
+      });
+
+      /* Scene 3 (9.5–11.0): tag flips to round 2, chips re-highlight in a quick cobalt sweep */
+      tl.to(r1, { yPercent: -100, opacity: 0, duration: 0.4, ease: "power3.in" }, 9.5);
+      tl.fromTo(r2, { yPercent: 100, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.45, immediateRender: false }, 9.75);
+
+      var SWEEP0 = 10.0, STEP = 0.2;
+      chips.forEach(function (chip, i) {
+        var t = SWEEP0 + i * STEP;
+        tl.to(ulines[i], { scaleX: 1, duration: 0.3, ease: "power2.out" }, t);
+        tl.to(words[i], { color: COBALT, duration: 0.15, ease: "none" }, t);
+        tl.to(words[i], { color: INK, duration: 0.35, ease: "power1.out" }, t + 0.25);
+        tl.to(chip, { backgroundColor: "rgba(30, 43, 250, 0.08)", duration: 0.2, ease: "none" }, t);
+        tl.fromTo(rings[i], { scale: 1, opacity: 0.6 },
+          { scale: 2.6, opacity: 0, duration: 0.5, ease: "power2.out", immediateRender: false }, t);
+      });
+
+      /* Scene 4 (11.0–13.5): reminder card slides up beneath the strip with a bookmark */
+      tl.fromTo(remind, { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.8 }, 11.0);
+      tl.fromTo(bmPath, { attr: { "stroke-dashoffset": 100 } },
+        { attr: { "stroke-dashoffset": 0 }, duration: 0.8, ease: "power2.inOut" }, 11.25);
+      tl.fromTo(rlabel, { opacity: 0 }, { opacity: 1, duration: 0.4 }, 11.3);
+      tl.fromTo(rlines[0], { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7 }, 11.45);
+      tl.fromTo(rlines[1], { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7 }, 12.4);
+
+      /* Scene 5 (13.5–16.0): still hold — pad the timeline to the full duration */
+      tl.set({}, {}, 16);
+
+      window.__timelines[FID] = tl;
+    })();
+  </script>
+</template>
