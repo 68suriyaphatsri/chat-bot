@@ -31,7 +31,7 @@ structure: how-to
 - onscreen: eyebrow "คู่มือผู้ทดสอบ" · h1 "แบบทดสอบ MoCA ฉบับภาษาไทย" · sub "พูดอย่างไร ทีละขั้นตอน ครบ 8 ส่วน" · 8 segments labelled 1–8
 - duration: 7s
 - transition_in: cut
-- status: outline
+- status: animated
 - src: compositions/frames/01-title.html
 - type: hook
 - persuasion: Frame-then-fill
@@ -56,7 +56,7 @@ Scene 4 (5.2–7.0s): hold still; the strip's first segment glows cobalt softly 
 - onscreen: title "ก่อนเริ่ม · ทักทายและเตรียมความพร้อม" · speech card "สวัสดีครับ/ค่ะ วันนี้เราจะทำแบบทดสอบประเมินการทำงานของสมองและความจำกันสั้นๆ นะครับ/ค่ะ ใช้เวลาประมาณ 10-15 นาที ขอให้ทำตามสบาย ไม่ต้องเครียดนะครับ/ค่ะ พร้อมแล้วเรามาเริ่มกันเลยครับ/ค่ะ" · chips "10–15 นาที", "ทำตามสบาย ไม่ต้องเครียด"
 - duration: 12s
 - transition_in: crossfade
-- status: outline
+- status: animated
 - src: compositions/frames/02-greeting.html
 - type: product_intro
 - persuasion: Frame-then-fill
@@ -81,7 +81,7 @@ Scene 4 (7.0–12.0s): hold still for reading.
 - onscreen: title "แบบทดสอบมี 8 ส่วน" · cards: 1 มิติสัมพันธ์และการบริหารจัดการ (Visuospatial / Executive) · 2 การเรียกชื่อ (Naming) · 3 ความจำ (Memory) · 4 สมาธิและความตั้งใจ (Attention) · 5 ภาษา (Language) · 6 ความคิดเชิงนามธรรม (Abstraction) · 7 การระลึกความจำ (Delayed Recall) · 8 การรับรู้เวลาและสถานที่ (Orientation)
 - duration: 10s
 - transition_in: push-slide LEFT
-- status: outline
+- status: animated
 - src: compositions/frames/03-map.html
 - type: product_intro
 - persuasion: Numbered enumeration
@@ -104,7 +104,7 @@ Scene 3 (5.2–10.0s): held breather — still read of the whole map.
 - onscreen: badge "1 · มิติสัมพันธ์และการบริหารจัดการ" · sub-title "ลากเส้นต่อจุด" · speech card "กรุณาลากเส้นต่อจุด โดยเริ่มจากตัวเลข 1 ไปยังตัวอักษร ก. แล้วไปที่เลข 2 แล้วไปที่ตัวอักษร ข. สลับกันไปเรื่อยๆ จนถึงจุดสิ้นสุดนะครับ/ค่ะ" · labels on the diagram "เริ่ม" at 1 and "จบ" at จ
 - duration: 12s
 - transition_in: push-slide LEFT
-- status: outline
+- status: animated
 - src: compositions/frames/04-trail.html
 - type: feature_showcase
 - persuasion: Show-don't-tell demonstration
@@ -128,7 +128,7 @@ Scene 4 (10.0–12.0s): hold still.
 - onscreen: badge "1 · มิติสัมพันธ์และการบริหารจัดการ" · left label "วาดภาพลูกบาศก์" + speech "ช่วยคัดลอกวาดภาพลูกบาศก์นี้ลงในพื้นที่ว่างด้านล่าง ให้เหมือนกับตัวอย่างมากที่สุดครับ/ค่ะ" · right label "วาดนาฬิกา" + speech "กรุณาวาดรูปหน้าปัดนาฬิกา ใส่ตัวเลขทั้งหมดให้ครบถ้วน และวาดเข็มนาฬิกาชี้บอกเวลา 11 โมง 10 นาที (11:10 น.) ครับ/ค่ะ" · time chip "11:10 น."
 - duration: 14s
 - transition_in: push-slide LEFT
-- status: outline
+- status: animated
 - src: compositions/frames/05-cube-clock.html
 - type: feature_showcase
 - persuasion: Side-by-side pairing
@@ -151,7 +151,7 @@ Scene 5 (10.0–14.0s): hold still.
 - onscreen: badge "2 · การเรียกชื่อ  NAMING" · speech card "ช่วยบอกผม/ดิฉันหน่อยครับ/ค่ะว่า สัตว์ในรูปแต่ละตัวคือตัวอะไร" · stage note "ชี้ทีละตัว จากซ้ายไปขวา" · name tags "สิงโต", "แรด", "อูฐ"
 - duration: 10s
 - transition_in: push-slide LEFT
-- status: outline
+- status: animated
 - src: compositions/frames/06-naming.html
 - type: feature_showcase
 - persuasion: Rule of three
@@ -175,7 +175,7 @@ Scene 4 (8.0–10.0s): hold.
 - onscreen: badge "3 · ความจำ  MEMORY" · speech card "ผม/ดิฉันจะอ่านคำ 5 คำ ขอให้ตั้งใจฟังและจำไว้ให้ดี เมื่ออ่านจบแล้ว ให้พูดคำทั้งหมดเท่าที่จำได้กลับมา โดยไม่จำเป็นต้องเรียงลำดับครับ/ค่ะ" · words "หน้า", "ผ้าไหม", "วัด", "กล้วยไม้", "สีแดง" · stage note "อ่านคำละ 1 วินาที · อ่าน 2 รอบ" · round tags "รอบที่ 1", "รอบที่ 2" · reminder card "ขอให้จำคำเหล่านี้ไว้นะครับ/ค่ะ เพราะเดี๋ยวตอนท้ายของการทดสอบ ผม/ดิฉันจะถามคำเหล่านี้อีกครั้ง"
 - duration: 16s
 - transition_in: push-slide LEFT
-- status: outline
+- status: animated
 - src: compositions/frames/07-memory.html
 - type: feature_showcase
 - persuasion: Progressive disclosure
@@ -198,7 +198,7 @@ Scene 5 (13.5–16.0s): hold.
 - onscreen: badge "4 · สมาธิและความตั้งใจ  ATTENTION" · row 1 label "พูดตามลำดับ" + speech "ผม/ดิฉันจะอ่านชุดตัวเลข เมื่ออ่านจบแล้ว ให้พูดตัวเลขตามลำดับที่ได้ยินครับ" + digits "2 1 8 5 4" · row 2 label "พูดย้อนกลับ" + speech "รอบนี้ เมื่ออ่านตัวเลขจบแล้ว ให้พูดตัวเลขย้อนกลับจากหลังมาหน้านะครับ/ค่ะ" + digits "7 4 2" → answer "2 4 7"
 - duration: 12s
 - transition_in: push-slide LEFT
-- status: outline
+- status: animated
 - src: compositions/frames/08-digits.html
 - type: feature_showcase
 - persuasion: Before/after contrast
@@ -221,7 +221,7 @@ Scene 5 (9.5–12.0s): hold.
 - onscreen: badge "4 · สมาธิและความตั้งใจ  ATTENTION" · left title "แตะมือเมื่อได้ยิน ก" + speech "ทุกครั้งที่ได้ยินตัวอักษร 'ก' ให้เคาะหรือแตะมือบนโต๊ะ 1 ครั้ง แต่ถ้าเป็นตัวอักษรอื่นไม่ต้องแตะนะครับ/ค่ะ" + stage note "อ่าน 1 ตัวต่อวินาที" + sample letter strip "ข ก ง จ ก ก ค ก" · right title "ลบทีละ 7" + speech "เริ่มต้นจากเลข 100 ให้ลบออกทีละ 7 ไปเรื่อยๆ แล้วบอกผลลัพธ์ที่ได้ออกมาครับ/ค่ะ" + sequence "100 → 93 → 86 → 79 → 72 → 65"
 - duration: 14s
 - transition_in: push-slide LEFT
-- status: outline
+- status: animated
 - src: compositions/frames/09-tap-sevens.html
 - type: feature_showcase
 - persuasion: Side-by-side pairing
@@ -244,7 +244,7 @@ Scene 5 (12.0–14.0s): hold.
 - onscreen: badge "5 · ภาษา  LANGUAGE" · title A "พูดตามประโยค" + speech "ผม/ดิฉันจะอ่านประโยคให้ฟัง เมื่ออ่านจบแล้ว ให้พูดตามให้เหมือนที่ได้ยินทุกคำนะครับ/ค่ะ" + sentence 1 "ฉันรู้ว่าจอมเป็นคนเดียวที่มาช่วยงานวันนี้" + sentence 2 "แมวมักจะซ่อนตัวอยู่หลังเก้าอี้เมื่อมีสุนัขอยู่ในห้อง" · title B "ความคล่องแคล่ว · คำขึ้นต้นด้วย ก" + speech "ช่วยบอกคำศัพท์ภาษาไทยที่ขึ้นต้นด้วยตัวอักษร 'ก' ให้ได้มากที่สุดภายในเวลา 1 นาที" + timer "1 นาที" + exclusion chips "ไม่รวมชื่อคน", "ไม่รวมชื่อจังหวัด", "ไม่นับคำเดิมที่เปลี่ยนแค่หางเสียง/ลงท้าย"
 - duration: 16s
 - transition_in: push-slide LEFT
-- status: outline
+- status: animated
 - src: compositions/frames/10-language.html
 - type: feature_showcase
 - persuasion: Frame-then-fill
@@ -270,7 +270,7 @@ Scene 6 (14.0–16.0s): hold.
 - onscreen: badge "6 · ความคิดเชิงนามธรรม  ABSTRACTION" · speech "ช่วยบอกหน่อยครับ/ค่ะว่า สิ่งสองสิ่งนี้มีความเหมือนกันหรือเป็นพวกเดียวกันอย่างไร" · row 0 tag "ตัวอย่าง": "ส้ม" + "กล้วย" → "ผลไม้" · row 1 tag "ข้อ 1": "รถไฟ" + "รถยนต์ / รถบรรทุก" → "พาหนะ / การเดินทาง" · row 2 tag "ข้อ 2": "นาฬิกา" + "ไม้บรรทัด" → "เครื่องมือวัด"
 - duration: 14s
 - transition_in: push-slide LEFT
-- status: outline
+- status: animated
 - src: compositions/frames/11-abstraction.html
 - type: feature_showcase
 - persuasion: Worked example
@@ -293,7 +293,7 @@ Scene 5 (11.0–14.0s): hold.
 - onscreen: badge "7 · การระลึกความจำ  DELAYED RECALL" · speech "จำคำ 5 คำที่ผม/ดิฉันให้อ่านและจำไปเมื่อสักครู่นี้ได้ไหมครับ/ค่ะ? ช่วยบอกคำเหล่านั้นทั้งหมดเท่าที่จำได้เลยครับ/ค่ะ" · slots filling "หน้า", "ผ้าไหม", "วัด", "กล้วยไม้", "สีแดง" · stage note "หากจำไม่ได้: ใบ้ตามหมวด (Category cue) หรือให้เลือกตอบ (Multiple choice cue) ตามคู่มือการให้คะแนน"
 - duration: 11s
 - transition_in: push-slide LEFT
-- status: outline
+- status: animated
 - src: compositions/frames/12-recall.html
 - type: feature_showcase
 - persuasion: Callback
@@ -316,7 +316,7 @@ Scene 5 (9.0–11.0s): hold.
 - onscreen: badge "8 · การรับรู้เวลาและสถานที่  ORIENTATION" · speech "สุดท้ายนี้ ขอสอบถามข้อมูลปัจจุบันหน่อยครับ/ค่ะ" · cards "1 วันนี้วันที่เท่าไร?", "2 เดือนอะไร?", "3 ปีอะไร?", "4 วันนี้วันอะไรในสัปดาห์?", "5 สถานที่ตรงนี้คือที่ไหน?", "6 ตอนนี้เราอยู่ในจังหวัดอะไร?"
 - duration: 11s
 - transition_in: push-slide LEFT
-- status: outline
+- status: animated
 - src: compositions/frames/13-orientation.html
 - type: feature_showcase
 - persuasion: Numbered enumeration
@@ -336,7 +336,7 @@ Scene 3 (7.0–11.0s): hold.
 - onscreen: title "สรุปการทดสอบ" · speech card "ทำแบบทดสอบเรียบร้อยแล้วครับ/ค่ะ ขอบคุณมากครับ/ค่ะสำหรับความร่วมมือ" · 8-segment rail all complete + "ครบ 8 ส่วน" · tiny credit "Music: “Future Technology” by MaxKoMusic"
 - duration: 9s
 - transition_in: crossfade
-- status: outline
+- status: animated
 - src: compositions/frames/14-close.html
 - type: branding
 - persuasion: Callback

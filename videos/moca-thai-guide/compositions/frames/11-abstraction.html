@@ -1,5 +1,5 @@
 <template>
-  <div id="root" data-composition-id="11-abstraction" data-start="0" data-duration="14" data-width="1920" data-height="1080" lang="th">
+  <div id="root" data-composition-id="11-abstraction" data-start="0" data-duration="14.5" data-width="1920" data-height="1080" lang="th">
     <style>
       @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap");
 
@@ -8,7 +8,7 @@
         width: 1920px;
         height: 1080px;
         overflow: hidden;
-        font-family: "IBM Plex Sans Thai", "Noto Sans Thai", sans-serif;
+        font-family: "IBM Plex Sans Thai", sans-serif;
         color: #111111;
         word-break: normal;
         line-break: auto;
@@ -213,9 +213,9 @@
       .\31 1-abstraction-seg-active { background: #1e2bfa; width: 72px; }
     </style>
 
-    <div class="clip 11-abstraction-bg" data-start="0" data-duration="14" data-track-index="0"></div>
+    <div class="clip 11-abstraction-bg" data-start="0" data-duration="14.5" data-track-index="0"></div>
 
-    <div class="clip 11-abstraction-layer" data-start="0" data-duration="14" data-track-index="1">
+    <div class="clip 11-abstraction-layer" data-start="0" data-duration="14.5" data-track-index="1">
       <div id="11-abstraction-badge">
         <div class="11-abstraction-badge-num">6</div>
         <div class="11-abstraction-badge-th">ความคิดเชิงนามธรรม</div>
@@ -251,8 +251,8 @@
         <div class="11-abstraction-op 11-abstraction-op-plus" id="11-abstraction-p1">+</div>
         <div class="11-abstraction-op 11-abstraction-op-eq" id="11-abstraction-e1">=</div>
         <div class="11-abstraction-ans-wrap">
-          <div class="11-abstraction-pill 11-abstraction-pill-q" id="11-abstraction-q1">?</div>
-          <div class="11-abstraction-pill 11-abstraction-pill-solid" id="11-abstraction-a1">พาหนะ / การเดินทาง</div>
+          <div class="11-abstraction-pill 11-abstraction-pill-q" id="11-abstraction-q1" data-layout-allow-overlap>?</div>
+          <div class="11-abstraction-pill 11-abstraction-pill-solid" id="11-abstraction-a1" data-layout-allow-overlap>พาหนะ / การเดินทาง</div>
         </div>
       </div>
 
@@ -266,8 +266,8 @@
         <div class="11-abstraction-op 11-abstraction-op-plus" id="11-abstraction-p2">+</div>
         <div class="11-abstraction-op 11-abstraction-op-eq" id="11-abstraction-e2">=</div>
         <div class="11-abstraction-ans-wrap">
-          <div class="11-abstraction-pill 11-abstraction-pill-q" id="11-abstraction-q2">?</div>
-          <div class="11-abstraction-pill 11-abstraction-pill-solid" id="11-abstraction-a2">เครื่องมือวัด</div>
+          <div class="11-abstraction-pill 11-abstraction-pill-q" id="11-abstraction-q2" data-layout-allow-overlap>?</div>
+          <div class="11-abstraction-pill 11-abstraction-pill-solid" id="11-abstraction-a2" data-layout-allow-overlap>เครื่องมือวัด</div>
         </div>
       </div>
 
@@ -283,7 +283,7 @@
       </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="vendor/gsap.min.js"></script>
     <script>
       (function () {
         var R = document.querySelector('[data-composition-id="11-abstraction"]');
