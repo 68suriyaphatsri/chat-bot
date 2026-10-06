@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="vendor/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #000;
+      }
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #fdfae7;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="168"
+      data-width="1920"
+      data-height="1080"
+    >
+      <div
+        id="el-01-title"
+        class="scene"
+        data-composition-id="01-title"
+        data-composition-src="compositions/frames/01-title.html"
+        data-start="0"
+        data-duration="7.5"
+        data-track-index="0"
+      ></div>
+
+      <div
+        id="el-02-greeting"
+        class="scene"
+        data-composition-id="02-greeting"
+        data-composition-src="compositions/frames/02-greeting.html"
+        data-start="7"
+        data-duration="12.5"
+        data-track-index="1"
+      ></div>
+
+      <div
+        id="el-03-map"
+        class="scene"
+        data-composition-id="03-map"
+        data-composition-src="compositions/frames/03-map.html"
+        data-start="19"
+        data-duration="10.5"
+        data-track-index="0"
+      ></div>
+
+      <div
+        id="el-04-trail"
+        class="scene"
+        data-composition-id="04-trail"
+        data-composition-src="compositions/frames/04-trail.html"
+        data-start="29"
+        data-duration="12.5"
+        data-track-index="1"
+      ></div>
+
+      <div
+        id="el-05-cube-clock"
+        class="scene"
+        data-composition-id="05-cube-clock"
+        data-composition-src="compositions/frames/05-cube-clock.html"
+        data-start="41"
+        data-duration="14.5"
+        data-track-index="0"
+      ></div>
+
+      <div
+        id="el-06-naming"
+        class="scene"
+        data-composition-id="06-naming"
+        data-composition-src="compositions/frames/06-naming.html"
+        data-start="55"
+        data-duration="10.5"
+        data-track-index="1"
+      ></div>
+
+      <div
+        id="el-07-memory"
+        class="scene"
+        data-composition-id="07-memory"
+        data-composition-src="compositions/frames/07-memory.html"
+        data-start="65"
+        data-duration="16.5"
+        data-track-index="0"
+      ></div>
+
+      <div
+        id="el-08-digits"
+        class="scene"
+        data-composition-id="08-digits"
+        data-composition-src="compositions/frames/08-digits.html"
+        data-start="81"
+        data-duration="12.5"
+        data-track-index="1"
+      ></div>
+
+      <div
+        id="el-09-tap-sevens"
+        class="scene"
+        data-composition-id="09-tap-sevens"
+        data-composition-src="compositions/frames/09-tap-sevens.html"
+        data-start="93"
+        data-duration="14.5"
+        data-track-index="0"
+      ></div>
+
+      <div
+        id="el-10-language"
+        class="scene"
+        data-composition-id="10-language"
+        data-composition-src="compositions/frames/10-language.html"
+        data-start="107"
+        data-duration="16.5"
+        data-track-index="1"
+      ></div>
+
+      <div
+        id="el-11-abstraction"
+        class="scene"
+        data-composition-id="11-abstraction"
+        data-composition-src="compositions/frames/11-abstraction.html"
+        data-start="123"
+        data-duration="14.5"
+        data-track-index="0"
+      ></div>
+
+      <div
+        id="el-12-recall"
+        class="scene"
+        data-composition-id="12-recall"
+        data-composition-src="compositions/frames/12-recall.html"
+        data-start="137"
+        data-duration="11.5"
+        data-track-index="1"
+      ></div>
+
+      <div
+        id="el-13-orientation"
+        class="scene"
+        data-composition-id="13-orientation"
+        data-composition-src="compositions/frames/13-orientation.html"
+        data-start="148"
+        data-duration="11.5"
+        data-track-index="0"
+      ></div>
+
+      <div
+        id="el-14-close"
+        class="scene"
+        data-composition-id="14-close"
+        data-composition-src="compositions/frames/14-close.html"
+        data-start="159"
+        data-duration="9"
+        data-track-index="1"
+      ></div>
+
+      <!-- BGM -->
+      <audio
+        id="el-bgm"
+        src="public/music/future-technology-maxkomusic.loop.mp3"
+        data-start="0"
+        data-duration="168"
+        data-track-index="11"
+        data-volume="0.55"
+      ></audio>
+
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+      // ── frame transitions (injected by transitions.mjs) ──
+      (function () { var tl = window.__timelines["main"];
+        tl.to("#el-01-title", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 7);
+        tl.fromTo("#el-02-greeting", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 7);
+        tl.addLabel("hf:transition:01-title:02-greeting:crossfade", 7);
+        tl.to("#el-02-greeting", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 19);
+        tl.fromTo("#el-03-map", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 19);
+        tl.addLabel("hf:transition:02-greeting:03-map:push-slide", 19);
+        tl.to("#el-03-map", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 29);
+        tl.fromTo("#el-04-trail", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 29);
+        tl.addLabel("hf:transition:03-map:04-trail:push-slide", 29);
+        tl.to("#el-04-trail", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 41);
+        tl.fromTo("#el-05-cube-clock", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 41);
+        tl.addLabel("hf:transition:04-trail:05-cube-clock:push-slide", 41);
+        tl.to("#el-05-cube-clock", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 55);
+        tl.fromTo("#el-06-naming", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 55);
+        tl.addLabel("hf:transition:05-cube-clock:06-naming:push-slide", 55);
+        tl.to("#el-06-naming", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 65);
+        tl.fromTo("#el-07-memory", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 65);
+        tl.addLabel("hf:transition:06-naming:07-memory:push-slide", 65);
+        tl.to("#el-07-memory", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 81);
+        tl.fromTo("#el-08-digits", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 81);
+        tl.addLabel("hf:transition:07-memory:08-digits:push-slide", 81);
+        tl.to("#el-08-digits", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 93);
+        tl.fromTo("#el-09-tap-sevens", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 93);
+        tl.addLabel("hf:transition:08-digits:09-tap-sevens:push-slide", 93);
+        tl.to("#el-09-tap-sevens", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 107);
+        tl.fromTo("#el-10-language", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 107);
+        tl.addLabel("hf:transition:09-tap-sevens:10-language:push-slide", 107);
+        tl.to("#el-10-language", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 123);
+        tl.fromTo("#el-11-abstraction", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 123);
+        tl.addLabel("hf:transition:10-language:11-abstraction:push-slide", 123);
+        tl.to("#el-11-abstraction", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 137);
+        tl.fromTo("#el-12-recall", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 137);
+        tl.addLabel("hf:transition:11-abstraction:12-recall:push-slide", 137);
+        tl.to("#el-12-recall", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 148);
+        tl.fromTo("#el-13-orientation", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 148);
+        tl.addLabel("hf:transition:12-recall:13-orientation:push-slide", 148);
+        tl.to("#el-13-orientation", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 159);
+        tl.fromTo("#el-14-close", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 159);
+        tl.addLabel("hf:transition:13-orientation:14-close:crossfade", 159);
+        tl.to({}, { duration: 168 }, 0); // full-span anchor — main.duration() == composition total (Studio master duration)
+      })();
+    </script>
+  </body>
+</html>

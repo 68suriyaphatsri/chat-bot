@@ -1,0 +1,272 @@
+<template>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap");
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      font-family: "IBM Plex Sans Thai", sans-serif;
+      color: #111111;
+    }
+    #root * { box-sizing: border-box; }
+
+    .\31 4-close-bg {
+      position: absolute;
+      inset: 0;
+      background: #fdfae7;
+    }
+    .\31 4-close-rings {
+      position: absolute;
+      left: 960px;
+      top: 470px;
+      width: 0;
+      height: 0;
+    }
+    .\31 4-close-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1.5px solid rgba(30, 43, 250, 0.08);
+    }
+
+    .\31 4-close-stage {
+      position: absolute;
+      inset: 0;
+      transform-origin: 960px 470px;
+    }
+
+    /* Title */
+    .\31 4-close-titlewrap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 104px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .\31 4-close-accent {
+      width: 60px;
+      height: 4px;
+      border-radius: 2px;
+      background: #1e2bfa;
+      margin-bottom: 22px;
+    }
+    .\31 4-close-title {
+      font-size: 64px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: #111111;
+      margin: 0;
+    }
+
+    /* Speech card */
+    .\31 4-close-card {
+      position: absolute;
+      left: 310px;
+      top: 278px;
+      width: 1300px;
+      padding: 34px 56px 40px 60px;
+      background: #fffdf2;
+      border: 1.5px solid rgba(30, 43, 250, 0.2);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .\31 4-close-card-rule {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 6px;
+      background: #1e2bfa;
+    }
+    .\31 4-close-card-label {
+      font-size: 26px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: #1e2bfa;
+      margin: 0 0 10px 0;
+    }
+    .\31 4-close-card-quote {
+      font-size: 48px;
+      font-weight: 500;
+      line-height: 1.5;
+      color: #111111;
+      margin: 0;
+      word-break: normal;
+      line-break: auto;
+    }
+
+    /* Progress rail */
+    .\31 4-close-rail {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 640px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 34px;
+    }
+    .\31 4-close-segs {
+      display: flex;
+      gap: 14px;
+    }
+    .\31 4-close-seg {
+      width: 112px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .\31 4-close-seg-track {
+      position: relative;
+      width: 112px;
+      height: 18px;
+      border-radius: 6px;
+      border: 1.5px solid rgba(30, 43, 250, 0.2);
+      background: rgba(30, 43, 250, 0.04);
+      overflow: hidden;
+    }
+    .\31 4-close-seg-fill {
+      position: absolute;
+      inset: 0;
+      background: #1e2bfa;
+      transform-origin: 0% 50%;
+    }
+    .\31 4-close-seg-num {
+      margin-top: 10px;
+      font-size: 26px;
+      font-weight: 600;
+      line-height: 1.3;
+      color: #9a9a9a;
+    }
+    .\31 4-close-done {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-top: -23px;
+    }
+    .\31 4-close-check {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #1e2bfa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .\31 4-close-done-label {
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: #1e2bfa;
+      white-space: nowrap;
+    }
+
+    /* Credit */
+    .\31 4-close-credit {
+      position: absolute;
+      right: 96px;
+      top: 846px;
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1.45;
+      color: #9a9a9a;
+      white-space: nowrap;
+    }
+  </style>
+
+  <div id="root" data-composition-id="14-close" data-width="1920" data-height="1080" data-start="0" data-duration="9">
+    <!-- full-bleed cream ground -->
+    <div class="clip 14-close-bg" id="14-close-bg" data-start="0" data-duration="9" data-track-index="0"></div>
+
+    <!-- closing atmosphere: soft concentric rings -->
+    <div class="clip 14-close-rings" id="14-close-rings" data-start="0" data-duration="9" data-track-index="1">
+      <div class="14-close-ring" style="left:-360px;top:-360px;width:720px;height:720px;"></div>
+      <div class="14-close-ring" style="left:-560px;top:-560px;width:1120px;height:1120px;"></div>
+      <div class="14-close-ring" style="left:-780px;top:-780px;width:1560px;height:1560px;"></div>
+    </div>
+
+    <div class="clip 14-close-stage" id="14-close-stage" data-start="0" data-duration="9" data-track-index="2">
+      <div class="14-close-titlewrap">
+        <div class="14-close-accent" id="14-close-accent"></div>
+        <h2 class="14-close-title" id="14-close-title">สรุปการทดสอบ</h2>
+      </div>
+
+      <div class="14-close-card" id="14-close-card">
+        <div class="14-close-card-rule"></div>
+        <p class="14-close-card-label">ผู้ทดสอบพูดว่า</p>
+        <p class="14-close-card-quote">ทำแบบทดสอบเรียบร้อยแล้วครับ ขอบคุณมากครับสำหรับความร่วมมือ</p>
+      </div>
+
+      <div class="14-close-rail" id="14-close-rail">
+        <div class="14-close-segs">
+          <div class="14-close-seg"><div class="14-close-seg-track"><div class="14-close-seg-fill"></div></div><div class="14-close-seg-num">1</div></div>
+          <div class="14-close-seg"><div class="14-close-seg-track"><div class="14-close-seg-fill"></div></div><div class="14-close-seg-num">2</div></div>
+          <div class="14-close-seg"><div class="14-close-seg-track"><div class="14-close-seg-fill"></div></div><div class="14-close-seg-num">3</div></div>
+          <div class="14-close-seg"><div class="14-close-seg-track"><div class="14-close-seg-fill"></div></div><div class="14-close-seg-num">4</div></div>
+          <div class="14-close-seg"><div class="14-close-seg-track"><div class="14-close-seg-fill"></div></div><div class="14-close-seg-num">5</div></div>
+          <div class="14-close-seg"><div class="14-close-seg-track"><div class="14-close-seg-fill"></div></div><div class="14-close-seg-num">6</div></div>
+          <div class="14-close-seg"><div class="14-close-seg-track"><div class="14-close-seg-fill"></div></div><div class="14-close-seg-num">7</div></div>
+          <div class="14-close-seg"><div class="14-close-seg-track"><div class="14-close-seg-fill"></div></div><div class="14-close-seg-num">8</div></div>
+        </div>
+        <div class="14-close-done">
+          <div class="14-close-check" id="14-close-check">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <path id="14-close-check-path" d="M9 21 L17 29 L32 12" stroke="#fdfae7" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="40" stroke-dashoffset="40"/>
+            </svg>
+          </div>
+          <div class="14-close-done-label" id="14-close-done-label">ครบ 8 ส่วน</div>
+        </div>
+      </div>
+
+      <div class="14-close-credit" id="14-close-credit">Music: “Future Technology” by MaxKoMusic</div>
+    </div>
+  </div>
+
+  <script src="vendor/gsap.min.js"></script>
+  <script>
+    (function () {
+      var R = document.querySelector('[data-composition-id="14-close"]');
+      var q = function (sel) { return R.querySelector(sel); };
+      var qa = function (sel) { return R.querySelectorAll(sel); };
+      var cls = function (n) { return '.\\31 4-close-' + n; };
+
+      var tl = gsap.timeline({ paused: true });
+
+      // Scene 1 (0.0–1.5s): title rises in
+      tl.fromTo(q(cls('accent')), { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 0.6, ease: 'power3.out' }, 0.1);
+      tl.fromTo(q(cls('title')), { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out' }, 0.15);
+      tl.fromTo(q(cls('rings')), { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 1.4, ease: 'power3.out' }, 0);
+
+      // Scene 2 (1.5–3.5s): speech card slides up center — the one restrained move
+      tl.fromTo(q(cls('card')), { y: 60, opacity: 0, scale: 0.97 }, { y: 0, opacity: 1, scale: 1, duration: 1.0, ease: 'power3.out' }, 1.5);
+
+      // Scene 3 (3.5–6.0s): rail appears, fills left→right, check pops with label
+      var segs = qa(cls('seg'));
+      var fills = qa(cls('seg-fill'));
+      var nums = qa(cls('seg-num'));
+      tl.fromTo(segs, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out', stagger: 0.03 }, 3.5);
+      tl.fromTo(fills, { scaleX: 0 }, { scaleX: 1, duration: 0.26, ease: 'power2.inOut', stagger: 0.2 }, 3.8);
+      tl.fromTo(nums, { color: '#9a9a9a' }, { color: '#1e2bfa', duration: 0.2, ease: 'none', stagger: 0.2 }, 3.95);
+      tl.fromTo(q(cls('check')), { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.55, ease: 'back.out(2.2)' }, 5.45);
+      tl.fromTo(q('[id="14-close-check-path"]'), { strokeDashoffset: 40 }, { strokeDashoffset: 0, duration: 0.4, ease: 'power2.out' }, 5.6);
+      tl.fromTo(q(cls('done-label')), { x: -16, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: 'power3.out' }, 5.6);
+
+      // credit visible from Scene 3 onward
+      tl.fromTo(q(cls('credit')), { opacity: 0 }, { opacity: 1, duration: 0.6, ease: 'power2.out' }, 3.5);
+
+      // Scene 4 (6.0–8.2s): still hold with a barely-perceptible drift
+      tl.fromTo(q(cls('stage')), { scale: 1 }, { scale: 1.012, duration: 8.2, ease: 'none' }, 0);
+
+      // Scene 5 (8.2–9.0s): final frame — gentle fade to cream
+      tl.to(q(cls('stage')), { opacity: 0, duration: 0.8, ease: 'power2.inOut' }, 8.2);
+      tl.to(q(cls('rings')), { opacity: 0, duration: 0.8, ease: 'power2.inOut' }, 8.2);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["14-close"] = tl;
+    })();
+  </script>
+</template>

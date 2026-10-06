@@ -1,0 +1,305 @@
+<template>
+  <div id="root" data-composition-id="06-naming" data-width="1920" data-height="1080" data-start="0" data-duration="10.5">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        font-family: "IBM Plex Sans Thai", sans-serif;
+        color: #111111;
+      }
+      .n06-bg {
+        position: absolute;
+        inset: 0;
+        background: #fdfae7;
+      }
+      .n06-stage {
+        position: absolute;
+        inset: 0;
+      }
+      /* section badge */
+      .n06-badge {
+        position: absolute;
+        left: 96px;
+        top: 60px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        height: 60px;
+        padding: 0 30px 0 10px;
+        border-radius: 100px;
+        background: #1e2bfa;
+        color: #fdfae7;
+        white-space: nowrap;
+      }
+      .n06-badge-num {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: #fdfae7;
+        color: #1e2bfa;
+        font-weight: 700;
+        font-size: 26px;
+        line-height: 42px;
+        text-align: center;
+      }
+      .n06-badge-th {
+        font-size: 30px;
+        font-weight: 600;
+        line-height: 1.45;
+      }
+      .n06-badge-en {
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        opacity: 0.75;
+      }
+      /* speech card */
+      .n06-card {
+        position: absolute;
+        left: 96px;
+        top: 146px;
+        width: 1728px;
+        box-sizing: border-box;
+        padding: 18px 40px 20px 44px;
+        border-radius: 14px;
+        background: rgba(30, 43, 250, 0.04);
+        border: 1.5px solid rgba(30, 43, 250, 0.2);
+        border-left: 6px solid #1e2bfa;
+      }
+      .n06-card-label {
+        font-size: 26px;
+        font-weight: 600;
+        color: #1e2bfa;
+        line-height: 1.45;
+      }
+      .n06-card-quote {
+        margin-top: 2px;
+        font-size: 46px;
+        font-weight: 500;
+        line-height: 1.5;
+        color: #111111;
+        word-break: normal;
+        line-break: auto;
+      }
+      /* stage note */
+      .n06-note {
+        position: absolute;
+        left: 100px;
+        top: 326px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        color: #6b6b6b;
+        font-size: 34px;
+        line-height: 1.45;
+        white-space: nowrap;
+      }
+      .n06-note-i {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        border: 2.5px solid #6b6b6b;
+        box-sizing: border-box;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 29px;
+        text-align: center;
+        font-family: "IBM Plex Sans Thai", sans-serif;
+      }
+      /* triptych */
+      .n06-panel {
+        position: absolute;
+        top: 470px;
+        width: 480px;
+        height: 290px;
+        box-sizing: border-box;
+        border-radius: 14px;
+        background: rgba(30, 43, 250, 0.04);
+        border: 1.5px solid rgba(30, 43, 250, 0.2);
+      }
+      .n06-animal {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 380px;
+        max-height: 220px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+      }
+      .n06-line {
+        fill: none;
+        stroke: #111111;
+        stroke-width: 6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 1;
+      }
+      .n06-dot {
+        fill: #111111;
+        stroke: none;
+      }
+      #n06-p1 { left: 180px; }
+      #n06-p2 { left: 720px; }
+      #n06-p3 { left: 1260px; }
+      /* pointer */
+      .n06-pointer {
+        position: absolute;
+        left: 392px;
+        top: 398px;
+        width: 56px;
+        height: 64px;
+      }
+      /* name tags */
+      .n06-tagwrap {
+        position: absolute;
+        top: 776px;
+        width: 480px;
+        text-align: center;
+      }
+      #n06-t1 { left: 180px; }
+      #n06-t2 { left: 720px; }
+      #n06-t3 { left: 1260px; }
+      .n06-tag {
+        display: inline-block;
+        padding: 2px 40px 4px;
+        border-radius: 100px;
+        background: rgba(30, 43, 250, 0.08);
+        border: 1.5px solid rgba(30, 43, 250, 0.2);
+        color: #1e2bfa;
+        font-size: 42px;
+        font-weight: 600;
+        line-height: 1.45;
+      }
+      /* progress rail */
+      .n06-rail {
+        position: absolute;
+        right: 96px;
+        top: 872px;
+        display: flex;
+        gap: 8px;
+      }
+      .n06-seg {
+        width: 56px;
+        height: 6px;
+        border-radius: 3px;
+        background: rgba(30, 43, 250, 0.15);
+      }
+      .n06-seg-done { background: rgba(30, 43, 250, 0.4); }
+      .n06-seg-active { background: #1e2bfa; }
+    </style>
+
+    <div class="n06-bg clip" data-start="0" data-duration="10.5" data-track-index="0"></div>
+
+    <div class="n06-stage clip" data-start="0" data-duration="10.5" data-track-index="1">
+      <div class="n06-badge" id="n06-badge">
+        <div class="n06-badge-num">2</div>
+        <div class="n06-badge-th">การเรียกชื่อ</div>
+        <div class="n06-badge-en">NAMING</div>
+      </div>
+
+      <div class="n06-card" id="n06-card">
+        <div class="n06-card-label" id="n06-card-label">ผู้ทดสอบพูดว่า</div>
+        <div class="n06-card-quote" id="n06-card-quote">“ช่วยบอกผมหน่อยครับว่า สัตว์ในรูปแต่ละตัวคือตัวอะไร”</div>
+      </div>
+
+      <div class="n06-note" id="n06-note">
+        <div class="n06-note-i">i</div>
+        <div>ชี้ทีละตัว จากซ้ายไปขวา</div>
+      </div>
+
+      <!-- lion -->
+      <div class="n06-panel" id="n06-p1">
+        <img class="n06-animal" id="n06-img-lion" src="public/animals/lion.png" alt="สิงโต" />
+      </div>
+
+      <!-- rhinoceros -->
+      <div class="n06-panel" id="n06-p2">
+        <img class="n06-animal" id="n06-img-rhino" src="public/animals/rhino.png" alt="แรด" />
+      </div>
+
+      <!-- camel -->
+      <div class="n06-panel" id="n06-p3">
+        <img class="n06-animal" id="n06-img-camel" src="public/animals/camel.png" alt="อูฐ" />
+      </div>
+
+      <!-- cobalt pointer -->
+      <svg class="n06-pointer" id="n06-pointer" viewBox="0 0 56 64">
+        <path d="M20 2 L 36 2 L 36 30 L 52 30 L 28 60 L 4 30 L 20 30 Z" fill="#1e2bfa" stroke="#1e2bfa" stroke-width="3" stroke-linejoin="round" />
+      </svg>
+
+      <div class="n06-tagwrap" id="n06-t1"><span class="n06-tag" id="n06-tag1">สิงโต</span></div>
+      <div class="n06-tagwrap" id="n06-t2"><span class="n06-tag" id="n06-tag2">แรด</span></div>
+      <div class="n06-tagwrap" id="n06-t3"><span class="n06-tag" id="n06-tag3">อูฐ</span></div>
+
+      <div class="n06-rail" id="n06-rail">
+        <div class="n06-seg n06-seg-done"></div>
+        <div class="n06-seg n06-seg-active"></div>
+        <div class="n06-seg"></div>
+        <div class="n06-seg"></div>
+        <div class="n06-seg"></div>
+        <div class="n06-seg"></div>
+        <div class="n06-seg"></div>
+        <div class="n06-seg"></div>
+      </div>
+    </div>
+
+    <script src="vendor/gsap.min.js"></script>
+    <script>
+      (function () {
+        window.__timelines = window.__timelines || {};
+        var root = document.querySelector('[data-composition-id="06-naming"]');
+        var q = function (s) { return root.querySelectorAll(s); };
+        var one = function (s) { return root.querySelector(s); };
+        var tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+
+        // Scene 1 (0.0–2.5s): badge, speech card, stage note
+        tl.fromTo(one("#n06-badge"), { x: -40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6 }, 0.1);
+        tl.fromTo(one("#n06-rail"), { opacity: 0 }, { opacity: 1, duration: 0.6 }, 0.2);
+        tl.fromTo(one("#n06-card"), { y: -46, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 0.35);
+        tl.fromTo(one("#n06-card-label"), { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, 0.7);
+        tl.fromTo(one("#n06-card-quote"), { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, 0.85);
+        tl.fromTo(one("#n06-note"), { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 1.8);
+
+        // Scene 2 (2.5–4.0s): triptych draws on together
+        tl.fromTo(q(".n06-panel"), { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.08 }, 2.5);
+        // the form's own line drawings reveal left→right like a pen stroke
+        tl.fromTo(q(".n06-animal"), { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.1, ease: "power2.inOut", stagger: 0.12 }, 2.6);
+
+        // Scene 3 (4.0–8.0s): cobalt pointer visits each animal, tag pops underneath
+        var pointer = one("#n06-pointer");
+        var panels = [one("#n06-p1"), one("#n06-p2"), one("#n06-p3")];
+        var tags = [one("#n06-tag1"), one("#n06-tag2"), one("#n06-tag3")];
+        var stops = [
+          { t: 4.0, x: 0 },
+          { t: 5.3, x: 540 },
+          { t: 6.6, x: 1080 }
+        ];
+        var idle = { borderColor: "rgba(30,43,250,0.2)", backgroundColor: "rgba(30,43,250,0.04)" };
+        var hot = { borderColor: "rgba(30,43,250,1)", backgroundColor: "rgba(30,43,250,0.08)" };
+
+        tl.fromTo(pointer, { x: 0, y: -24, opacity: 0 }, { x: 0, y: 0, opacity: 1, duration: 0.45, ease: "back.out(1.8)" }, stops[0].t);
+        stops.forEach(function (s, i) {
+          if (i > 0) {
+            tl.fromTo(pointer, { x: stops[i - 1].x }, { x: s.x, duration: 0.5, ease: "power3.inOut", immediateRender: false }, s.t - 0.1);
+            tl.fromTo(pointer, { y: -14 }, { y: 0, duration: 0.3, ease: "back.out(2.5)", immediateRender: false }, s.t + 0.35);
+            tl.fromTo(panels[i - 1], hot, { borderColor: idle.borderColor, backgroundColor: idle.backgroundColor, duration: 0.4, ease: "power2.out", immediateRender: false }, s.t);
+          }
+          tl.fromTo(panels[i], idle, { borderColor: hot.borderColor, backgroundColor: hot.backgroundColor, duration: 0.4, ease: "power2.out", immediateRender: false }, s.t + 0.3);
+          tl.fromTo(tags[i], { scale: 0.5, y: 14, opacity: 0, transformOrigin: "50% 50%" }, { scale: 1, y: 0, opacity: 1, duration: 0.55, ease: "back.out(2.2)" }, s.t + 0.5);
+        });
+
+        // Scene 4 (8.0–10.0s): hold (still). Anchor the timeline to the full duration.
+        tl.set({}, {}, 10);
+
+        window.__timelines["06-naming"] = tl;
+      })();
+    </script>
+  </div>
+</template>

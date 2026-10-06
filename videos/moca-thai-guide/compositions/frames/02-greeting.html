@@ -1,0 +1,257 @@
+<template id="02-greeting-template">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap");
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      font-family: "IBM Plex Sans Thai", sans-serif;
+      color: #111111;
+      word-break: normal;
+      line-break: auto;
+    }
+
+    #g02-greeting-bg {
+      position: absolute;
+      inset: 0;
+      background: #fdfae7;
+      overflow: hidden;
+    }
+    #g02-greeting-glow {
+      position: absolute;
+      left: 1180px;
+      top: -520px;
+      width: 1300px;
+      height: 1300px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 50%, rgba(30, 43, 250, 0.13) 0%, rgba(30, 43, 250, 0.06) 38%, rgba(30, 43, 250, 0) 70%);
+    }
+
+    #g02-greeting-content {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* Title — upper-left */
+    .g02-greeting-title-wrap {
+      position: absolute;
+      left: 96px;
+      top: 96px;
+      width: 1400px;
+    }
+    .g02-greeting-accent {
+      width: 60px;
+      height: 4px;
+      border-radius: 2px;
+      background: #1e2bfa;
+      margin-bottom: 26px;
+    }
+    .g02-greeting-title {
+      font-size: 58px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: #111111;
+      margin: 0;
+    }
+    .g02-greeting-title .g02-greeting-dot {
+      color: #1e2bfa;
+      padding: 0 10px;
+    }
+
+    /* Speech card — left 65% */
+    .g02-greeting-card {
+      position: absolute;
+      left: 96px;
+      top: 266px;
+      width: 1080px;
+      box-sizing: border-box;
+      padding: 40px 56px 46px 60px;
+      background: rgba(255, 255, 255, 0.62);
+      border: 1.5px solid rgba(30, 43, 250, 0.2);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .g02-greeting-rule {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 6px;
+      background: #1e2bfa;
+    }
+    .g02-greeting-label {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 30px;
+      font-weight: 600;
+      line-height: 1.5;
+      color: #1e2bfa;
+      margin-bottom: 18px;
+    }
+    .g02-greeting-label svg {
+      width: 40px;
+      height: 40px;
+      flex: 0 0 auto;
+    }
+    .g02-greeting-quote {
+      font-size: 42px;
+      font-weight: 500;
+      line-height: 1.55;
+      color: #111111;
+      margin: 0;
+    }
+    .g02-greeting-line {
+      display: block;
+      margin-bottom: 8px;
+    }
+    .g02-greeting-line:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Chips — right 35% */
+    .g02-greeting-chips {
+      position: absolute;
+      left: 1250px;
+      top: 306px;
+      width: 574px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .g02-greeting-chip {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      box-sizing: border-box;
+      width: 100%;
+      padding: 26px 36px 26px 28px;
+      background: rgba(30, 43, 250, 0.08);
+      border: 1.5px solid rgba(30, 43, 250, 0.2);
+      border-radius: 100px;
+    }
+    .g02-greeting-chip-icon {
+      flex: 0 0 auto;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: #1e2bfa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .g02-greeting-chip-icon svg {
+      width: 44px;
+      height: 44px;
+    }
+    .g02-greeting-chip-text {
+      font-size: 38px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: #1e2bfa;
+      min-width: 0;
+    }
+  </style>
+
+  <div id="root" data-composition-id="02-greeting" data-start="0" data-duration="12.5" data-width="1920" data-height="1080">
+    <!-- Background: cream field + soft cobalt radial top-right -->
+    <div id="g02-greeting-bg" class="clip" data-start="0" data-duration="12.5" data-track-index="0">
+      <div id="g02-greeting-glow"></div>
+    </div>
+
+    <div id="g02-greeting-content" class="clip" data-start="0" data-duration="12.5" data-track-index="1">
+      <!-- Title (supporting) -->
+      <div class="g02-greeting-title-wrap" id="g02-greeting-title">
+        <div class="g02-greeting-accent"></div>
+        <h2 class="g02-greeting-title">ก่อนเริ่ม<span class="g02-greeting-dot">·</span>ทักทายและเตรียมความพร้อม</h2>
+      </div>
+
+      <!-- Speech card (foreground subject) -->
+      <div class="g02-greeting-card" id="g02-greeting-card">
+        <div class="g02-greeting-rule"></div>
+        <div class="g02-greeting-label">
+          <svg viewBox="0 0 40 40" fill="none" stroke="#1e2bfa" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 9h26a3 3 0 0 1 3 3v13a3 3 0 0 1-3 3H18l-7 6v-6H7a3 3 0 0 1-3-3V12a3 3 0 0 1 3-3z" />
+            <path d="M12 17h16M12 22h10" />
+          </svg>
+          <span>ผู้ทดสอบพูดว่า</span>
+        </div>
+        <p class="g02-greeting-quote">
+          <span class="g02-greeting-line" id="g02-greeting-l1">สวัสดีครับ</span>
+          <span class="g02-greeting-line" id="g02-greeting-l2">วันนี้เราจะทำแบบทดสอบประเมินการทำงานของสมองและความจำกันสั้นๆ นะครับ</span>
+          <span class="g02-greeting-line" id="g02-greeting-l3">ใช้เวลาประมาณ 10-15 นาที ขอให้ทำตามสบาย ไม่ต้องเครียดนะครับ</span>
+          <span class="g02-greeting-line" id="g02-greeting-l4">พร้อมแล้วเรามาเริ่มกันเลยครับ</span>
+        </p>
+      </div>
+
+      <!-- Chips (supporting) -->
+      <div class="g02-greeting-chips">
+        <div class="g02-greeting-chip" id="g02-greeting-chip1">
+          <div class="g02-greeting-chip-icon">
+            <svg viewBox="0 0 44 44" fill="none" stroke="#fdfae7" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle id="g02-greeting-clock" cx="22" cy="24" r="14" />
+              <path id="g02-greeting-hands" d="M22 16v8l5 4" />
+              <path d="M18 5h8M22 5v5" />
+            </svg>
+          </div>
+          <div class="g02-greeting-chip-text">10–15 นาที</div>
+        </div>
+        <div class="g02-greeting-chip" id="g02-greeting-chip2">
+          <div class="g02-greeting-chip-icon">
+            <svg viewBox="0 0 44 44" fill="none" stroke="#fdfae7" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle id="g02-greeting-face" cx="22" cy="22" r="15" />
+              <path id="g02-greeting-smile" d="M15 25c2 3.5 4.3 5 7 5s5-1.5 7-5" />
+              <path d="M16.5 17.5h.01M27.5 17.5h.01" stroke-width="4" />
+            </svg>
+          </div>
+          <div class="g02-greeting-chip-text">ทำตามสบาย ไม่ต้องเครียด</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="vendor/gsap.min.js"></script>
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var q = function (s) { return document.querySelector('[data-composition-id="02-greeting"] ' + s); };
+      var tl = gsap.timeline({ paused: true });
+      var ease = "power3.out";
+
+      // Background: very slow drift of the radial glow under the whole shot (keeps the hold alive, not frozen)
+      tl.fromTo(q("#g02-greeting-glow"), { scale: 0.94, opacity: 0.85 }, { scale: 1.04, opacity: 1, duration: 12, ease: "sine.inOut" }, 0);
+
+      // Scene 1 (0.0–1.5s): title slides up, upper-left
+      tl.fromTo(q(".g02-greeting-accent"), { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.6, ease: ease }, 0.1);
+      tl.fromTo(q(".g02-greeting-title"), { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: ease }, 0.2);
+
+      // Scene 2 (1.5–3.5s): speech card slides up into left 65%; quote reveals line by line
+      tl.fromTo(q("#g02-greeting-card"), { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: ease }, 1.3);
+      tl.fromTo(q(".g02-greeting-rule"), { scaleY: 0, transformOrigin: "50% 0%" }, { scaleY: 1, duration: 0.8, ease: ease }, 1.5);
+      tl.fromTo(q(".g02-greeting-label"), { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: ease }, 1.7);
+      var lines = ["#g02-greeting-l1", "#g02-greeting-l2", "#g02-greeting-l3", "#g02-greeting-l4"];
+      var lineTimes = [2.0, 2.6, 3.7, 4.8];
+      lines.forEach(function (sel, i) {
+        tl.fromTo(q(sel), { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: ease }, lineTimes[i]);
+      });
+
+      // Scene 3 (3.5–7.0s): as the quote finishes, chips pop in stacked (10–15 นาที first)
+      tl.fromTo(q("#g02-greeting-chip1"), { y: 40, scale: 0.92, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.8, ease: "back.out(1.6)" }, 5.4);
+      tl.fromTo(q("#g02-greeting-clock"), { strokeDasharray: 90, strokeDashoffset: 90 }, { strokeDashoffset: 0, duration: 0.8, ease: ease }, 5.6);
+      tl.fromTo(q("#g02-greeting-hands"), { rotation: -120, svgOrigin: "22 24" }, { rotation: 0, svgOrigin: "22 24", duration: 0.9, ease: ease }, 5.7);
+
+      tl.fromTo(q("#g02-greeting-chip2"), { y: 40, scale: 0.92, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.8, ease: "back.out(1.6)" }, 6.2);
+      tl.fromTo(q("#g02-greeting-face"), { strokeDasharray: 95, strokeDashoffset: 95 }, { strokeDashoffset: 0, duration: 0.8, ease: ease }, 6.4);
+      tl.fromTo(q("#g02-greeting-smile"), { strokeDasharray: 20, strokeDashoffset: 20 }, { strokeDashoffset: 0, duration: 0.6, ease: ease }, 6.7);
+
+      // Scene 4 (7.0–12.0s): still hold for reading — pad timeline to full duration
+      tl.set({}, {}, 12);
+
+      window.__timelines["02-greeting"] = tl;
+    })();
+  </script>
+</template>

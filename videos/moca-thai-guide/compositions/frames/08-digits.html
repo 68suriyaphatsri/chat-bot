@@ -1,0 +1,279 @@
+<template>
+  <div id="root" data-composition-id="08-digits" data-start="0" data-duration="12.5" data-width="1920" data-height="1080">
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap");
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        font-family: "IBM Plex Sans Thai", sans-serif;
+        color: #111111;
+      }
+      .\30 8-digits-bg {
+        position: absolute;
+        inset: 0;
+        background: #fdfae7;
+      }
+      .\30 8-digits-badge {
+        position: absolute;
+        left: 96px;
+        top: 64px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 12px 30px 14px 14px;
+        border-radius: 100px;
+        background: #1e2bfa;
+        color: #fdfae7;
+        white-space: nowrap;
+      }
+      .\30 8-digits-badge-num {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #fdfae7;
+        color: #1e2bfa;
+        font-weight: 700;
+        font-size: 28px;
+        line-height: 48px;
+        text-align: center;
+      }
+      .\30 8-digits-badge-th { font-size: 30px; font-weight: 600; line-height: 1.45; }
+      .\30 8-digits-badge-en { font-size: 18px; font-weight: 500; letter-spacing: 0.08em; opacity: 0.75; }
+
+      .\30 8-digits-rowlabel {
+        position: absolute;
+        left: 96px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 38px;
+        font-weight: 600;
+        line-height: 1.45;
+        color: #111111;
+        white-space: nowrap;
+      }
+      .\30 8-digits-rowlabel-dir {
+        display: inline-block;
+        padding: 2px 16px 4px;
+        border-radius: 100px;
+        background: rgba(30, 43, 250, 0.08);
+        color: #1e2bfa;
+        font-size: 26px;
+        font-weight: 600;
+        line-height: 1.45;
+      }
+      .\30 8-digits-card {
+        position: absolute;
+        left: 96px;
+        width: 900px;
+        box-sizing: border-box;
+        padding: 20px 34px 24px 34px;
+        background: rgba(30, 43, 250, 0.04);
+        border: 1.5px solid rgba(30, 43, 250, 0.2);
+        border-left: 5px solid #1e2bfa;
+        border-radius: 14px;
+      }
+      .\30 8-digits-card-label {
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.45;
+        color: #1e2bfa;
+        margin-bottom: 4px;
+      }
+      .\30 8-digits-quote {
+        font-size: 36px;
+        font-weight: 500;
+        line-height: 1.5;
+        color: #111111;
+        word-break: normal;
+        line-break: auto;
+      }
+      .\30 8-digits-divider {
+        position: absolute;
+        left: 96px;
+        top: 500px;
+        width: 1728px;
+        height: 1.5px;
+        background: rgba(30, 43, 250, 0.2);
+        transform-origin: left center;
+      }
+      .\30 8-digits-tile {
+        position: absolute;
+        width: 136px;
+        height: 136px;
+        box-sizing: border-box;
+        border-radius: 14px;
+        background: rgba(30, 43, 250, 0.04);
+        border: 1.5px solid rgba(30, 43, 250, 0.2);
+        color: #1e2bfa;
+        font-size: 92px;
+        font-weight: 700;
+        line-height: 136px;
+        text-align: center;
+        font-variant-numeric: tabular-nums;
+      }
+      .\30 8-digits-answer-box {
+        position: absolute;
+        left: 1042px;
+        top: 614px;
+        width: 476px;
+        height: 172px;
+        box-sizing: border-box;
+        border: 3px solid #1e2bfa;
+        border-radius: 22px;
+      }
+      .\30 8-digits-answer-label {
+        position: absolute;
+        left: 1546px;
+        top: 668px;
+        padding: 6px 26px 8px;
+        border-radius: 100px;
+        background: #1e2bfa;
+        color: #fdfae7;
+        font-size: 34px;
+        font-weight: 600;
+        line-height: 1.45;
+        white-space: nowrap;
+      }
+      .\30 8-digits-arrow {
+        position: absolute;
+        left: 1060px;
+        top: 792px;
+        width: 440px;
+        height: 40px;
+        overflow: visible;
+      }
+      .\30 8-digits-arrow-fwd {
+        position: absolute;
+        left: 1060px;
+        top: 438px;
+        width: 744px;
+        height: 40px;
+        overflow: visible;
+      }
+      .\30 8-digits-rail {
+        position: absolute;
+        right: 96px;
+        top: 860px;
+        display: flex;
+        gap: 8px;
+      }
+      .\30 8-digits-rail span {
+        display: block;
+        width: 48px;
+        height: 6px;
+        border-radius: 6px;
+        background: rgba(30, 43, 250, 0.15);
+      }
+      .\30 8-digits-rail span.\30 8-digits-done { background: rgba(30, 43, 250, 0.4); }
+      .\30 8-digits-rail span.\30 8-digits-active { background: #1e2bfa; }
+    </style>
+
+    <div class="clip 08-digits-bg" data-start="0" data-duration="12.5" data-track-index="0"></div>
+
+    <!-- Section badge -->
+    <div id="08-digits-badge" class="08-digits-badge">
+      <div class="08-digits-badge-num">4</div>
+      <div class="08-digits-badge-th">สมาธิและความตั้งใจ</div>
+      <div class="08-digits-badge-en">ATTENTION</div>
+    </div>
+
+    <!-- Row 1: forward -->
+    <div id="08-digits-label1" class="08-digits-rowlabel" style="top: 158px;">
+      <span>พูดตามลำดับ</span>
+    </div>
+    <div id="08-digits-card1" class="08-digits-card" style="top: 222px;">
+      <div class="08-digits-card-label">ผู้ทดสอบพูดว่า</div>
+      <div class="08-digits-quote">ผมจะอ่านชุดตัวเลข เมื่ออ่านจบแล้ว ให้พูดตัวเลขตามลำดับที่ได้ยินครับ</div>
+    </div>
+    <div id="08-digits-f0" class="08-digits-tile" style="left: 1060px; top: 278px;">2</div>
+    <div id="08-digits-f1" class="08-digits-tile" style="left: 1212px; top: 278px;">1</div>
+    <div id="08-digits-f2" class="08-digits-tile" style="left: 1364px; top: 278px;">8</div>
+    <div id="08-digits-f3" class="08-digits-tile" style="left: 1516px; top: 278px;">5</div>
+    <div id="08-digits-f4" class="08-digits-tile" style="left: 1668px; top: 278px;">4</div>
+    <svg class="08-digits-arrow-fwd" viewBox="0 0 744 40" fill="none">
+      <path id="08-digits-fwd-path" d="M8 20 H728 M712 8 L730 20 L712 32" stroke="#1e2bfa" stroke-opacity="0.4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+    </svg>
+
+    <div id="08-digits-divider" class="08-digits-divider"></div>
+
+    <!-- Row 2: backward -->
+    <div id="08-digits-label2" class="08-digits-rowlabel" style="top: 518px;">
+      <span>พูดย้อนกลับ</span>
+    </div>
+    <div id="08-digits-card2" class="08-digits-card" style="top: 582px;">
+      <div class="08-digits-card-label">ผู้ทดสอบพูดว่า</div>
+      <div class="08-digits-quote">รอบนี้ เมื่ออ่านตัวเลขจบแล้ว ให้พูดตัวเลขย้อนกลับจากหลังมาหน้านะครับ</div>
+    </div>
+    <div id="08-digits-answer-box" class="08-digits-answer-box"></div>
+    <div id="08-digits-b0" class="08-digits-tile" style="left: 1060px; top: 632px;">7</div>
+    <div id="08-digits-b1" class="08-digits-tile" style="left: 1212px; top: 632px;">4</div>
+    <div id="08-digits-b2" class="08-digits-tile" style="left: 1364px; top: 632px;">2</div>
+    <svg class="08-digits-arrow" viewBox="0 0 440 40" fill="none">
+      <path id="08-digits-back-path" d="M432 20 H12 M28 8 L10 20 L28 32" stroke="#1e2bfa" stroke-opacity="0.4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+    </svg>
+    <div id="08-digits-answer-label" class="08-digits-answer-label">คำตอบ</div>
+
+    <!-- Progress rail: section 4 active -->
+    <div id="08-digits-rail" class="08-digits-rail">
+      <span class="08-digits-done"></span>
+      <span class="08-digits-done"></span>
+      <span class="08-digits-done"></span>
+      <span class="08-digits-active"></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <script src="vendor/gsap.min.js"></script>
+    <script>
+      (function () {
+        window.__timelines = window.__timelines || {};
+        var tl = gsap.timeline({ paused: true });
+        var q = function (id) { return document.getElementById("08-digits-" + id); };
+
+        // Scene 1 (0.0–2.5): badge, row-1 label, speech card
+        tl.fromTo(q("badge"), { x: -40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, 0.0);
+        tl.fromTo(q("rail"), { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, 0.2);
+        tl.fromTo(q("label1"), { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, 0.45);
+        tl.fromTo(q("card1"), { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 0.8);
+
+        // Scene 2 (2.5–5.0): digits 2 1 8 5 4 pop in, one per ~0.5s
+        ["f0", "f1", "f2", "f3", "f4"].forEach(function (id, i) {
+          tl.fromTo(q(id), { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(2)" }, 2.5 + i * 0.5);
+        });
+        tl.to(q("fwd-path"), { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut" }, 4.6);
+
+        // Scene 3 (5.0–7.5): divider, row-2 label + card, tiles 7 4 2
+        tl.fromTo(q("divider"), { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power3.inOut" }, 4.9);
+        tl.fromTo(q("label2"), { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, 5.05);
+        tl.fromTo(q("card2"), { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 5.35);
+        ["b0", "b1", "b2"].forEach(function (id, i) {
+          tl.fromTo(q(id), { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(2)" }, 6.1 + i * 0.4);
+        });
+        tl.to(q("back-path"), { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut" }, 7.1);
+
+        // Scene 4 (7.5–9.5): 7 and 2 swap on arcs -> 2 4 7
+        var D = 304; // distance between slot 0 and slot 2
+        tl.to(q("b0"), { x: D, duration: 1.1, ease: "power2.inOut" }, 7.6);
+        tl.to(q("b0"), { y: -96, duration: 0.55, ease: "sine.out" }, 7.6);
+        tl.to(q("b0"), { y: 0, duration: 0.55, ease: "sine.in" }, 8.15);
+        tl.to(q("b2"), { x: -D, duration: 1.1, ease: "power2.inOut" }, 7.6);
+        tl.to(q("b2"), { y: 96, duration: 0.55, ease: "sine.out" }, 7.6);
+        tl.to(q("b2"), { y: 0, duration: 0.55, ease: "sine.in" }, 8.15);
+        tl.fromTo(q("b1"), { scale: 1 }, { scale: 0.92, duration: 0.3, ease: "power2.out" }, 7.75);
+        tl.to(q("b1"), { scale: 1, duration: 0.4, ease: "back.out(2)" }, 8.3);
+        tl.fromTo(q("answer-box"), { scale: 0.94, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "power3.out" }, 8.85);
+        tl.fromTo(q("answer-label"), { x: -24, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 9.0);
+
+        // Scene 5 (9.5–12.0): hold
+        tl.set({}, {}, 12);
+
+        window.__timelines["08-digits"] = tl;
+      })();
+    </script>
+  </div>
+</template>
