@@ -9,7 +9,7 @@ language: th
 audience: บุคลากรสุขภาพ/ผู้ทดสอบที่กำลังฝึกใช้ MoCA ฉบับภาษาไทย
 length: 150-180s
 angle: how-to
-vo_mode: restructured
+narration: none
 style_preset: blue-professional
 ---
 
@@ -22,15 +22,14 @@ Attention, Language, Abstraction, Delayed Recall, Orientation พร้อมค
 
 ## Assets
 
-- public/music/future-technology-maxkomusic.mp3 — เพลงพื้นหลัง (ผู้ใช้อัปโหลด) ระดับเสียงเบาใต้เสียงบรรยาย
+- public/music/future-technology-maxkomusic.mp3 — เพลงพื้นหลัง (ผู้ใช้อัปโหลด) (ไม่มีเสียงพากย์)
 - (แบบฟอร์ม MoCA ที่ผู้ใช้แนบมาใช้เป็นข้อมูลอ้างอิงเท่านั้น — ไม่ใส่ภาพสแกนในวิดีโอ)
 
 ## Customizations
 
 - วาดภาพประกอบใหม่ให้คมชัด: ลากเส้นต่อจุด 1-ก-2-ข…, ลูกบาศก์, นาฬิกา 11:10, ไอคอนสิงโต/แรด/อูฐ
-- เสียงบรรยายแบบปรับเป็นรายฉาก; คำพูดเต็มของผู้ทดสอบขึ้นเป็นตัวอักษรบนจอ
-- เสียงบรรยายภาษาไทยสร้างด้วย Microsoft Edge TTS (th-TH-PremwadeeNeural) บนเครื่องผู้ใช้ แล้วอัปโหลดกลับมา
-  (ใน cloud container นี้ Edge TTS/gTTS ถูกบล็อก และ Kokoro ไม่มีภาษาไทย)
+- ไม่มีเสียงพากย์ (ผู้ใช้ยืนยัน) — ตัวอักษรไทยบนจอเป็นตัวสอนหลัก จังหวะตามเวลาอ่าน มีเพลงพื้นหลังอย่างเดียว
+- ใส่เครดิตเพลงเล็กๆ ในฉากสุดท้าย
 
 ## Notes
 

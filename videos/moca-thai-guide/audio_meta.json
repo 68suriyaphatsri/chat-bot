@@ -1,0 +1,6 @@
+{
+  "bgm": { "path": "public/music/future-technology-maxkomusic.mp3", "volume": 0.55, "query": "user-supplied", "duration_s": 125.05 },
+  "bgm_pending": false,
+  "voices": [],
+  "sfx": []
+}
