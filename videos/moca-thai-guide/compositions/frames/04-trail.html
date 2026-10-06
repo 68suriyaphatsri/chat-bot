@@ -1,0 +1,320 @@
+<template>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap");
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      font-family: "IBM Plex Sans Thai", "Noto Sans Thai", sans-serif;
+      color: #111111;
+    }
+    #root * {
+      box-sizing: border-box;
+    }
+    .\30 4-trail-bg {
+      position: absolute;
+      inset: 0;
+      background-color: #fdfae7;
+      background-image:
+        linear-gradient(rgba(30, 43, 250, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30, 43, 250, 0.06) 1px, transparent 1px);
+      background-size: 64px 64px;
+      background-position: 32px 32px;
+    }
+    .\30 4-trail-layer {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* section badge */
+    #t04-badge {
+      position: absolute;
+      left: 96px;
+      top: 64px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 8px 30px 8px 10px;
+      border-radius: 100px;
+      background: #1e2bfa;
+      color: #fdfae7;
+      white-space: nowrap;
+    }
+    #t04-badge-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #fdfae7;
+      color: #1e2bfa;
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 44px;
+      text-align: center;
+    }
+    #t04-badge-th {
+      font-size: 30px;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+    #t04-badge-en {
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      opacity: 0.75;
+      line-height: 1.45;
+    }
+    #t04-sub {
+      position: absolute;
+      left: 96px;
+      top: 138px;
+      font-size: 58px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: #111111;
+      white-space: nowrap;
+    }
+
+    /* diagram */
+    #t04-diagram {
+      position: absolute;
+      left: 96px;
+      top: 248px;
+      width: 970px;
+      height: 640px;
+      overflow: visible;
+    }
+    #t04-diagram text {
+      font-family: "IBM Plex Sans Thai", "Noto Sans Thai", sans-serif;
+    }
+    .t04-node-c {
+      fill: #fdfae7;
+      stroke: #1e2bfa;
+      stroke-width: 3;
+    }
+    .t04-node-t {
+      fill: #111111;
+      font-size: 36px;
+      font-weight: 600;
+    }
+    .t04-seg {
+      stroke: #1e2bfa;
+      stroke-width: 5;
+      stroke-linecap: round;
+      fill: none;
+    }
+    .t04-tag-r {
+      fill: #1e2bfa;
+    }
+    .t04-tag-t {
+      fill: #fdfae7;
+      font-size: 28px;
+      font-weight: 600;
+    }
+
+    /* speech card */
+    #t04-card {
+      position: absolute;
+      left: 1140px;
+      top: 252px;
+      width: 684px;
+      padding: 34px 40px 36px 44px;
+      border-radius: 14px;
+      background: rgba(30, 43, 250, 0.04);
+      border: 1.5px solid rgba(30, 43, 250, 0.2);
+      border-left: 6px solid #1e2bfa;
+    }
+    #t04-card-label {
+      font-size: 30px;
+      font-weight: 600;
+      color: #1e2bfa;
+      line-height: 1.45;
+      margin-bottom: 12px;
+    }
+    .t04-q {
+      display: block;
+      font-size: 40px;
+      font-weight: 500;
+      line-height: 1.5;
+      color: #111111;
+      word-break: normal;
+      line-break: auto;
+      overflow-wrap: break-word;
+    }
+    .t04-q + .t04-q {
+      margin-top: 6px;
+    }
+
+    /* progress rail */
+    #t04-rail {
+      position: absolute;
+      right: 96px;
+      top: 868px;
+      display: flex;
+      gap: 8px;
+    }
+    .t04-rail-seg {
+      width: 40px;
+      height: 8px;
+      border-radius: 6px;
+      background: rgba(30, 43, 250, 0.15);
+    }
+    .t04-rail-seg.t04-on {
+      background: #1e2bfa;
+    }
+  </style>
+
+  <div id="root" data-composition-id="04-trail" data-width="1920" data-height="1080">
+    <div
+      id="t04-bg"
+      class="clip 04-trail-bg"
+      data-start="0"
+      data-duration="12"
+      data-track-index="0"
+    ></div>
+
+    <div
+      id="t04-content"
+      class="clip 04-trail-layer"
+      data-start="0"
+      data-duration="12"
+      data-track-index="1"
+    >
+      <div id="t04-badge">
+        <div id="t04-badge-num">1</div>
+        <div id="t04-badge-th">1 · มิติสัมพันธ์และการบริหารจัดการ</div>
+        <div id="t04-badge-en">VISUOSPATIAL / EXECUTIVE</div>
+      </div>
+      <div id="t04-sub">ลากเส้นต่อจุด</div>
+
+      <svg id="t04-diagram" viewBox="0 0 1000 660" xmlns="http://www.w3.org/2000/svg">
+        <!-- path segments (under the circles) -->
+        <g id="t04-segs">
+          <line id="t04-s1" class="t04-seg" x1="230" y1="300" x2="470" y2="110" />
+          <line id="t04-s2" class="t04-seg" x1="470" y1="110" x2="760" y2="170" />
+          <line id="t04-s3" class="t04-seg" x1="760" y1="170" x2="640" y2="360" />
+          <line id="t04-s4" class="t04-seg" x1="640" y1="360" x2="900" y2="420" />
+          <line id="t04-s5" class="t04-seg" x1="900" y1="420" x2="430" y2="470" />
+          <line id="t04-s6" class="t04-seg" x1="430" y1="470" x2="620" y2="575" />
+          <line id="t04-s7" class="t04-seg" x1="620" y1="575" x2="160" y2="560" />
+          <line id="t04-s8" class="t04-seg" x1="160" y1="560" x2="110" y2="120" />
+          <line id="t04-s9" class="t04-seg" x1="110" y1="120" x2="300" y2="150" />
+        </g>
+
+        <!-- nodes: order 1 ก 2 ข 3 ค 4 ง 5 จ -->
+        <g id="t04-n0" class="t04-node"><circle class="t04-node-c" cx="230" cy="300" r="42" /><text class="t04-node-t" x="230" y="300" text-anchor="middle" dominant-baseline="central">1</text></g>
+        <g id="t04-n1" class="t04-node"><circle class="t04-node-c" cx="470" cy="110" r="42" /><text class="t04-node-t" x="470" y="110" text-anchor="middle" dominant-baseline="central">ก</text></g>
+        <g id="t04-n2" class="t04-node"><circle class="t04-node-c" cx="760" cy="170" r="42" /><text class="t04-node-t" x="760" y="170" text-anchor="middle" dominant-baseline="central">2</text></g>
+        <g id="t04-n3" class="t04-node"><circle class="t04-node-c" cx="640" cy="360" r="42" /><text class="t04-node-t" x="640" y="360" text-anchor="middle" dominant-baseline="central">ข</text></g>
+        <g id="t04-n4" class="t04-node"><circle class="t04-node-c" cx="900" cy="420" r="42" /><text class="t04-node-t" x="900" y="420" text-anchor="middle" dominant-baseline="central">3</text></g>
+        <g id="t04-n5" class="t04-node"><circle class="t04-node-c" cx="430" cy="470" r="42" /><text class="t04-node-t" x="430" y="470" text-anchor="middle" dominant-baseline="central">ค</text></g>
+        <g id="t04-n6" class="t04-node"><circle class="t04-node-c" cx="620" cy="575" r="42" /><text class="t04-node-t" x="620" y="575" text-anchor="middle" dominant-baseline="central">4</text></g>
+        <g id="t04-n7" class="t04-node"><circle class="t04-node-c" cx="160" cy="560" r="42" /><text class="t04-node-t" x="160" y="560" text-anchor="middle" dominant-baseline="central">ง</text></g>
+        <g id="t04-n8" class="t04-node"><circle class="t04-node-c" cx="110" cy="120" r="42" /><text class="t04-node-t" x="110" y="120" text-anchor="middle" dominant-baseline="central">5</text></g>
+        <g id="t04-n9" class="t04-node"><circle class="t04-node-c" cx="300" cy="150" r="42" /><text class="t04-node-t" x="300" y="150" text-anchor="middle" dominant-baseline="central">จ</text></g>
+
+        <!-- start / end tags -->
+        <g id="t04-tag-start">
+          <rect class="t04-tag-r" x="182" y="356" width="96" height="46" rx="23" />
+          <text class="t04-tag-t" x="230" y="379" text-anchor="middle" dominant-baseline="central">เริ่ม</text>
+        </g>
+        <g id="t04-tag-end">
+          <rect class="t04-tag-r" x="264" y="48" width="72" height="46" rx="23" />
+          <text class="t04-tag-t" x="300" y="71" text-anchor="middle" dominant-baseline="central">จบ</text>
+        </g>
+      </svg>
+
+      <div id="t04-card">
+        <div id="t04-card-label">ผู้ทดสอบพูดว่า</div>
+        <span class="t04-q" id="t04-q1">“กรุณาลากเส้นต่อจุด</span>
+        <span class="t04-q" id="t04-q2">โดยเริ่มจากตัวเลข 1 ไปยังตัวอักษร ก.</span>
+        <span class="t04-q" id="t04-q3">แล้วไปที่เลข 2 แล้วไปที่ตัวอักษร ข.</span>
+        <span class="t04-q" id="t04-q4">สลับกันไปเรื่อยๆ จนถึงจุดสิ้นสุดนะครับ/ค่ะ”</span>
+      </div>
+
+      <div id="t04-rail">
+        <div class="t04-rail-seg t04-on"></div>
+        <div class="t04-rail-seg"></div>
+        <div class="t04-rail-seg"></div>
+        <div class="t04-rail-seg"></div>
+        <div class="t04-rail-seg"></div>
+        <div class="t04-rail-seg"></div>
+        <div class="t04-rail-seg"></div>
+        <div class="t04-rail-seg"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      var root = document.querySelector('[data-composition-id="04-trail"]');
+      var q = function (sel) { return root.querySelector(sel); };
+      var tl = gsap.timeline({ paused: true });
+
+      // ---- Scene 1 (0.0–1.5s): badge + sub-title in, circles pop in scattered ----
+      tl.fromTo(q("#t04-badge"), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.05);
+      tl.fromTo(q("#t04-sub"), { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.2);
+      tl.fromTo(q("#t04-rail"), { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, 0.3);
+
+      // scattered (non-sequential) pop order so it reads like the printed form
+      var popOrder = [8, 0, 1, 9, 2, 5, 3, 7, 4, 6];
+      popOrder.forEach(function (n, i) {
+        tl.fromTo(
+          q("#t04-n" + n),
+          { opacity: 0, scale: 0.4, transformOrigin: "50% 50%" },
+          { opacity: 1, scale: 1, transformOrigin: "50% 50%", duration: 0.45, ease: "back.out(2)" },
+          0.25 + i * 0.1
+        );
+      });
+
+      // ---- Scene 2 (1.5–4.5s): speech card slides up, quote reveals by line ----
+      tl.fromTo(q("#t04-card"), { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 1.5);
+      tl.fromTo(q("#t04-card-label"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 1.75);
+      ["#t04-q1", "#t04-q2", "#t04-q3", "#t04-q4"].forEach(function (id, i) {
+        tl.fromTo(q(id), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 1.95 + i * 0.65);
+      });
+
+      // ---- Scene 3 (4.5–10.0s): path draws segment by segment, targets fill cobalt ----
+      var fillNode = function (n, at) {
+        var g = q("#t04-n" + n);
+        tl.fromTo(g.querySelector("circle"), { fill: "#fdfae7" }, { fill: "#1e2bfa", duration: 0.25, ease: "power2.out" }, at);
+        tl.fromTo(g.querySelector("text"), { fill: "#111111" }, { fill: "#fdfae7", duration: 0.25, ease: "power2.out" }, at);
+        tl.fromTo(g, { scale: 1, transformOrigin: "50% 50%" }, { scale: 1.12, transformOrigin: "50% 50%", duration: 0.14, ease: "power2.out" }, at);
+        tl.to(g, { scale: 1, duration: 0.3, ease: "power3.out" }, at + 0.14);
+      };
+
+      // start node + "เริ่ม" tag with the first segment
+      fillNode(0, 4.5);
+      tl.fromTo(q("#t04-tag-start"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 4.55);
+
+      var segStart = 4.62, step = 0.58, segDur = 0.48;
+      for (var s = 1; s <= 9; s++) {
+        var line = q("#t04-s" + s);
+        var x1 = +line.getAttribute("x1"), y1 = +line.getAttribute("y1");
+        var x2 = +line.getAttribute("x2"), y2 = +line.getAttribute("y2");
+        var len = Math.ceil(Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
+        var at = segStart + (s - 1) * step;
+        tl.fromTo(
+          line,
+          { strokeDasharray: len, strokeDashoffset: len },
+          { strokeDasharray: len, strokeDashoffset: 0, duration: segDur, ease: "power2.inOut" },
+          at
+        );
+        fillNode(s, at + segDur - 0.06);
+      }
+
+      // "จบ" tag with the last segment
+      var lastEnd = segStart + 8 * step + segDur;
+      tl.fromTo(q("#t04-tag-end"), { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, lastEnd - 0.05);
+
+      // ---- Scene 4 (10.0–12.0s): hold still ----
+      tl.set({}, {}, 12);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["04-trail"] = tl;
+    })();
+  </script>
+</template>

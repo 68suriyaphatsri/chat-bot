@@ -1,0 +1,292 @@
+<template id="10-language-template">
+  <div id="root" data-composition-id="10-language" data-start="0" data-duration="16" data-width="1920" data-height="1080">
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap");
+
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        font-family: "IBM Plex Sans Thai", "Noto Sans Thai", sans-serif;
+        color: #111111;
+      }
+      #root * { box-sizing: border-box; }
+      .lang10-bg {
+        position: absolute; inset: 0;
+        background: #fdfae7;
+      }
+      .lang10-thai {
+        word-break: normal;
+        line-break: auto;
+        overflow-wrap: break-word;
+        letter-spacing: 0;
+      }
+
+      /* ---------- section badge ---------- */
+      .lang10-badge {
+        position: absolute; left: 96px; top: 48px;
+        display: flex; align-items: center; gap: 14px;
+        height: 56px; padding: 0 28px 0 8px;
+        border-radius: 100px;
+        background: #1e2bfa; color: #fdfae7;
+      }
+      .lang10-badge-num {
+        width: 42px; height: 42px; border-radius: 50%;
+        background: #fdfae7; color: #1e2bfa;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 24px; font-weight: 700; line-height: 1;
+      }
+      .lang10-badge-th { font-size: 26px; font-weight: 600; line-height: 1.45; }
+      .lang10-badge-en { font-size: 16px; font-weight: 600; letter-spacing: 0.08em; opacity: 0.75; }
+
+      /* ---------- titles ---------- */
+      .lang10-title {
+        position: absolute;
+        font-size: 44px; font-weight: 600; line-height: 1.45;
+        color: #111111;
+        display: flex; align-items: center; gap: 18px;
+      }
+      .lang10-title-tag {
+        font-size: 22px; font-weight: 600; color: #1e2bfa;
+        border: 1.5px solid rgba(30,43,250,0.2);
+        background: rgba(30,43,250,0.04);
+        border-radius: 100px; padding: 2px 16px; line-height: 1.45;
+      }
+      .lang10-title-a { left: 96px; top: 124px; }
+      .lang10-title-b { left: 96px; top: 482px; }
+      .lang10-title-b .lang10-sub { color: #6b6b6b; font-weight: 500; }
+
+      /* ---------- speech card ---------- */
+      .lang10-speech {
+        position: absolute;
+        background: rgba(255,255,255,0.62);
+        border: 1.5px solid rgba(30,43,250,0.2);
+        border-left: 6px solid #1e2bfa;
+        border-radius: 12px;
+        padding: 16px 28px 18px 28px;
+      }
+      .lang10-speech-label {
+        font-size: 22px; font-weight: 600; color: #1e2bfa; line-height: 1.45;
+      }
+      .lang10-speech-text {
+        font-size: 36px; font-weight: 500; line-height: 1.5; color: #111111;
+      }
+      .lang10-speech-a { left: 96px; top: 200px; width: 860px; }
+      .lang10-speech-b { left: 96px; top: 556px; width: 1180px; }
+      .lang10-speech-b .lang10-speech-text { font-size: 34px; }
+
+      /* ---------- sentence cards ---------- */
+      .lang10-sent {
+        position: absolute; left: 1010px; width: 814px;
+        display: flex; align-items: flex-start; gap: 22px;
+        background: rgba(30,43,250,0.04);
+        border: 1.5px solid rgba(30,43,250,0.2);
+        border-radius: 14px;
+        padding: 20px 28px 22px 22px;
+      }
+      .lang10-sent-1 { top: 124px; }
+      .lang10-sent-2 { top: 290px; }
+      .lang10-sent-num {
+        flex: 0 0 auto;
+        width: 52px; height: 52px; border-radius: 50%;
+        background: #1e2bfa; color: #fdfae7;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 26px; font-weight: 700; line-height: 1;
+        margin-top: 4px;
+      }
+      .lang10-sent-text {
+        flex: 1 1 auto; min-width: 0;
+        font-size: 36px; font-weight: 500; line-height: 1.5; color: #111111;
+      }
+      .lang10-sent-q {
+        color: #1e2bfa; opacity: 0.35; font-weight: 700;
+      }
+
+      /* ---------- divider ---------- */
+      .lang10-divider {
+        position: absolute; left: 96px; top: 460px;
+        width: 1728px; height: 2px;
+        background: rgba(30,43,250,0.2);
+      }
+
+      /* ---------- chips ---------- */
+      .lang10-chips {
+        position: absolute; left: 96px; top: 744px; width: 1300px;
+        display: flex; flex-wrap: wrap; gap: 12px 14px;
+      }
+      .lang10-chip {
+        display: flex; align-items: center; gap: 12px;
+        height: 54px; padding: 0 22px 0 10px;
+        border-radius: 100px;
+        background: rgba(30,43,250,0.04);
+        border: 1.5px solid rgba(30,43,250,0.2);
+        font-size: 30px; font-weight: 500; line-height: 1.45; color: #111111;
+        white-space: nowrap;
+      }
+      .lang10-chip svg { flex: 0 0 auto; display: block; }
+
+      /* ---------- timer ---------- */
+      .lang10-timer {
+        position: absolute; left: 1440px; top: 512px;
+        width: 290px; height: 290px;
+      }
+      .lang10-timer svg { position: absolute; inset: 0; display: block; }
+      .lang10-glyph {
+        position: absolute; inset: 0;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 170px; font-weight: 700; line-height: 1.45; color: #1e2bfa;
+        padding-bottom: 8px;
+      }
+      .lang10-timer-label {
+        position: absolute; left: 1440px; top: 808px; width: 290px;
+        text-align: center;
+        font-size: 36px; font-weight: 600; line-height: 1.45; color: #111111;
+      }
+
+      /* ---------- progress rail ---------- */
+      .lang10-rail {
+        position: absolute; left: 1320px; top: 884px;
+        display: flex; gap: 8px;
+      }
+      .lang10-seg { width: 56px; height: 6px; border-radius: 6px; background: rgba(30,43,250,0.15); }
+      .lang10-seg-done { background: rgba(30,43,250,0.4); }
+      .lang10-seg-active { background: #1e2bfa; }
+    </style>
+
+    <div id="lang10-bg" class="clip lang10-bg" data-start="0" data-duration="16" data-track-index="0"></div>
+
+    <!-- badge -->
+    <div class="lang10-badge" id="lang10-badge">
+      <div class="lang10-badge-num">5</div>
+      <div class="lang10-badge-th lang10-thai">ภาษา</div>
+      <div class="lang10-badge-en">LANGUAGE</div>
+    </div>
+
+    <!-- Part A -->
+    <div class="lang10-title lang10-title-a lang10-thai" id="lang10-title-a">
+      <span class="lang10-title-tag">ก</span><span>พูดตามประโยค</span>
+    </div>
+    <div class="lang10-speech lang10-speech-a" id="lang10-speech-a">
+      <div class="lang10-speech-label lang10-thai">ผู้ทดสอบพูดว่า</div>
+      <div class="lang10-speech-text lang10-thai">ผม/ดิฉันจะอ่านประโยคให้ฟัง เมื่ออ่านจบแล้ว ให้พูดตามให้เหมือนที่ได้ยินทุกคำนะครับ/ค่ะ</div>
+    </div>
+
+    <div class="lang10-sent lang10-sent-1" id="lang10-sent-1">
+      <div class="lang10-sent-num" id="lang10-num-1">1</div>
+      <div class="lang10-sent-text lang10-thai"><span class="lang10-sent-q">“</span>ฉันรู้ว่าจอมเป็นคนเดียวที่มาช่วยงานวันนี้<span class="lang10-sent-q">”</span></div>
+    </div>
+    <div class="lang10-sent lang10-sent-2" id="lang10-sent-2">
+      <div class="lang10-sent-num" id="lang10-num-2">2</div>
+      <div class="lang10-sent-text lang10-thai"><span class="lang10-sent-q">“</span>แมวมักจะซ่อนตัวอยู่หลังเก้าอี้เมื่อมีสุนัขอยู่ในห้อง<span class="lang10-sent-q">”</span></div>
+    </div>
+
+    <div class="lang10-divider" id="lang10-divider"></div>
+
+    <!-- Part B -->
+    <div class="lang10-title lang10-title-b lang10-thai" id="lang10-title-b">
+      <span class="lang10-title-tag">ข</span><span>ความคล่องแคล่ว <span class="lang10-sub">· คำขึ้นต้นด้วย ก</span></span>
+    </div>
+    <div class="lang10-speech lang10-speech-b" id="lang10-speech-b">
+      <div class="lang10-speech-label lang10-thai">ผู้ทดสอบพูดว่า</div>
+      <div class="lang10-speech-text lang10-thai">ช่วยบอกคำศัพท์ภาษาไทยที่ขึ้นต้นด้วยตัวอักษร 'ก' ให้ได้มากที่สุดภายในเวลา 1 นาที</div>
+    </div>
+
+    <div class="lang10-chips">
+      <div class="lang10-chip lang10-thai" id="lang10-chip-1">
+        <svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="rgba(30,43,250,0.08)" stroke="rgba(30,43,250,0.2)" stroke-width="1.5"/><path class="lang10-x" d="M11 11 L21 21 M21 11 L11 21" fill="none" stroke="#1e2bfa" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="30" stroke-dashoffset="0"/></svg>
+        <span>ไม่รวมชื่อคน</span>
+      </div>
+      <div class="lang10-chip lang10-thai" id="lang10-chip-2">
+        <svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="rgba(30,43,250,0.08)" stroke="rgba(30,43,250,0.2)" stroke-width="1.5"/><path class="lang10-x" d="M11 11 L21 21 M21 11 L11 21" fill="none" stroke="#1e2bfa" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="30" stroke-dashoffset="0"/></svg>
+        <span>ไม่รวมชื่อจังหวัด</span>
+      </div>
+      <div class="lang10-chip lang10-thai" id="lang10-chip-3">
+        <svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="rgba(30,43,250,0.08)" stroke="rgba(30,43,250,0.2)" stroke-width="1.5"/><path class="lang10-x" d="M11 11 L21 21 M21 11 L11 21" fill="none" stroke="#1e2bfa" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="30" stroke-dashoffset="0"/></svg>
+        <span>ไม่นับคำเดิมที่เปลี่ยนแค่หางเสียง/ลงท้าย</span>
+      </div>
+    </div>
+
+    <!-- timer: big ก + 1-minute ring -->
+    <div class="lang10-timer" id="lang10-timer">
+      <svg width="290" height="290" viewBox="0 0 290 290">
+        <circle id="lang10-ring-track" cx="145" cy="145" r="126" fill="rgba(30,43,250,0.04)" stroke="rgba(30,43,250,0.15)" stroke-width="10"/>
+        <g id="lang10-ticks" stroke="rgba(30,43,250,0.35)" stroke-width="3" stroke-linecap="round">
+          <line x1="145" y1="8" x2="145" y2="22"/>
+          <line x1="282" y1="145" x2="268" y2="145"/>
+          <line x1="145" y1="282" x2="145" y2="268"/>
+          <line x1="8" y1="145" x2="22" y2="145"/>
+        </g>
+        <circle id="lang10-ring" cx="145" cy="145" r="126" fill="none" stroke="#1e2bfa" stroke-width="10" stroke-linecap="round" transform="rotate(-90 145 145)" stroke-dasharray="791.68" stroke-dashoffset="791.68"/>
+        <g id="lang10-head-wrap">
+          <circle id="lang10-head" cx="145" cy="19" r="11" fill="#1e2bfa"/>
+        </g>
+      </svg>
+      <div class="lang10-glyph lang10-thai" id="lang10-glyph">ก</div>
+    </div>
+    <div class="lang10-timer-label lang10-thai" id="lang10-timer-label">1 นาที</div>
+
+    <!-- progress rail -->
+    <div class="lang10-rail" id="lang10-rail">
+      <div class="lang10-seg lang10-seg-done"></div>
+      <div class="lang10-seg lang10-seg-done"></div>
+      <div class="lang10-seg lang10-seg-done"></div>
+      <div class="lang10-seg lang10-seg-done"></div>
+      <div class="lang10-seg lang10-seg-active"></div>
+      <div class="lang10-seg"></div>
+      <div class="lang10-seg"></div>
+      <div class="lang10-seg"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        window.__timelines = window.__timelines || {};
+        var q = function (s) { return document.querySelector('[data-composition-id="10-language"] ' + s); };
+        var qa = function (s) { return document.querySelectorAll('[data-composition-id="10-language"] ' + s); };
+        var tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+
+        // Scene 1 (0.0–2.5): badge, rail, title A, speech A
+        tl.fromTo(q("#lang10-badge"), { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.6 }, 0.1);
+        tl.fromTo(q("#lang10-rail"), { opacity: 0 }, { opacity: 1, duration: 0.6 }, 0.2);
+        tl.fromTo(q("#lang10-title-a"), { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7 }, 0.3);
+        tl.fromTo(q("#lang10-speech-a"), { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.8 }, 0.8);
+
+        // Scene 2 (2.5–6.5): sentence cards slide in
+        tl.fromTo(q("#lang10-sent-1"), { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.8 }, 2.6);
+        tl.fromTo(q("#lang10-num-1"), { scale: 0.4 }, { scale: 1, duration: 0.6, ease: "back.out(2)" }, 2.8);
+        tl.fromTo(q("#lang10-sent-2"), { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.8 }, 4.4);
+        tl.fromTo(q("#lang10-num-2"), { scale: 0.4 }, { scale: 1, duration: 0.6, ease: "back.out(2)" }, 4.6);
+
+        // Scene 3 (6.5–8.5): divider draws, title B + speech B
+        tl.fromTo(q("#lang10-divider"), { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.9, ease: "power2.inOut" }, 6.5);
+        tl.fromTo(q("#lang10-title-b"), { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7 }, 6.9);
+        tl.fromTo(q("#lang10-speech-b"), { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.8 }, 7.3);
+
+        // Scene 4 (8.5–12.0): big ก pops, ring sweeps once, label
+        tl.fromTo(q("#lang10-ring-track"), { opacity: 0 }, { opacity: 1, duration: 0.5 }, 8.5);
+        tl.fromTo(q("#lang10-ticks"), { opacity: 0 }, { opacity: 1, duration: 0.5 }, 8.6);
+        tl.fromTo(q("#lang10-glyph"), { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.7, ease: "back.out(1.8)" }, 8.5);
+        tl.fromTo(q("#lang10-timer-label"), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6 }, 9.0);
+        tl.fromTo(q("#lang10-head"), { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "none" }, 8.9);
+        tl.fromTo(q("#lang10-ring"), { attr: { "stroke-dashoffset": 791.68 } }, { attr: { "stroke-dashoffset": 0 }, duration: 2.5, ease: "none" }, 9.0);
+        tl.fromTo(q("#lang10-head-wrap"), { rotation: 0, svgOrigin: "145 145" }, { rotation: 360, svgOrigin: "145 145", duration: 2.5, ease: "none" }, 9.0);
+        tl.fromTo(q("#lang10-glyph"), { scale: 1 }, { scale: 1.08, duration: 0.25, ease: "power2.out", immediateRender: false }, 11.5);
+        tl.fromTo(q("#lang10-glyph"), { scale: 1.08 }, { scale: 1, duration: 0.4, ease: "power2.inOut", immediateRender: false }, 11.75);
+
+        // Scene 5 (12.0–14.0): exclusion chips pop with ✕ draw
+        var chips = ["#lang10-chip-1", "#lang10-chip-2", "#lang10-chip-3"];
+        chips.forEach(function (id, i) {
+          var t = 12.0 + i * 0.45;
+          tl.fromTo(q(id), { opacity: 0, scale: 0.85, y: 12, transformOrigin: "0% 50%" }, { opacity: 1, scale: 1, y: 0, duration: 0.55, ease: "back.out(1.7)" }, t);
+          tl.fromTo(q(id + " .lang10-x"), { attr: { "stroke-dashoffset": 30 } }, { attr: { "stroke-dashoffset": 0 }, duration: 0.45, ease: "power2.out" }, t + 0.15);
+        });
+
+        // Scene 6 (14.0–16.0): hold
+        tl.set({}, {}, 16);
+
+        window.__timelines["10-language"] = tl;
+      })();
+    </script>
+  </div>
+</template>

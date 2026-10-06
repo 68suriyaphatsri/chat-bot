@@ -1,0 +1,381 @@
+<template>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      font-family: "IBM Plex Sans Thai", "Noto Sans Thai", sans-serif;
+      color: #111111;
+      word-break: normal;
+      line-break: auto;
+    }
+    [class~="13-orientation-bg"] {
+      position: absolute;
+      inset: 0;
+      background: #fdfae7;
+    }
+    [class~="13-orientation-stage"] {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* Section badge */
+    [class~="13-orientation-badge"] {
+      position: absolute;
+      left: 100px;
+      top: 52px;
+      height: 66px;
+      padding: 0 30px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-radius: 100px;
+      background: #1e2bfa;
+      color: #fdfae7;
+      white-space: nowrap;
+    }
+    [class~="13-orientation-badge-num"] {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: #fdfae7;
+      color: #1e2bfa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 28px;
+      line-height: 1;
+    }
+    [class~="13-orientation-badge-th"] {
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+    [class~="13-orientation-badge-en"] {
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      opacity: 0.78;
+      line-height: 1;
+      padding-top: 4px;
+    }
+
+    /* Speech card */
+    [class~="13-orientation-speech"] {
+      position: absolute;
+      left: 100px;
+      top: 142px;
+      width: 1720px;
+      height: 164px;
+      box-sizing: border-box;
+      padding: 18px 40px 18px 44px;
+      border-radius: 14px;
+      background: #ffffff;
+      border: 1.5px solid rgba(30, 43, 250, 0.2);
+      overflow: hidden;
+    }
+    [class~="13-orientation-speech-rule"] {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 8px;
+      background: #1e2bfa;
+      transform-origin: 50% 0%;
+    }
+    [class~="13-orientation-speech-label"] {
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 1.45;
+      color: #6b6b6b;
+    }
+    [class~="13-orientation-speech-quote"] {
+      margin-top: 4px;
+      font-size: 50px;
+      font-weight: 500;
+      line-height: 1.45;
+      color: #111111;
+    }
+
+    /* Question grid */
+    [class~="13-orientation-grid"] {
+      position: absolute;
+      left: 100px;
+      top: 336px;
+      width: 1720px;
+      height: 516px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 24px 28px;
+    }
+    [class~="13-orientation-card"] {
+      position: relative;
+      box-sizing: border-box;
+      padding: 26px 30px 26px 30px;
+      border-radius: 14px;
+      background: rgba(30, 43, 250, 0.04);
+      border: 1.5px solid rgba(30, 43, 250, 0.2);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+    [class~="13-orientation-card-top"] {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+    [class~="13-orientation-icon"] {
+      width: 96px;
+      height: 96px;
+      border-radius: 12px;
+      background: rgba(30, 43, 250, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    [class~="13-orientation-icon"] svg {
+      width: 68px;
+      height: 68px;
+      overflow: visible;
+    }
+    [class~="13-orientation-ln"] {
+      fill: none;
+      stroke: #1e2bfa;
+      stroke-width: 3.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 1;
+      stroke-dashoffset: 0;
+    }
+    [class~="13-orientation-dot"] {
+      fill: #1e2bfa;
+    }
+    [class~="13-orientation-num"] {
+      font-size: 64px;
+      font-weight: 700;
+      line-height: 1;
+      color: #1e2bfa;
+      opacity: 0.9;
+    }
+    [class~="13-orientation-q"] {
+      font-size: 38px;
+      font-weight: 500;
+      line-height: 1.45;
+      color: #111111;
+      max-width: 490px;
+    }
+
+    /* Progress rail */
+    [class~="13-orientation-rail"] {
+      position: absolute;
+      right: 100px;
+      top: 878px;
+      display: flex;
+      gap: 8px;
+    }
+    [class~="13-orientation-seg"] {
+      width: 44px;
+      height: 8px;
+      border-radius: 6px;
+      background: rgba(30, 43, 250, 0.4);
+    }
+    [class~="13-orientation-seg-active"] {
+      background: #1e2bfa;
+      width: 72px;
+    }
+  </style>
+
+  <div id="root" data-composition-id="13-orientation" data-width="1920" data-height="1080" data-duration="11">
+    <div class="clip 13-orientation-bg" data-start="0" data-duration="11" data-track-index="0"></div>
+
+    <div class="13-orientation-stage">
+      <!-- Section badge -->
+      <div class="13-orientation-badge">
+        <div class="13-orientation-badge-num">8</div>
+        <div class="13-orientation-badge-th">การรับรู้เวลาและสถานที่</div>
+        <div class="13-orientation-badge-en">ORIENTATION</div>
+      </div>
+
+      <!-- Speech card -->
+      <div class="13-orientation-speech">
+        <div class="13-orientation-speech-rule"></div>
+        <div class="13-orientation-speech-label">ผู้ทดสอบพูดว่า</div>
+        <div class="13-orientation-speech-quote">สุดท้ายนี้ ขอสอบถามข้อมูลปัจจุบันหน่อยครับ/ค่ะ</div>
+      </div>
+
+      <!-- 3x2 question grid -->
+      <div class="13-orientation-grid">
+        <!-- 1 date: calendar with one highlighted day -->
+        <div class="13-orientation-card">
+          <div class="13-orientation-card-top">
+            <div class="13-orientation-icon">
+              <svg viewBox="0 0 64 64">
+                <rect class="13-orientation-ln" pathLength="1" x="8" y="12" width="48" height="44" rx="6" />
+                <path class="13-orientation-ln" pathLength="1" d="M8 24 H56" />
+                <path class="13-orientation-ln" pathLength="1" d="M20 6 V16 M44 6 V16" />
+                <rect class="13-orientation-ln" pathLength="1" x="24" y="32" width="16" height="15" rx="3" />
+              </svg>
+            </div>
+            <div class="13-orientation-num">1</div>
+          </div>
+          <div class="13-orientation-q">วันนี้วันที่เท่าไร?</div>
+        </div>
+
+        <!-- 2 month: month-grid calendar -->
+        <div class="13-orientation-card">
+          <div class="13-orientation-card-top">
+            <div class="13-orientation-icon">
+              <svg viewBox="0 0 64 64">
+                <rect class="13-orientation-ln" pathLength="1" x="8" y="12" width="48" height="44" rx="6" />
+                <path class="13-orientation-ln" pathLength="1" d="M8 24 H56" />
+                <path class="13-orientation-ln" pathLength="1" d="M20 6 V16 M44 6 V16" />
+                <path class="13-orientation-ln" pathLength="1" d="M16 32 H18 M25 32 H27 M34 32 H36 M43 32 H45 M16 40 H18 M25 40 H27 M34 40 H36 M43 40 H45 M16 48 H18 M25 48 H27 M34 48 H36" />
+              </svg>
+            </div>
+            <div class="13-orientation-num">2</div>
+          </div>
+          <div class="13-orientation-q">เดือนอะไร?</div>
+        </div>
+
+        <!-- 3 year: stacked calendar pages -->
+        <div class="13-orientation-card">
+          <div class="13-orientation-card-top">
+            <div class="13-orientation-icon">
+              <svg viewBox="0 0 64 64">
+                <path class="13-orientation-ln" pathLength="1" d="M16 6 H52 a6 6 0 0 1 6 6 V44" />
+                <path class="13-orientation-ln" pathLength="1" d="M12 12 H46 a6 6 0 0 1 6 6 V50" />
+                <rect class="13-orientation-ln" pathLength="1" x="6" y="18" width="40" height="40" rx="6" />
+                <path class="13-orientation-ln" pathLength="1" d="M6 29 H46" />
+                <path class="13-orientation-ln" pathLength="1" d="M16 38 H36 M16 47 H30" />
+              </svg>
+            </div>
+            <div class="13-orientation-num">3</div>
+          </div>
+          <div class="13-orientation-q">ปีอะไร?</div>
+        </div>
+
+        <!-- 4 weekday: seven-day strip, one day marked -->
+        <div class="13-orientation-card">
+          <div class="13-orientation-card-top">
+            <div class="13-orientation-icon">
+              <svg viewBox="0 0 64 64">
+                <rect class="13-orientation-ln" pathLength="1" x="4" y="16" width="56" height="32" rx="6" />
+                <path class="13-orientation-ln" pathLength="1" d="M12 32 h0.01 M19.5 32 h0.01 M27 32 h0.01 M44.5 32 h0.01 M52 32 h0.01" style="stroke-width: 4.5" />
+                <circle class="13-orientation-ln" pathLength="1" cx="36" cy="32" r="6" />
+                <path class="13-orientation-ln" pathLength="1" d="M36 8 V12 M36 52 V56" />
+              </svg>
+            </div>
+            <div class="13-orientation-num">4</div>
+          </div>
+          <div class="13-orientation-q">วันนี้วันอะไรในสัปดาห์?</div>
+        </div>
+
+        <!-- 5 place: location pin -->
+        <div class="13-orientation-card">
+          <div class="13-orientation-card-top">
+            <div class="13-orientation-icon">
+              <svg viewBox="0 0 64 64">
+                <path class="13-orientation-ln" pathLength="1" d="M32 56 C32 56 14 38 14 25 a18 18 0 0 1 36 0 C50 38 32 56 32 56 Z" />
+                <circle class="13-orientation-ln" pathLength="1" cx="32" cy="25" r="6.5" />
+                <path class="13-orientation-ln" pathLength="1" d="M20 60 H44" />
+              </svg>
+            </div>
+            <div class="13-orientation-num">5</div>
+          </div>
+          <div class="13-orientation-q">สถานที่ตรงนี้คือที่ไหน?</div>
+        </div>
+
+        <!-- 6 province: folded map with marker -->
+        <div class="13-orientation-card">
+          <div class="13-orientation-card-top">
+            <div class="13-orientation-icon">
+              <svg viewBox="0 0 64 64">
+                <path class="13-orientation-ln" pathLength="1" d="M6 14 L22 8 L42 14 L58 8 V50 L42 56 L22 50 L6 56 Z" />
+                <path class="13-orientation-ln" pathLength="1" d="M22 8 V50 M42 14 V56" />
+                <path class="13-orientation-ln" pathLength="1" d="M28 36 C30 28 36 30 34 24" />
+                <circle class="13-orientation-ln" pathLength="1" cx="34" cy="22" r="3.5" />
+              </svg>
+            </div>
+            <div class="13-orientation-num">6</div>
+          </div>
+          <div class="13-orientation-q">ตอนนี้เราอยู่ในจังหวัดอะไร?</div>
+        </div>
+      </div>
+
+      <!-- Progress rail: section 8 active, 1-7 done -->
+      <div class="13-orientation-rail">
+        <div class="13-orientation-seg"></div>
+        <div class="13-orientation-seg"></div>
+        <div class="13-orientation-seg"></div>
+        <div class="13-orientation-seg"></div>
+        <div class="13-orientation-seg"></div>
+        <div class="13-orientation-seg"></div>
+        <div class="13-orientation-seg"></div>
+        <div class="13-orientation-seg 13-orientation-seg-active"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var FID = "13-orientation";
+      var R = document.querySelector('[data-composition-id="' + FID + '"]') || document;
+      function q(sel) { return Array.prototype.slice.call(R.querySelectorAll(sel)); }
+      function q1(sel) { return R.querySelector(sel); }
+      function within(el, cls) { return Array.prototype.slice.call(el.querySelectorAll('[class~="' + cls + '"]')); }
+
+      var tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+
+      // Scene 1 (0.0–2.0s): badge, rail, speech card reveals top
+      tl.fromTo(q1('[class~="13-orientation-badge"]'),
+        { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.6 }, 0.1);
+      tl.fromTo(q('[class~="13-orientation-seg"]'),
+        { opacity: 0, scaleX: 0.2 }, { opacity: 1, scaleX: 1, duration: 0.4, stagger: 0.04 }, 0.25);
+      tl.fromTo(q1('[class~="13-orientation-speech"]'),
+        { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7 }, 0.5);
+      tl.fromTo(q1('[class~="13-orientation-speech-rule"]'),
+        { scaleY: 0 }, { scaleY: 1, duration: 0.6 }, 0.65);
+      tl.fromTo(q1('[class~="13-orientation-speech-label"]'),
+        { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5 }, 0.75);
+      tl.fromTo(q1('[class~="13-orientation-speech-quote"]'),
+        { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.8 }, 0.9);
+
+      // Scene 2 (2.0–7.0s): six cards cascade into the 3x2 grid, ~0.7s apart;
+      // each card slides a short distance into its slot, icon draws on, then text rises.
+      var cards = q('[class~="13-orientation-card"]');
+      cards.forEach(function (card, i) {
+        var t = 2.0 + i * 0.7;
+        tl.fromTo(card,
+          { opacity: 0, y: 36, scale: 0.97 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.6 }, t);
+        tl.fromTo(within(card, "13-orientation-icon"),
+          { opacity: 0, scale: 0.85 },
+          { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.6)" }, t + 0.1);
+        tl.fromTo(within(card, "13-orientation-ln"),
+          { strokeDashoffset: 1 },
+          { strokeDashoffset: 0, duration: 0.7, ease: "power2.inOut", stagger: 0.08 }, t + 0.15);
+        tl.fromTo(within(card, "13-orientation-num"),
+          { opacity: 0, y: 14 },
+          { opacity: 0.9, y: 0, duration: 0.45 }, t + 0.25);
+        tl.fromTo(within(card, "13-orientation-q"),
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.6 }, t + 0.45);
+      });
+
+      // Scene 3 (7.0–11.0s): still hold on the assembled grid.
+      tl.set({}, {}, 11);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines[FID] = tl;
+    })();
+  </script>
+</template>
